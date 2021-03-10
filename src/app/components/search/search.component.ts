@@ -17,12 +17,16 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isTransactionHash(hash: string){
+    return /^0x[a-fA-F0-9]{64}$/.test(hash)
+  }
+
   isBlockNumber(number: string){
-    return /[0-9]{1,10}/.test(number)
+    return /^[0-9]{1,10}$/.test(number)
   }
 
   isAddress(address: string){
-    return /0x[a-fA-F0-9]{40}/.test(address)
+    return /^0x[a-fA-F0-9]{40}$/.test(address)
   }
 
   showAddress(value: string){
@@ -31,6 +35,10 @@ export class SearchComponent implements OnInit {
 
   showBlock(value: string){
     this.router.navigateByUrl('/block/'+value)
+  }
+
+  showTransaction(value: string){
+    this.router.navigateByUrl('/tx/'+value)
   }
 
 }
