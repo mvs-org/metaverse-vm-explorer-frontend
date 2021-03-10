@@ -17,12 +17,20 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isBlockNumber(number: string){
+    return /[0-9]{1,10}/.test(number)
+  }
+
   isAddress(address: string){
     return /0x[a-fA-F0-9]{40}/.test(address)
   }
 
   showAddress(value: string){
     this.router.navigateByUrl('/address/'+value)
+  }
+
+  showBlock(value: string){
+    this.router.navigateByUrl('/block/'+value)
   }
 
 }

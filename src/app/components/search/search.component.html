@@ -2,4 +2,5 @@
   <mat-label>Search for Transaction / Block Number / Address</mat-label>
   <input matInput placeholder="0x..." [(ngModel)]="value">
 </mat-form-field>
+<button mat-button mat-raised-button class="full-width" color="primary" (click)="showBlock(value)" *ngIf="isBlockNumber(value)">Show Block</button>
 <button mat-button mat-raised-button class="full-width" color="primary" (click)="showAddress(value)" *ngIf="isAddress(value)">Show Address</button>
