@@ -13,6 +13,7 @@ export class BlockListComponent implements OnInit {
   displayedColumns = [
     'number',
     'hash',
+    'txs',
     'time',
   ]
 
