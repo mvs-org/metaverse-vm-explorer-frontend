@@ -1,3 +1,8 @@
+<div *ngIf="block$|async as block" fxLayout="row" fxLayoutAlign="space-between begin">
+  <a *ngIf="block.number>0" [routerLink]="'/block/'+(block.number-1)">< previous block </a>
+  <div *ngIf="block.number<=0"></div>
+  <a [routerLink]="'/block/'+(block.number+1)">next block ></a>
+</div>
 <h1>
   Block #{{(block$|async)?.number}}
 </h1>
