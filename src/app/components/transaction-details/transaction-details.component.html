@@ -30,7 +30,29 @@
       <div>Gas Price</div>
       <div>{{transaction.gasPrice}}</div>
     </div>
+    <mat-divider></mat-divider>
+    <div *ngIf="transaction.input!=='0x'&&!transaction.creates" fxLayout="row" fxLayoutAlign="space-between begin">
+      <div>Data</div>
+      <div style="overflow-wrap: break-word; word-wrap: break-word;">{{transaction.input}}</div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="space-between begin">
+      <div>Nonce</div>
+      <div>{{transaction.nonce}}</div>
+    </div>
   </mat-card>
+
+  <div *ngIf="transaction.creates">
+    <h2>Contract Bytecode</h2>
+    <mat-card>
+      <mat-card-content>
+
+        <div class="hex" style="overflow-wrap: break-word; word-wrap: break-word;">
+          {{transaction.input}}
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 
   <h2>Confirmation Details</h2>
 
