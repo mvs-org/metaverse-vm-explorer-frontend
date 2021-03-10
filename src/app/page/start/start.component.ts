@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { timer } from 'rxjs'
+import { switchMap } from 'rxjs/operators'
+import { ExplorerApiService } from '../../services/explorer-api.service'
 
 @Component({
   selector: 'app-start',
@@ -7,7 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartComponent implements OnInit {
 
-  constructor() { }
+  latestBlocks$ = timer(0, 5000)
+    .pipe(
+      switchMap(()=>this.explorerService.listBlocks())
+    )
+
+
+  constructor(
+    private explorerService: ExplorerApiService,
+  ) { }
 
   ngOnInit(): void {
   }

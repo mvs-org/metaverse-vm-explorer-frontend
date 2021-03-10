@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { FormsModule } from '@angular/forms'
+import { FlexLayoutModule } from '@angular/flex-layout'
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms'
     MatCardModule,
     MatFormFieldModule,
     FormsModule,
+    FlexLayoutModule,
     MatInputModule,
     MatButtonModule,
   ],

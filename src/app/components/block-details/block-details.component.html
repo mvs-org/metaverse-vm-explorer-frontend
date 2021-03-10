@@ -1,0 +1,49 @@
+<div *ngIf="block">
+
+  <mat-card>
+
+    <div fxLayout="row" fxLayoutAlign="space-between begin">
+      <div>Block Hash</div>
+      <div>{{block.hash}}</div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="space-between begin">
+      <div>Block Height</div>
+      <div>{{block.number}}</div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="space-between begin">
+      <div>Parent Block</div>
+      <a *ngIf="block.number>0" [routerLink]="'/block/'+(block.number-1)">{{block.parentHash}}</a>
+      <div *ngIf="block.number<=0">{{block.parentHash}}</div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="space-between begin">
+      <div>Gas Used</div>
+      <div>{{block.gasUsed}}</div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="space-between begin">
+      <div>Miner</div>
+      <a [routerLink]="'/address/'+block.miner">{{block.miner}}</a>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="space-between begin">
+      <div>Blocksize</div>
+      <div>{{block.size}} bytes</div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="space-between begin">
+      <div>Created At</div>
+      <div>{{block.timestamp*1000|date : 'medium'}}</div>
+    </div>
+  </mat-card>
+
+  <h2>Transactions</h2>
+  <p *ngIf="block.transactions.length===0">This block contains no transactions</p>
+  <div *ngFor="let hash of block.transactions">
+    <a [routerLink]="'/tx/'+hash" [innerText]="hash"></a>
+  </div>
+
+
+</div>

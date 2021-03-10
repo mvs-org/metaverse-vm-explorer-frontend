@@ -1,4 +1,108 @@
-<p>address works!</p>
+<h1>Address {{address$|async}}</h1>
+<!-- {{addressDetails$|async|json}} -->
 
-{{address}}
+<h2>
+  Sent transactions
+</h2>
+<div  *ngIf="sentTransactions$|async as sentTransactions">
 
+  <table [hidden]="sentTransactions.length==0" mat-table [dataSource]="sentTransactions" class="full-width">
+
+    <ng-container matColumnDef="hash">
+      <th mat-header-cell *matHeaderCellDef> Hash </th>
+      <td mat-cell *matCellDef="let element" class="hex"> {{element.hash | slice : 10}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="link">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element"> <a [routerLink]="'/tx/'+element.hash"> Details </a> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="block">
+      <th mat-header-cell *matHeaderCellDef>Block</th>
+      <td mat-cell *matCellDef="let element"> <a [routerLink]="'/block/'+element.blockNumber"> {{element.blockNumber}}
+        </a> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.receipt.status ? 'success' : 'failed'}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="to">
+      <th mat-header-cell *matHeaderCellDef> To </th>
+      <td mat-cell *matCellDef="let element" class="hex"> <a [routerLink]="'/address/'+element.to"> {{element.to}} </a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef> Value </th>
+      <td mat-cell *matCellDef="let element"> {{element.value/10E18|currency : ' ' }} ETP</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+<p [hidden]="sentTransactions.length>0">No transactions found</p>
+
+</div>
+
+
+<h2>
+  Received transactions
+</h2>
+
+<div *ngIf="receivedTransactions$|async as receivedTransactions">
+  <table mat-table [hidden]="receivedTransactions.length==0" [dataSource]="receivedTransactions" class="full-width">
+
+    <ng-container matColumnDef="hash">
+      <th mat-header-cell *matHeaderCellDef> Hash </th>
+      <td mat-cell *matCellDef="let element" class="hex"> {{element.hash | slice : 10}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="link">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element"> <a [routerLink]="'/tx/'+element.hash"> Details </a> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="block">
+      <th mat-header-cell *matHeaderCellDef>Block</th>
+      <td mat-cell *matCellDef="let element"> <a [routerLink]="'/block/'+element.blockNumber"> {{element.blockNumber}}
+        </a> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.receipt.status ? 'success' : 'failed'}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="to">
+      <th mat-header-cell *matHeaderCellDef> To </th>
+      <td mat-cell *matCellDef="let element" class="hex"> <a [routerLink]="'/address/'+element.to"> {{element.to}} </a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="from">
+      <th mat-header-cell *matHeaderCellDef> From </th>
+      <td mat-cell *matCellDef="let element" class="hex"> <a [routerLink]="'/address/'+element.from"> {{element.from}}
+        </a> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef> Value </th>
+      <td mat-cell *matCellDef="let element"> {{element.value/10E18|currency : ' ' }} ETP</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsReceived"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsReceived;"></tr>
+  </table>
+
+
+<p *ngIf="(receivedTransactions$|async)?.length===0">No received transactions</p>
+
+</div>

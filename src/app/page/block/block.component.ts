@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-
+import { ExplorerApiService } from '../../services/explorer-api.service'
+import { map, switchMap } from 'rxjs/operators'
 @Component({
   selector: 'app-block',
   templateUrl: './block.component.html',
@@ -8,14 +9,25 @@ import { ActivatedRoute } from '@angular/router'
 })
 export class BlockComponent implements OnInit {
 
-  block?: string
+  blockNo$ = this.activatedRoute.params
+    .pipe(
+      map(params => params.block)
+    )
+
+  block$ = this.blockNo$
+    .pipe(
+      switchMap((number) => this.explorer.getBlockByNumber(number))
+    )
+
+  transactions$ = this.blockNo$
+    .pipe(
+      switchMap((number) => this.explorer.listBlockTransactions(number))
+    )
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private explorer: ExplorerApiService,
   ) {
-    this.activatedRoute.params.subscribe(async params=>{
-      this.block = params.block
-    })
   }
 
   ngOnInit(): void {

@@ -1,2 +1,4 @@
-<p>block works!</p>
-{{block}}
+<h1>
+  Block #{{(block$|async)?.number}}
+</h1>
+<app-block-details [block]="block$|async"></app-block-details>

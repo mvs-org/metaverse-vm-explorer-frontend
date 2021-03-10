@@ -4,6 +4,7 @@ import { StartRoutingModule } from './start-routing.module';
 import { StartComponent } from './start.component';
 import { SearchModule } from '../../components/search/search.module'
 import { FlexLayoutModule } from '@angular/flex-layout'
+import { BlockListModule } from '../../components/block-list/block-list.module'
 
 @NgModule({
   declarations: [StartComponent],
@@ -11,7 +12,8 @@ import { FlexLayoutModule } from '@angular/flex-layout'
     CommonModule,
     FlexLayoutModule,
     SearchModule,
-    StartRoutingModule
+    BlockListModule,
+    StartRoutingModule,
   ]
 })
 export class StartModule { }

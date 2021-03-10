@@ -1,14 +1,20 @@
+<div class="mat-typography app-frame mat-app-background">
+
 <mat-toolbar fxLayout="row column" fxLayoutAlign="space-between center">
   <div routerLink="/">
     <img width="40" alt="Metaverse Logo" src="/assets/logo.png" />
   </div>
-  <div>
-    MetaverseVM Explorer
+  <div fxHide.lt-lg>
+    <span [hidden]="showTopbar">MetaverseVM Explorer</span>
+    <app-search [hidden]="!showTopbar" class="full-width"></app-search>
   </div>
-  <div></div>
-  <!-- Height: {{mvsdService.height$|async}} -->
+  <div>
+    {{(explorer.network$|async)?.label}}
+  </div>
 </mat-toolbar>
 
 <div class="content" role="main">
   <router-outlet></router-outlet>
+</div>
+
 </div>

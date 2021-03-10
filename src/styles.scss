@@ -20,7 +20,7 @@ $metaversevm-explorer-warn: mat-palette($mat-red);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$metaversevm-explorer-theme: mat-light-theme((
+$metaversevm-explorer-theme: mat-dark-theme((
   color: (
     primary: $metaversevm-explorer-primary,
     accent: $metaversevm-explorer-accent,
@@ -40,4 +40,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .full-width {
   width: 100%;
+}
+
+h1,h2,h3,h4 {
+  padding-top: 25px;
+}
+
+.hex {
+  font-family: monospace;
+}
+
+.center {
+  text-align: center;
+}
+
+a {
+  color: rgb(143, 143, 143);
+}
+
+.mat-table {
+  background: none;
 }

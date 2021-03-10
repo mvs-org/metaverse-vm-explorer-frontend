@@ -1,0 +1,68 @@
+<div *ngIf="transaction">
+
+  <mat-card>
+    <div fxLayout="row" fxLayoutAlign="space-between begin">
+      <div>Hash</div>
+      <div>{{transaction.hash}}</div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="space-between begin">
+      <div>From</div>
+      <a [routerLink]="'/address/'+transaction.from">{{transaction.from}}</a>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="space-between begin">
+      <div>To</div>
+      <a [routerLink]="'/address/'+transaction.to">{{transaction.to}}</a>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="space-between begin">
+      <div>Value</div>
+      <div>{{transaction.value/10E18|currency: ' '}} ETP</div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="space-between begin">
+      <div>Gas Limit</div>
+      <div>{{transaction.gas}}</div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="space-between begin">
+      <div>Gas Price</div>
+      <div>{{transaction.gasPrice}}</div>
+    </div>
+  </mat-card>
+
+  <h2>Confirmation Details</h2>
+
+  <div *ngIf="transaction.receipt as receipt">
+    <mat-card>
+      <div fxLayout="row" fxLayoutAlign="space-between begin">
+        <div>Block Height</div>
+        <a [routerLink]="'/block/'+receipt.blockNumber">{{receipt.blockNumber}}</a>
+      </div>
+      <mat-divider></mat-divider>
+      <div *ngIf="receipt.contractAddress" fxLayout="row" fxLayoutAlign="space-between begin">
+        <div>Created Contract</div>
+        <a [routerLink]="'/address/'+receipt.contractAddress">{{receipt.contractAddress}}</a>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxLayoutAlign="space-between begin">
+        <div>Successful</div>
+        <div>{{receipt.status}}</div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row" fxLayoutAlign="space-between begin">
+        <div>Gas Used</div>
+        <div>{{receipt.gasUsed}}</div>
+      </div>
+    </mat-card>
+    <h2>Logs</h2>
+    <p *ngIf="receipt.logs.length===0">This transaction triggered no events</p>
+    <div *ngFor="let log of receipt.logs">
+      {{log|json}}
+    </div>
+  </div>
+
+
+
+</div>

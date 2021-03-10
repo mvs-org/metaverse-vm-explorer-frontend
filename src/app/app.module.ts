@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http'
+import { SearchModule } from './components/search/search.module';
+import { BlockListModule } from './components/block-list/block-list.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     FlexLayoutModule,
     MatToolbarModule,
-    BrowserAnimationsModule
+    HttpClientModule,
+    SearchModule,
+    BrowserAnimationsModule,
+    BlockListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
