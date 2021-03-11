@@ -27,7 +27,6 @@ export class AppComponent  implements OnInit {
   ngOnInit(){
     this.router.events.subscribe((data) => {
       if (data instanceof RoutesRecognized) {
-        console.log(data.state.root)
         this.showTopbar = data.state.root?.firstChild?.data?.topbarSearch!==false;
       }
     });
