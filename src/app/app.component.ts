@@ -1,3 +1,4 @@
+import { SelectionChange } from '@angular/cdk/collections'
 import { Component, OnInit } from '@angular/core';
 import { Router, RoutesRecognized } from '@angular/router'
 import { ExplorerApiService } from './services/explorer-api.service'
@@ -11,11 +12,16 @@ export class AppComponent  implements OnInit {
   title = 'metaversevm-explorer';
 
   showTopbar = true
+  selected = 'mainnet'
 
   constructor(
     public explorer: ExplorerApiService,
     public router: Router
   ){
+  }
+
+  setNetwork(event: any){
+    this.explorer.setNetwork(event.value)
   }
 
   ngOnInit(){

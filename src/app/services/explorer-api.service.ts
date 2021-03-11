@@ -1,43 +1,65 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { BehaviorSubject } from 'rxjs'
-import { map } from 'rxjs/operators'
+import { BehaviorSubject, of, throwError } from 'rxjs'
+import { catchError, map, retryWhen, share, switchMap, } from 'rxjs/operators'
 @Injectable({
   providedIn: 'root'
 })
 export class ExplorerApiService {
 
-  network$ = new BehaviorSubject({ name: 'andromeda', label: 'Andromeda Testnet' })
+  networks = [
+    {
+      name: 'mainnet',
+      label: 'Mainnet',
+      url: 'https://vm-explorer.mvs.org/api/hyperspace'
+    },
+    {
+      name: 'andromeda',
+      label: 'Testnet',
+      url: 'https://vm-explorer.mvs.org/api/andromeda'
+    },
+  ]
+
+  network$ = new BehaviorSubject(this.networks[0])
 
   constructor(
     private http: HttpClient,
   ) { }
 
   private _apiUrl(): string {
-    switch (this.network$.getValue().name) {
+    return this.network$.getValue().url
+  }
+
+  setNetwork(name: string) {
+    switch (name) {
       case 'andromeda':
-        return 'https://vm-explorer.mvs.org/api'
+        this.network$.next(this.networks[1])
+        break
+      default:
+        this.network$.next(this.networks[0])
     }
-    throw Error('unknown network')
   }
 
   getAddressDetails(address: string) {
-    return this.http.get(`${this._apiUrl()}/address/${address}`)
+    return this.network$
       .pipe(
-        map((response: any) => response.result)
+        switchMap(network => this.http.get(`${network.url}/address/${address}`)),
+        map((response: any) => response.result),
       )
   }
 
   listTransactionsFrom(address: string) {
-    return this.http.get(`${this._apiUrl()}/txs/from/${address}`)
+    return this.network$
       .pipe(
-        map((response: any) => response.result)
+        switchMap(network => this.http.get(`${network.url}/txs/from/${address}`)),
+        map((response: any) => response.result),
       )
   }
   listTransactionsTo(address: string) {
-    return this.http.get(`${this._apiUrl()}/txs/to/${address}`)
+    return this.network$
       .pipe(
-        map((response: any) => response.result)
+        switchMap(network => this.http.get(`${network.url}/txs/to/${address}`)),
+        map((response: any) => response.result),
       )
   }
 
@@ -49,23 +71,43 @@ export class ExplorerApiService {
   }
 
   listBlocks() {
-    return this.http.get(`${this._apiUrl()}/blocks`)
+    return this.network$
       .pipe(
-        map((response: any) => response.result)
+        switchMap(network => this.http.get(`${network.url}/blocks`)),
+        map((response: any) => response.result),
+        share()
       )
   }
 
   getTransaction(hash: string) {
-    return this.http.get(`${this._apiUrl()}/tx/${hash}`)
+    return this.network$
       .pipe(
-        map((response: any) => response.result)
+        switchMap(
+          network => this.http.get(`${network.url}/tx/${hash}`)
+            .pipe(
+              map((response: any) => response.result),
+              catchError(err => {
+                console.error('tx not found')
+                return of(null)
+              }),
+            )
+        ),
       )
   }
 
   getBlockByNumber(number: number) {
-    return this.http.get(`${this._apiUrl()}/block/${number}`)
+    return this.network$
       .pipe(
-        map((response: any) => response.result)
+        switchMap(
+          network => this.http.get(`${network.url}/block/${number}`)
+            .pipe(
+              map((response: any) => response.result),
+              catchError(err => {
+                console.error('block not found')
+                return of(null)
+              }),
+            )
+        ),
       )
   }
 

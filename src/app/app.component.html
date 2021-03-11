@@ -9,7 +9,14 @@
     <app-search [hidden]="!showTopbar" class="full-width"></app-search>
   </div>
   <div>
-    {{(explorer.network$|async)?.label}}
+    <mat-form-field>
+      <mat-select [(value)]="selected" (selectionChange)="setNetwork($event)">
+        <mat-option *ngFor="let network of explorer.networks" [value]="network.name">
+          {{network.label}}
+        </mat-option>
+      </mat-select>
+      </mat-form-field>
+    <!-- <a (click)="explorer.toggleNetwork()">{{(explorer.network$|async)?.label}}</a> -->
   </div>
 </mat-toolbar>
 

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { ExplorerApiService } from '../../services/explorer-api.service'
-import { map, switchMap } from 'rxjs/operators'
+import { map, share, switchMap } from 'rxjs/operators'
+
 @Component({
   selector: 'app-block',
   templateUrl: './block.component.html',
@@ -16,7 +17,8 @@ export class BlockComponent implements OnInit {
 
   block$ = this.blockNo$
     .pipe(
-      switchMap((number) => this.explorer.getBlockByNumber(number))
+      switchMap((number) => this.explorer.getBlockByNumber(number)),
+      share(),
     )
 
   transactions$ = this.blockNo$
@@ -26,7 +28,7 @@ export class BlockComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private explorer: ExplorerApiService,
+    public explorer: ExplorerApiService,
   ) {
   }
 
