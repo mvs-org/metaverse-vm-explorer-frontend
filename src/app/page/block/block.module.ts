@@ -7,7 +7,9 @@ import { BlockDetailsComponent } from '../../components/block-details/block-deta
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatCardModule } from '@angular/material/card'
+import { MatIconModule } from '@angular/material/icon'
 import { TransactionListModule } from '../../components/transaction-list/transaction-list.module'
+import { MatButtonModule } from '@angular/material/button'
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { TransactionListModule } from '../../components/transaction-list/transac
     FlexLayoutModule,
     MatDividerModule,
     TransactionListModule,
+    MatIconModule,
+    MatButtonModule,
     MatCardModule,
     BlockRoutingModule,
   ]

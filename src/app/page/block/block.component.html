@@ -1,9 +1,13 @@
 <div *ngIf="block$|async as block">
   <div fxLayout="row" fxLayoutAlign="space-between begin">
-    <a *ngIf="block.number>0" [routerLink]="'/block/'+(block.number-1)">
-      < previous block </a>
-        <div *ngIf="block.number<=0"></div>
-        <a [routerLink]="'/block/'+(block.number+1)">next block ></a>
+    <button mat-button *ngIf="block.number>0" [routerLink]="'/block/'+(block.number-1)">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+      previous block
+    </button>
+    <button mat-button *ngIf="block.number>0" [routerLink]="'/block/'+(block.number+1)">
+      next block
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
   </div>
   <h1>
     Block #{{block.number}}
