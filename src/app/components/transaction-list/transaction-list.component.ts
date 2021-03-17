@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TransactionListComponent implements OnInit {
 
-  @Input() transactions: any[] = []
+  @Input() transactions: any[] | undefined
 
   displayedColumns = ['hash', 'from', 'to', 'value']
 
