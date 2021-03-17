@@ -39,11 +39,4 @@
     </div>
   </mat-card>
 
-  <h2>Transactions</h2>
-  <p *ngIf="block.transactions.length===0">This block contains no transactions</p>
-  <div *ngFor="let hash of block.transactions">
-    <a [routerLink]="'/tx/'+hash" [innerText]="hash"></a>
-  </div>
-
-
 </div>

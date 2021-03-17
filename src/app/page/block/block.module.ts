@@ -7,6 +7,7 @@ import { BlockDetailsComponent } from '../../components/block-details/block-deta
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatCardModule } from '@angular/material/card'
+import { TransactionListModule } from '../../components/transaction-list/transaction-list.module'
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { MatCardModule } from '@angular/material/card'
     CommonModule,
     FlexLayoutModule,
     MatDividerModule,
+    TransactionListModule,
     MatCardModule,
     BlockRoutingModule,
   ]

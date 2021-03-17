@@ -1,13 +1,16 @@
 <div *ngIf="block$|async as block">
-  <h1>
-    Block #{{block.number}}
-  </h1>
   <div fxLayout="row" fxLayoutAlign="space-between begin">
     <a *ngIf="block.number>0" [routerLink]="'/block/'+(block.number-1)">
       < previous block </a>
         <div *ngIf="block.number<=0"></div>
         <a [routerLink]="'/block/'+(block.number+1)">next block ></a>
   </div>
+  <h1>
+    Block #{{block.number}}
+  </h1>
+  <h2>Details</h2>
   <app-block-details [block]="block"></app-block-details>
+  <h2>Transactions</h2>
+  <app-transaction-list [transactions]="transactions$|async"></app-transaction-list>
 </div>
 <div *ngIf="(block$|async) === null">Block {{blockNo$|async}} not found on {{(explorer.network$|async)?.label}}</div>

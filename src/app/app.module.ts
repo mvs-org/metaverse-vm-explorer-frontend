@@ -8,7 +8,6 @@ import { MatSelectModule } from '@angular/material/select'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http'
 import { SearchModule } from './components/search/search.module';
-import { BlockListModule } from './components/block-list/block-list.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,6 @@ import { BlockListModule } from './components/block-list/block-list.module';
     SearchModule,
     MatSelectModule,
     BrowserAnimationsModule,
-    BlockListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
