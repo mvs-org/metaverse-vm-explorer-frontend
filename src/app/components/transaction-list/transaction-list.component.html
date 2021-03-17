@@ -28,7 +28,7 @@
     <ng-container matColumnDef="value">
       <th mat-header-cell *matHeaderCellDef> Value </th>
       <td mat-cell *matCellDef="let element">
-        {{element.value}}
+        {{element.value/1E8 | currency : ' '}} ETP
       </td>
     </ng-container>
 
