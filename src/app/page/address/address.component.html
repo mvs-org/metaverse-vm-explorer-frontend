@@ -7,7 +7,7 @@
   <mat-divider></mat-divider>
   <div fxLayout="row" fxLayoutAlign="space-between begin">
     <div>Balance</div>
-    <div>{{addressDetails.balance/1E18|currency:' '}} ETP</div>
+    <div>{{addressDetails.balance/1E18| currency: ' ' : undefined: '0.0-18' }} ETP</div>
   </div>
   <mat-divider></mat-divider>
   <div fxLayout="row" fxLayoutAlign="space-between begin">
@@ -65,7 +65,7 @@
 
     <ng-container matColumnDef="value">
       <th mat-header-cell *matHeaderCellDef> Value </th>
-      <td mat-cell *matCellDef="let element"> {{element.value/1E18|currency : ' ' }} ETP</td>
+      <td mat-cell *matCellDef="let element"> {{element.value/1E18|currency: ' ' : undefined: '0.0-18' }} ETP</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -127,7 +127,7 @@
 
     <ng-container matColumnDef="value">
       <th mat-header-cell *matHeaderCellDef> Value </th>
-      <td mat-cell *matCellDef="let element"> {{element.value/1E18|currency : ' ' }} ETP</td>
+      <td mat-cell *matCellDef="let element"> {{element.value/1E18|currency: ' ' : undefined: '0.0-18' }} ETP</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumnsReceived"></tr>

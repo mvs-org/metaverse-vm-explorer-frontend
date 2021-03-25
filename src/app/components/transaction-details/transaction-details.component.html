@@ -18,7 +18,7 @@
     <mat-divider></mat-divider>
     <div fxLayout="row" fxLayoutAlign="space-between begin">
       <div>Value</div>
-      <div>{{transaction.value/1E18|currency: ' '}} ETP</div>
+      <div>{{transaction.value/1E18|currency: ' ' : undefined: '0.0-18'}} ETP</div>
     </div>
     <mat-divider></mat-divider>
     <div fxLayout="row" fxLayoutAlign="space-between begin">
