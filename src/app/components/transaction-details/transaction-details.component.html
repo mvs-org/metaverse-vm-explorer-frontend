@@ -28,7 +28,7 @@
     <mat-divider></mat-divider>
     <div fxLayout="row" fxLayoutAlign="space-between begin">
       <div>Gas Price</div>
-      <div>{{transaction.gasPrice}}</div>
+      <div>{{transaction.gasPrice/1E10|currency: ' ' : undefined: '0.0-18'}} sats</div>
     </div>
     <mat-divider></mat-divider>
     <div *ngIf="transaction.input!=='0x'&&!transaction.creates" fxLayout="row" fxLayoutAlign="space-between begin">
