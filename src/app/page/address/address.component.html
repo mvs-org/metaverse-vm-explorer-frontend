@@ -59,7 +59,7 @@
 
     <ng-container matColumnDef="timestamp">
       <th mat-header-cell *matHeaderCellDef> Timestamp </th>
-      <td mat-cell *matCellDef="let element"> {{element.timestamp}}
+      <td mat-cell *matCellDef="let element"> {{element.confirmedAt * 1000 | date : 'medium' }}
       </td>
     </ng-container>
 
@@ -96,7 +96,7 @@
 
     <ng-container matColumnDef="timestamp">
       <th mat-header-cell *matHeaderCellDef> Timestamp </th>
-      <td mat-cell *matCellDef="let element"> {{element.timestamp}}
+      <td mat-cell *matCellDef="let element"> {{element.confirmedAt * 1000 | date : 'medium' }}
       </td>
     </ng-container>
 

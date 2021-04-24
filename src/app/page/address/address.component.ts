@@ -33,6 +33,7 @@ export class AddressComponent implements OnInit {
       displayedColumns: string[] = [
         'to',
         'value',
+        'timestamp',
         'status',
         'link',
       ];
@@ -40,6 +41,7 @@ export class AddressComponent implements OnInit {
       displayedColumnsReceived: string[] = [
         'from',
         'value',
+        'timestamp',
         'status',
         'link',
       ];
