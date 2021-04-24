@@ -59,6 +59,11 @@
   <div *ngIf="transaction.receipt as receipt">
     <mat-card>
       <div fxLayout="row" fxLayoutAlign="space-between begin">
+        <div>Confirmation Time</div>
+          {{transaction.confirmedAt * 1000 | date : 'medium'}}
+        <!-- <a [routerLink]="'/block/'+receipt.blockNumber">{{receipt.blockNumber}}</a> -->
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between begin">
         <div>Block Height</div>
         <a [routerLink]="'/block/'+receipt.blockNumber">{{receipt.blockNumber}}</a>
       </div>
