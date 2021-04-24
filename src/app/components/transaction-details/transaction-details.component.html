@@ -3,17 +3,17 @@
   <mat-card>
     <div fxLayout="row" fxLayoutAlign="space-between begin">
       <div>Hash</div>
-      <div>{{transaction.hash}}</div>
+      <div class="hex">{{transaction.hash}}</div>
     </div>
     <mat-divider></mat-divider>
     <div fxLayout="row" fxLayoutAlign="space-between begin">
       <div>From</div>
-      <a [routerLink]="'/address/'+transaction.from">{{transaction.from}}</a>
+      <a class="hex" [routerLink]="'/address/'+transaction.from">{{transaction.from}}</a>
     </div>
     <mat-divider></mat-divider>
     <div fxLayout="row" fxLayoutAlign="space-between begin">
       <div>To</div>
-      <a [routerLink]="'/address/'+transaction.to">{{transaction.to}}</a>
+      <a class="hex" [routerLink]="'/address/'+transaction.to">{{transaction.to}}</a>
     </div>
     <mat-divider></mat-divider>
     <div fxLayout="row" fxLayoutAlign="space-between begin">
@@ -34,7 +34,7 @@
     <div *ngIf="transaction.input!=='0x'&&!transaction.creates" fxLayout="row" fxLayoutAlign="space-between begin">
       <div fxFlex="20">Data</div>
       <div>
-        <p style="overflow-wrap: anywhere; line-height: normal; padding-top: 12px;">{{transaction.input}}</p>
+        <p class="hex contract">{{transaction.input}}</p>
       </div>
     </div>
     <mat-divider></mat-divider>
@@ -47,11 +47,8 @@
   <div *ngIf="transaction.creates">
     <h2>Contract Bytecode</h2>
     <mat-card>
-      <mat-card-content>
-
-        <div class="hex" style="overflow-wrap: break-word; word-wrap: break-word;">
-          {{transaction.input}}
-        </div>
+      <mat-card-content class="hex contract">
+        {{transaction.input}}
       </mat-card-content>
     </mat-card>
   </div>
@@ -62,8 +59,9 @@
     <mat-card>
       <div fxLayout="row" fxLayoutAlign="space-between begin">
         <div>Confirmation Time</div>
-          {{transaction.confirmedAt * 1000 | date : 'medium'}}
+        {{transaction.confirmedAt * 1000 | date : 'medium'}}
       </div>
+      <mat-divider></mat-divider>
       <div fxLayout="row" fxLayoutAlign="space-between begin">
         <div>Block Height</div>
         <a [routerLink]="'/block/'+receipt.blockNumber">{{receipt.blockNumber}}</a>
@@ -71,7 +69,7 @@
       <mat-divider></mat-divider>
       <div *ngIf="receipt.contractAddress" fxLayout="row" fxLayoutAlign="space-between begin">
         <div>Created Contract</div>
-        <a [routerLink]="'/address/'+receipt.contractAddress">{{receipt.contractAddress}}</a>
+        <a class="hex" [routerLink]="'/address/'+receipt.contractAddress">{{receipt.contractAddress}}</a>
       </div>
       <mat-divider></mat-divider>
       <div fxLayout="row" fxLayoutAlign="space-between begin">
@@ -92,7 +90,5 @@
       </div>
     </div>
   </div>
-
-
 
 </div>
