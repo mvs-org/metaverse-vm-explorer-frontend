@@ -11,7 +11,7 @@ export class ExplorerApiService {
     {
       name: 'mainnet',
       label: 'Mainnet',
-      url: 'http://127.0.0.1'
+      url: 'https://vm-explorer.mvs.org/api/hyperspace'
     },
     {
       name: 'andromeda',
