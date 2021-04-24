@@ -1,18 +1,18 @@
 <mat-card *ngIf="log">
   <div fxLayout="row" fxLayoutAlign="space-between begin">
     <div>Address</div>
-    <div>{{log.address}}</div>
+    <div class="hex">{{log.address}}</div>
   </div>
   <mat-divider></mat-divider>
   <div fxLayout="row" fxLayoutAlign="space-between begin">
     <div>Topics</div>
     <div style="text-align: right;">
-      <p *ngFor="let topic of log.topics">{{topic}}</p>
+      <p class="hex" *ngFor="let topic of log.topics">{{topic}}</p>
     </div>
   </div>
   <mat-divider></mat-divider>
   <div fxLayout="row" fxLayoutAlign="space-between begin">
     <div>Data</div>
-    <div>{{log.data}}</div>
+    <div class="hex">{{log.data}}</div>
   </div>
 </mat-card>
