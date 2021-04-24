@@ -4,7 +4,7 @@
 
     <div fxLayout="row" fxLayoutAlign="space-between begin">
       <div>Block Hash</div>
-      <div>{{block.hash}}</div>
+      <div class="hex">{{block.hash}}</div>
     </div>
     <mat-divider></mat-divider>
     <div fxLayout="row" fxLayoutAlign="space-between begin">
@@ -15,7 +15,7 @@
     <div fxLayout="row" fxLayoutAlign="space-between begin">
       <div>Parent Block</div>
       <a *ngIf="block.number>0" [routerLink]="'/block/'+(block.number-1)">{{block.parentHash}}</a>
-      <div *ngIf="block.number<=0">{{block.parentHash}}</div>
+      <div class="hex" *ngIf="block.number<=0">{{block.parentHash}}</div>
     </div>
     <mat-divider></mat-divider>
     <div fxLayout="row" fxLayoutAlign="space-between begin">
@@ -25,7 +25,7 @@
     <mat-divider></mat-divider>
     <div fxLayout="row" fxLayoutAlign="space-between begin">
       <div>Miner</div>
-      <a [routerLink]="'/address/'+block.miner">{{block.miner}}</a>
+      <a class="hex" [routerLink]="'/address/'+block.miner">{{block.miner}}</a>
     </div>
     <mat-divider></mat-divider>
     <div fxLayout="row" fxLayoutAlign="space-between begin">
@@ -35,7 +35,7 @@
     <mat-divider></mat-divider>
     <div fxLayout="row" fxLayoutAlign="space-between begin">
       <div>Created At</div>
-      <div>{{block.timestamp*1000|date : 'medium'}}</div>
+      <div>{{ block.timestamp * 1000 | date : 'medium' }}</div>
     </div>
   </mat-card>
 
