@@ -32,8 +32,10 @@
     </div>
     <mat-divider></mat-divider>
     <div *ngIf="transaction.input!=='0x'&&!transaction.creates" fxLayout="row" fxLayoutAlign="space-between begin">
-      <div>Data</div>
-      <div style="overflow-wrap: break-word; word-wrap: break-word;">{{transaction.input}}</div>
+      <div fxFlex="20">Data</div>
+      <div>
+        <p style="overflow-wrap: anywhere; line-height: normal; padding-top: 12px;">{{transaction.input}}</p>
+      </div>
     </div>
     <mat-divider></mat-divider>
     <div fxLayout="row" fxLayoutAlign="space-between begin">
