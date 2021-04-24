@@ -7,12 +7,13 @@ import { TransactionDetailsComponent } from '../../components/transaction-detail
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatCardModule } from '@angular/material/card'
-
+import { LogComponent } from '../../components/log/log.component';
 
 @NgModule({
   declarations: [
     TxComponent,
     TransactionDetailsComponent,
+    LogComponent,
   ],
   imports: [
     CommonModule,
