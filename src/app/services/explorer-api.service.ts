@@ -52,14 +52,24 @@ export class ExplorerApiService {
     return this.network$
       .pipe(
         switchMap(network => this.http.get(`${network.url}/txs/from/${address}`)),
-        map((response: any) => response.result),
+        map((response: any) => response.result.map((tx:any)=>{
+          if(!tx.receipt){
+            tx.receipt = {}
+          }
+          return tx
+        })),
       )
   }
   listTransactionsTo(address: string) {
     return this.network$
       .pipe(
         switchMap(network => this.http.get(`${network.url}/txs/to/${address}`)),
-        map((response: any) => response.result),
+        map((response: any) => response.result.map((tx:any)=>{
+          if(!tx.receipt){
+            tx.receipt = {}
+          }
+          return tx
+        })),
       )
   }
 
