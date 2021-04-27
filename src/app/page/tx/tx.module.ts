@@ -8,6 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatCardModule } from '@angular/material/card'
 import { LogComponent } from '../../components/log/log.component';
+import { PipesModule } from '../../pipes/pipes.module'
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { LogComponent } from '../../components/log/log.component';
   imports: [
     CommonModule,
     FlexLayoutModule,
+    PipesModule,
     TxRoutingModule,
     MatCardModule,
     MatDividerModule,

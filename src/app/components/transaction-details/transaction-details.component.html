@@ -11,11 +11,37 @@
       <a class="hex" [routerLink]="'/address/'+transaction.from">{{transaction.from}}</a>
     </div>
     <mat-divider></mat-divider>
-    <div fxLayout="row" fxLayoutAlign="space-between begin">
-      <div>To</div>
-      <a class="hex" [routerLink]="'/address/'+transaction.to">{{transaction.to}}</a>
+    <div *ngIf="transaction.details?.contract_metadata">
+      <div fxLayout="row" fxLayoutAlign="space-between begin">
+        <div>Calls Contract</div>
+        <a class="hex" [routerLink]="'/address/'+transaction.to">{{transaction.details.contract_metadata.name}}</a>
+      </div>
+      <mat-divider></mat-divider>
+      <div *ngIf="transaction.details?.type=='token_transfer'">
+        <div fxLayout="row" fxLayoutAlign="space-between begin">
+          <div>Type</div>
+          <div>Token Transfer</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div fxLayout="row" fxLayoutAlign="space-between begin">
+          <div>To</div>
+          <a class="hex" [routerLink]="'/address/'+transaction.details.metadata.to">{{transaction.details.metadata.to}}</a>
+        </div>
+        <mat-divider></mat-divider>
+        <div fxLayout="row" fxLayoutAlign="space-between begin">
+          <div>Transfer Value</div>
+          <div>{{ transaction.details.metadata.value | formatValue : transaction.details.metadata.decimals : transaction.details.metadata.symbol }}</div>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
     </div>
-    <mat-divider></mat-divider>
+    <div *ngIf="!transaction.details?.contract_metadata">
+      <div fxLayout="row" fxLayoutAlign="space-between begin">
+        <div>To</div>
+        <a class="hex" [routerLink]="'/address/'+transaction.to">{{transaction.to}}</a>
+      </div>
+      <mat-divider></mat-divider>
+    </div>
     <div fxLayout="row" fxLayoutAlign="space-between begin">
       <div>Value</div>
       <div>{{transaction.value/1E18|currency: ' ' : undefined: '0.0-18'}} ETP</div>
