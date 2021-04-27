@@ -1,10 +1,21 @@
 <mat-card *ngIf="log">
+  <div fxLayout="row" *ngIf="log.name" fxLayoutAlign="space-between begin">
+    <div>{{log.name}}</div>
+    <div class="hex">{{log.signature}}</div>
+  </div>
+  <mat-divider *ngIf="log.name"></mat-divider>
   <div fxLayout="row" fxLayoutAlign="space-between begin">
     <div>Address</div>
     <div class="hex">{{log.address}}</div>
   </div>
   <mat-divider></mat-divider>
-  <div fxLayout="row" fxLayoutAlign="space-between begin">
+  <div fxLayout="row" *ngIf="log.args" fxLayoutAlign="space-between begin">
+    <div>Arguments</div>
+    <div style="text-align: right;">
+      <p *ngFor="let arg of log.args">{{arg.name}} {{arg.type}} <span class="hex">{{arg.value}}</span></p>
+    </div>
+  </div>
+  <div fxLayout="row" *ngIf="log.topics" fxLayoutAlign="space-between begin">
     <div>Topics</div>
     <div style="text-align: right;">
       <p class="hex" *ngFor="let topic of log.topics">{{topic}}</p>

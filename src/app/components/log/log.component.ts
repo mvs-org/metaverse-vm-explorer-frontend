@@ -1,14 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 export interface Log {
-  id: string
   topics: string[]
   address: string
   data: string
-  logIndex: number
-  removed: false
-  transactionHash: string
-  transactionIndex: 0
+  args?: {
+    name: string
+    type: string
+    value: any
+  }[]
+  name?: string
+  signature?: string
 }
 
 @Component({

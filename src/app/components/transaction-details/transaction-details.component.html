@@ -31,6 +31,20 @@
       <div>{{transaction.gasPrice/1E10|currency: ' ' : undefined: '0.0-18'}} sats</div>
     </div>
     <mat-divider></mat-divider>
+    <div *ngIf="transaction.details" fxLayout="row">
+      <div fxFlex="20">Contract Call</div>
+      <div fxFlex="80" fxLayout="row" fxLayoutAlign="space-between begin">
+        <p style="text-align: left;">
+          {{transaction.details.call.name}}
+        </p>
+        <div>
+          <span *ngFor="let input of transaction.details.call.inputs">
+            {{input.name}}: {{input.value}}<br>
+          </span>
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
     <div *ngIf="transaction.input!=='0x'&&!transaction.creates" fxLayout="row" fxLayoutAlign="space-between begin">
       <div fxFlex="20">Data</div>
       <div>
@@ -84,7 +98,7 @@
     </mat-card>
     <h2>Logs</h2>
     <p *ngIf="receipt.logs.length===0">This transaction triggered no events</p>
-    <div *ngFor="let log of receipt.logs">
+    <div *ngFor="let log of (transaction?.details?.logs || receipt.logs)">
       <div style="margin-bottom: 25px;">
         <app-log [log]="log"></app-log>
       </div>
