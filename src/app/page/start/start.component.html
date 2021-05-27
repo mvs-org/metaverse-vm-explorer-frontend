@@ -2,5 +2,9 @@
   <img src="/assets/logo.png" class="logo" alt="Metaverse" height="256">
   <app-search class="full-width"></app-search>
 </div>
+
+<h2 class="center">Latest Transactions</h2>
+<app-transaction-list [transactions]="latestTransactions$|async|slice:0:10" class="full-width"></app-transaction-list>
+
 <h2 class="center">Latest Blocks</h2>
 <app-block-list [blocks]="latestBlocks$|async|slice:0:10" class="full-width"></app-block-list>

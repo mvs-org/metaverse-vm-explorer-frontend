@@ -15,6 +15,11 @@ export class StartComponent implements OnInit {
       switchMap(()=>this.explorerService.listBlocks())
     )
 
+  latestTransactions$ = timer(0, 5000)
+    .pipe(
+      switchMap(()=>this.explorerService.listTransactions())
+    )
+
 
   constructor(
     private explorerService: ExplorerApiService,

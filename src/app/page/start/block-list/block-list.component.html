@@ -35,4 +35,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
+  <p *ngIf="blocks.length===0">No transactions</p>
+
 </div>

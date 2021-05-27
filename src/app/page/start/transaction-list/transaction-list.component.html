@@ -1,0 +1,34 @@
+<div *ngIf="transactions">
+
+  <table [hidden]="transactions.length==0" mat-table [dataSource]="transactions" class="full-width">
+
+    <ng-container matColumnDef="number">
+      <th mat-header-cell *matHeaderCellDef> Block </th>
+      <td mat-cell *matCellDef="let element">
+        <a [routerLink]="'/block/'+element.blockNumber">
+          {{element.blockNumber}}
+        </a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="hash">
+      <th mat-header-cell *matHeaderCellDef> Hash </th>
+      <td mat-cell *matCellDef="let element" class="hex">
+        <a [routerLink]="'/tx/'+element.hash"> {{element.hash }}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef> Time </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.timeStamp * 1000 | date: 'mediumTime'}}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <p *ngIf="transactions.length===0">No transactions</p>
+
+</div>

@@ -12,6 +12,7 @@ export class ExplorerApiService {
       name: 'mainnet',
       label: 'Mainnet',
       url: 'https://vm-explorer.mvs.org/api/hyperspace'
+      //url: 'http://localhost:8080'
     },
     {
       name: 'andromeda',
@@ -45,6 +46,15 @@ export class ExplorerApiService {
       .pipe(
         switchMap(network => this.http.get(`${network.url}/address/${address}`)),
         map((response: any) => response.result),
+      )
+  }
+
+  listTransactions() {
+    return this.network$
+      .pipe(
+        switchMap(network => this.http.get(`${network.url}/txs`)),
+        map((response: any) => response.result),
+        share()
       )
   }
 
