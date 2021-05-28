@@ -7,4 +7,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/blocks',
     home: true,
   },
+  {
+    title: 'Transactions',
+    icon: 'shopping-cart-outline',
+    link: '/pages/txs',
+  },
 ];

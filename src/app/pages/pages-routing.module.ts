@@ -14,6 +14,11 @@ const routes: Routes = [{
         .then(m => m.BlocksModule),
     },
     {
+      path: 'txs',
+      loadChildren: () => import('./txs/txs.module')
+        .then(m => m.TxsModule),
+    },
+    {
       path: 'miscellaneous',
       loadChildren: () => import('./miscellaneous/miscellaneous.module')
         .then(m => m.MiscellaneousModule),
