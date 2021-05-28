@@ -1,1 +1,3 @@
-<p>blocks works!</p>
+<div *ngIf="!loading">
+  <div *ngFor="let block of blocks">{{block|json}}</div>
+</div>

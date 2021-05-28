@@ -20,6 +20,7 @@ import {
   NbToastrModule,
   NbWindowModule,
 } from '@nebular/theme';
+import { GraphQLModule } from './graphql.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,6 +40,9 @@ import {
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
+    GraphQLModule,
+  ],
+  providers: [
   ],
   bootstrap: [AppComponent],
 })
