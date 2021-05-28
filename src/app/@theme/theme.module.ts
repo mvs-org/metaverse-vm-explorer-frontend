@@ -35,11 +35,11 @@ import {
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
 } from './layouts';
-import { DEFAULT_THEME } from './styles/theme.default';
-import { COSMIC_THEME } from './styles/theme.cosmic';
-import { CORPORATE_THEME } from './styles/theme.corporate';
-import { DARK_THEME } from './styles/theme.dark';
-import { MATERIAL_LIGHT_THEME } from './styles/material/theme.material-light';
+// import { DEFAULT_THEME } from './styles/theme.default';
+// import { COSMIC_THEME } from './styles/theme.cosmic';
+// import { CORPORATE_THEME } from './styles/theme.corporate';
+// import { DARK_THEME } from './styles/theme.dark';
+// import { MATERIAL_LIGHT_THEME } from './styles/material/theme.material-light';
 import { MATERIAL_DARK_THEME } from './styles/material/theme.material-dark';
 
 const NB_MODULES = [
@@ -87,7 +87,7 @@ export class ThemeModule {
           {
             name: 'default',
           },
-          [ DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, DARK_THEME, MATERIAL_LIGHT_THEME, MATERIAL_DARK_THEME ],
+          [ MATERIAL_DARK_THEME ],
         ).providers,
       ],
     };

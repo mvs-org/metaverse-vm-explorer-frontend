@@ -8,6 +8,7 @@ import {
   NbRequestPasswordComponent,
   NbResetPasswordComponent,
 } from '@nebular/auth';
+import { BlocksComponent } from './pages/blocks/blocks.component'
 
 export const routes: Routes = [
   {
@@ -22,6 +23,10 @@ export const routes: Routes = [
       {
         path: '',
         component: NbLoginComponent,
+      },
+      {
+        path: 'blocks',
+        component: BlocksComponent,
       },
       {
         path: 'login',
