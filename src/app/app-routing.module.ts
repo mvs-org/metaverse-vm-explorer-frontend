@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
   {
-    path: 'mainnet',
+    path: ':network',
     loadChildren: () => import('./pages/pages.module')
       .then(m => m.PagesModule),
   },
