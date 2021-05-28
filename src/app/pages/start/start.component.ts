@@ -24,24 +24,25 @@ export class StartComponent implements OnInit {
       query: gql`
         {
           price{
-            currentUSD
+            current_USD
             change1h_USD
             change24h_USD
             low24h_USD
             high_USD
           }
-          blocks(query:{}, limit: 10, sort: 'desc') {
+          blocks(query:{}, limit: 10, sort: "desc") {
             hash
             number
             timestamp
           }
-          txs(query:{}, limit: 10, sort: 'desc') {
+          txs(query:{}, limit: 10, sort: "desc") {
             hash
             blockNumber
           }
         }
       `,
-    }).valueChanges.subscribe((data,loading,error)=>{
+    }).valueChanges.subscribe((response)=>{
+      console.log(response)
       this.price = response.data?.price
       this.blocks = response.data?.blocks
       this.txs = response.data?.txs
