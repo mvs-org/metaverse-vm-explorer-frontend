@@ -8,54 +8,46 @@ import { Apollo, gql } from 'apollo-angular'
 })
 export class StartComponent implements OnInit {
 
+  price:any
   blocks: any[]
-  loadingBlocks = true
-  errorBlocks: any
+  loading = true
+  error: any
 
   txs: any[]
-  loadingTxs = true
-  errorTxs: any
 
   constructor(private apollo: Apollo) { }
 
   async ngOnInit() {
-    this.loadBlocks()
-    this.loadTxs()
-  }
-
-  async loadBlocks() {
-    const { data, loading, error } = await this.apollo
-    .query<any>({
+    this.apollo
+    .watchQuery<any>({
+      pollInterval: 10000,
       query: gql`
         {
-          blocks(query:{}, limit: 10) {
+          price{
+            currentUSD
+            change1h_USD
+            change24h_USD
+            low24h_USD
+            high_USD
+          }
+          blocks(query:{}, limit: 10, sort: 'desc') {
             hash
             number
             timestamp
           }
+          txs(query:{}, limit: 10, sort: 'desc') {
+            hash
+            blockNumber
+          }
         }
       `,
-    }).toPromise()
-    this.blocks = data?.blocks
-    this.loadingBlocks = loading
-    this.errorBlocks = error
-  }
-
-  async loadTxs() {
-    const { data, loading, error } = await this.apollo
-      .query<any>({
-        query: gql`
-          {
-            txs(query:{}, limit: 10) {
-              hash
-              blockNumber
-            }
-          }
-        `,
-      }).toPromise()
-    this.txs = data?.txs
-    this.loadingTxs = loading
-    this.errorTxs = error
+    }).valueChanges.subscribe((data,loading,error)=>{
+      this.price = response.data?.price
+      this.blocks = response.data?.blocks
+      this.txs = response.data?.txs
+      this.loading = response.loading
+      this.error = response.error
+    })
   }
 
 }

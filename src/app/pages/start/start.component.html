@@ -1,7 +1,10 @@
-<div *ngIf="!loadingTxs">
+<div *ngIf="!loading">
+  {{price|json}}
+</div>
+<div *ngIf="!loading">
   <div *ngFor="let tx of txs">{{tx|json}}</div>
 </div>
 
-<div *ngIf="!loadingBlocks">
+<div *ngIf="!loading">
   <div *ngFor="let block of blocks">{{block|json}}</div>
 </div>
