@@ -4,17 +4,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Home',
     icon: 'home-outline',
-    link: '/mainnet',
+    link: '/',
     home: true,
   },
   {
     title: 'Transactions',
     icon: 'swap-outline',
-    link: '/mainnet/txs',
+    link: '/txs',
   },
   {
     title: 'Blocks',
     icon: 'cube-outline',
-    link: '/mainnet/blocks',
+    link: '/blocks',
   },
 ];
