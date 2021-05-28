@@ -17,4 +17,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'cube-outline',
     link: '/blocks',
   },
+  {
+    title: 'Contracts',
+    icon: 'file-text-outline',
+    link: '/contracts',
+  },
 ];
