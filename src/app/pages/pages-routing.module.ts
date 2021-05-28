@@ -9,6 +9,11 @@ const routes: Routes = [{
   component: PagesComponent,
   children: [
     {
+      path: 'start',
+      loadChildren: () => import('./start/start.module')
+        .then(m => m.StartModule),
+    },
+    {
       path: 'blocks',
       loadChildren: () => import('./blocks/blocks.module')
         .then(m => m.BlocksModule),
@@ -25,7 +30,7 @@ const routes: Routes = [{
     },
     {
       path: '',
-      redirectTo: 'blocks',
+      redirectTo: 'start',
       pathMatch: 'full',
     },
     {

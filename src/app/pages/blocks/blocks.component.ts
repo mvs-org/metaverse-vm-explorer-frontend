@@ -18,15 +18,15 @@ export class BlocksComponent implements OnInit {
     const { data, loading, error } = await this.apollo
       .query<any>({
         query: gql`
-          {
-            blocks {
-              hash
-              number
-              timestamp
-            }
+        {
+          blocks(query:{}, limit: 50) {
+            hash
+            number
+            timestamp
           }
-        `,
-      }).toPromise()
+        }
+      `,
+    }).toPromise()
     this.blocks = data?.blocks
     this.loading = loading
     this.error = error

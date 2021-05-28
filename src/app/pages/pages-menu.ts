@@ -2,14 +2,19 @@ import { NbMenuItem } from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
-    title: 'Blocks',
-    icon: 'shopping-cart-outline',
-    link: '/pages/blocks',
+    title: 'Home',
+    icon: 'home-outline',
+    link: '/mainnet',
     home: true,
   },
   {
     title: 'Transactions',
-    icon: 'shopping-cart-outline',
-    link: '/pages/txs',
+    icon: 'swap-outline',
+    link: '/mainnet/txs',
+  },
+  {
+    title: 'Blocks',
+    icon: 'cube-outline',
+    link: '/mainnet/blocks',
   },
 ];

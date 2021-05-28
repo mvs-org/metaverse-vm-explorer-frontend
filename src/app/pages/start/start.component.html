@@ -1,0 +1,7 @@
+<div *ngIf="!loadingTxs">
+  <div *ngFor="let tx of txs">{{tx|json}}</div>
+</div>
+
+<div *ngIf="!loadingBlocks">
+  <div *ngFor="let block of blocks">{{block|json}}</div>
+</div>

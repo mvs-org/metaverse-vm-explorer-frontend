@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TxsRoutingModule, routedComponents } from './txs-routing.module'
+import { StartComponent } from './start.component';
+import { StartRoutingModule, routedComponents } from './start-routing.module'
+
+
 
 @NgModule({
   imports: [
     CommonModule,
-    TxsRoutingModule
+    StartRoutingModule
   ],
   declarations: [
     ...routedComponents,
   ],
 })
-export class TxsModule { }
+export class StartModule { }
