@@ -38,6 +38,7 @@ export class StartComponent implements OnInit {
           txs(query:{}, limit: 10, sort: "desc") {
             hash
             blockNumber
+            from
           }
         }
       `,

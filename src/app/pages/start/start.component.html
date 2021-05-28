@@ -1,10 +1,79 @@
 <div *ngIf="!loading">
-  {{price|json}}
-</div>
-<div *ngIf="!loading">
-  <div *ngFor="let tx of txs">{{tx|json}}</div>
-</div>
-
-<div *ngIf="!loading">
-  <div *ngFor="let block of blocks">{{block|json}}</div>
+  <nb-card>
+    <nb-card-header>Price</nb-card-header>
+    <nb-card-body class="row">
+      <div class="col-sm-4" style="text-align: center;">
+        <b>current</b><br>
+        {{price.current_USD}} $
+      </div>
+      <div class="col-sm-4" style="text-align: center;">
+        <b>1h change</b><br>
+        {{price.change1h_USD}} $
+      </div>
+      <div class="col-sm-4" style="text-align: center;">
+        <b>24h change</b><br>
+        {{price.change24h_USD}} $
+      </div>
+    </nb-card-body>
+  </nb-card>
+  <div class="row">
+    <div class="col-md-6">
+      <nb-card [size]="11">
+        <nb-card-header>Latest Transactions</nb-card-header>
+        <nb-list>
+          <nb-list-item>
+            <div class="col-md-5">
+              Hash
+            </div>
+            <div class="col-md-5">
+              From
+            </div>
+            <div class="col-md-2">
+              Height
+            </div>
+          </nb-list-item>
+          <nb-list-item *ngFor="let tx of txs">
+            <div class="col-md-5">
+              {{ tx.hash | slice : 0: 15 }}...
+            </div>
+            <div class="col-md-5">
+              {{ tx.from | slice : 0: 15 }}...
+            </div>
+            <div class="col-md-2">
+              {{ tx.blockNumber }}
+            </div>
+          </nb-list-item>
+        </nb-list>
+      </nb-card>
+    </div>
+    <div class="col-md-6">
+      <nb-card [size]="11">
+        <nb-card-header>Latest Blocks</nb-card-header>
+        <nb-list>
+          <nb-list-item>
+            <div class="col-md-4">
+              Hash
+            </div>
+            <div class="col-md-4" style="text-align: right;">
+              Number
+            </div>
+            <div class="col-md-4" style="text-align: right;">
+              Time
+            </div>
+          </nb-list-item>
+          <nb-list-item *ngFor="let block of blocks">
+            <div class="col-md-4">
+              {{ block.hash | slice : 0: 10 }}...
+            </div>
+            <div class="col-md-4" style="text-align: right;">
+              {{ block.number }}
+            </div>
+            <div class="col-md-4" style="text-align: right;">
+              {{ block.timestamp * 1000 | date : 'shortTime' }}
+            </div>
+          </nb-list-item>
+        </nb-list>
+      </nb-card>
+    </div>
+  </div>
 </div>
