@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 import { Apollo, gql } from 'apollo-angular'
 
 @Component({
@@ -14,9 +14,9 @@ export class BlocksComponent implements OnInit {
 
   constructor(private apollo: Apollo) { }
 
-  ngOnInit(): void {
-    this.apollo
-      .query({
+  async ngOnInit() {
+    const { data, loading, error } = await this.apollo
+      .query<any>({
         query: gql`
           {
             blocks {
@@ -26,12 +26,10 @@ export class BlocksComponent implements OnInit {
             }
           }
         `,
-      })
-      .subscribe((result: any) => {
-        this.blocks = result?.data?.blocks;
-        this.loading = result.loading;
-        this.error = result.error;
-      });
+      }).toPromise()
+    this.blocks = data?.blocks
+    this.loading = loading
+    this.error = error
   }
 
 }
