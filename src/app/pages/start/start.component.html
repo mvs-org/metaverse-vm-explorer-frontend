@@ -33,12 +33,12 @@
             </div>
           </nb-list-item>
           <nb-list-item *ngFor="let block of blocks">
-            <div class="col-md-6 break-dots">
+            <a class="col-md-6 break-dots" [routerLink]="'../block/'+block.hash">
               {{ block.hash }}
-            </div>
-            <div class="col-md-2" style="text-align: right;">
+            </a>
+            <a class="col-md-2" style="text-align: right;" [routerLink]="'../block/'+block.number">
               {{ block.number }}
-            </div>
+            </a>
             <div class="col-md-4" style="text-align: right;">
               <ngx-timer [time]="(currentTimestamp-block.timestamp)*1000"></ngx-timer>
             </div>
@@ -62,15 +62,15 @@
             </div>
           </nb-list-item>
           <nb-list-item *ngFor="let tx of txs">
-            <div class="col-md-5 break-dots">
+            <a class="col-md-5 break-dots" [routerLink]="'../tx/'+tx.hash">
               {{ tx.hash }}
-            </div>
+            </a>
             <div class="col-md-5 break-dots">
               {{ tx.from }}
             </div>
-            <div class="col-md-2" style="text-align: right;">
+            <a class="col-md-2" style="text-align: right;" [routerLink]="'../block/'+tx.blockNumber">
               {{ tx.blockNumber }}
-            </div>
+            </a>
           </nb-list-item>
         </nb-list>
       </nb-card>
