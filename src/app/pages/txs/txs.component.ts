@@ -24,7 +24,7 @@ export class TxsComponent implements OnInit {
       pollInterval: 10000,
       query: gql`
         {
-          txs(query:{}, limit: 10, sort: "desc") {
+          txs(query:{}, limit: 100, sort: "desc") {
             hash
             confirmedAt
             from
