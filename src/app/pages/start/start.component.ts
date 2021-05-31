@@ -1,27 +1,36 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Apollo, gql } from 'apollo-angular'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'ngx-start',
   templateUrl: './start.component.html',
   styleUrls: ['./start.component.scss']
 })
-export class StartComponent implements OnInit {
+export class StartComponent implements OnInit, OnDestroy {
 
-  price:any
+  price: any
   blocks: any[]
   loading = true
   error: any
 
   txs: any[]
 
+  dataSubscription: Subscription
+
   constructor(private apollo: Apollo) { }
 
+  ngOnDestroy(): void {
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe()
+    }
+  }
+
   async ngOnInit() {
-    this.apollo
-    .watchQuery<any>({
-      pollInterval: 10000,
-      query: gql`
+    this.dataSubscription = this.apollo
+      .watchQuery<any>({
+        pollInterval: 10000,
+        query: gql`
         {
           price{
             current_USD
@@ -42,14 +51,14 @@ export class StartComponent implements OnInit {
           }
         }
       `,
-    }).valueChanges.subscribe((response)=>{
-      console.log(response)
-      this.price = response.data?.price
-      this.blocks = response.data?.blocks
-      this.txs = response.data?.txs
-      this.loading = response.loading
-      this.error = response.error
-    })
+      }).valueChanges.subscribe((response) => {
+        console.log(response)
+        this.price = response.data?.price
+        this.blocks = response.data?.blocks
+        this.txs = response.data?.txs
+        this.loading = response.loading
+        this.error = response.error
+      })
   }
 
 }
