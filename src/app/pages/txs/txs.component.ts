@@ -20,8 +20,7 @@ export class TxsComponent implements OnInit {
     this.currentTimestamp = Math.floor(Date.now()/1000);
 
     this.apollo
-    .watchQuery<any>({
-      pollInterval: 10000,
+    .query<any>({
       query: gql`
         {
           txs(query:{}, limit: 100, sort: "desc") {
@@ -33,7 +32,7 @@ export class TxsComponent implements OnInit {
           }
         }
       `,
-    }).valueChanges.subscribe((response)=>{
+    }).subscribe((response)=>{
       this.currentTimestamp = Math.floor(Date.now()/1000);
       this.txs = response.data?.txs
       this.loading = response.loading
