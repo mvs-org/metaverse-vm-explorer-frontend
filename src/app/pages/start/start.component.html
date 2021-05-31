@@ -25,10 +25,10 @@
             <div class="col-md-6">
               Hash
             </div>
-            <div class="col-md-3" style="text-align: right;">
+            <div class="col-md-2" style="text-align: right;">
               Number
             </div>
-            <div class="col-md-3" style="text-align: right;">
+            <div class="col-md-4" style="text-align: right;">
               Time
             </div>
           </nb-list-item>
@@ -36,11 +36,11 @@
             <div class="col-md-6 break-dots">
               {{ block.hash }}
             </div>
-            <div class="col-md-3" style="text-align: right;">
+            <div class="col-md-2" style="text-align: right;">
               {{ block.number }}
             </div>
-            <div class="col-md-3" style="text-align: right;">
-              {{ block.timestamp * 1000 | date : 'shortTime' }}
+            <div class="col-md-4" style="text-align: right;">
+              <ngx-timer [time]="(currentTimestamp-block.timestamp)*1000"></ngx-timer>
             </div>
           </nb-list-item>
         </nb-list>

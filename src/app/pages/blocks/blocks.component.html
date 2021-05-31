@@ -1,3 +1,28 @@
 <div *ngIf="!loading">
-  <div *ngFor="let block of blocks">{{block|json}}</div>
+  <nb-card [size]="11">
+    <nb-list>
+      <nb-list-item>
+        <div class="col-md-6">
+          Hash
+        </div>
+        <div class="col-md-3" style="text-align: right;">
+          Number
+        </div>
+        <div class="col-md-3" style="text-align: right;">
+          Time
+        </div>
+      </nb-list-item>
+      <nb-list-item *ngFor="let block of blocks">
+        <div class="col-md-6 break-dots">
+          {{ block.hash }}
+        </div>
+        <div class="col-md-3" style="text-align: right;">
+          {{ block.number }}
+        </div>
+        <div class="col-md-3" style="text-align: right;">
+          {{ block.timestamp * 1000 | date : 'short' }}
+        </div>
+      </nb-list-item>
+    </nb-list>
+  </nb-card>
 </div>

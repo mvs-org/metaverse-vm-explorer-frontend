@@ -17,6 +17,7 @@ export class StartComponent implements OnInit, OnDestroy {
   txs: any[]
 
   dataSubscription: Subscription
+  currentTimestamp
 
   constructor(private apollo: Apollo) { }
 
@@ -27,6 +28,8 @@ export class StartComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    this.currentTimestamp = Math.floor(Date.now()/1000);
+
     this.dataSubscription = this.apollo
       .watchQuery<any>({
         pollInterval: 10000,
@@ -52,7 +55,7 @@ export class StartComponent implements OnInit, OnDestroy {
         }
       `,
       }).valueChanges.subscribe((response) => {
-        console.log(response)
+        this.currentTimestamp = Math.floor(Date.now()/1000);
         this.price = response.data?.price
         this.blocks = response.data?.blocks
         this.txs = response.data?.txs

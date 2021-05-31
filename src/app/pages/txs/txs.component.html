@@ -6,33 +6,39 @@
           <div class="col-md-3">
             Hash
           </div>
-          <div class="col-md-3 break-dots">
+          <div class="col-md-2">
+            Block
+          </div>
+          <div class="col-md-2 break-dots">
             From
           </div>
           <div class="col-md-1 break-dots">
           </div>
-          <div class="col-md-3 break-dots">
+          <div class="col-md-2 break-dots">
             To
           </div>
           <div class="col-md-2" style="text-align: right;">
-            Age
+            Time
           </div>
         </nb-list-item>
         <nb-list-item *ngFor="let tx of txs">
           <div class="col-md-3 break-dots">
             {{ tx.hash }}
           </div>
-          <div class="col-md-3 break-dots">
+          <div class="col-md-2">
+            {{ tx.blockNumber }}
+          </div>
+          <div class="col-md-2 break-dots">
             {{ tx.from }}
           </div>
           <div class="col-md-1 break-dots" style="text-align: center;">
             <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
           </div>
-          <div class="col-md-3 break-dots">
+          <div class="col-md-2 break-dots">
             {{ tx.to }}
           </div>
           <div class="col-md-2" style="text-align: right;">
-            <ngx-timer [time]="(currentTimestamp-tx.confirmedAt)*1000"></ngx-timer>
+            {{ tx.confirmedAt * 1000 | date : 'short'}}
           </div>
 
         </nb-list-item>

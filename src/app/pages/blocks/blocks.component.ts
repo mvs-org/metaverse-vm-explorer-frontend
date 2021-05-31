@@ -19,7 +19,7 @@ export class BlocksComponent implements OnInit {
       .query<any>({
         query: gql`
         {
-          blocks(query:{}, limit: 50) {
+          blocks(query:{}, limit: 50, sort: "desc") {
             hash
             number
             timestamp

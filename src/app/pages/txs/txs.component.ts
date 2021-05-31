@@ -29,6 +29,7 @@ export class TxsComponent implements OnInit {
             confirmedAt
             from
             to
+            blockNumber
           }
         }
       `,
