@@ -13,12 +13,12 @@
         </div>
       </nb-list-item>
       <nb-list-item *ngFor="let block of blocks">
-        <div class="col-md-6 break-dots">
+        <a class="col-md-6 break-dots" [routerLink]="'../block/'+block.hash">
           {{ block.hash }}
-        </div>
-        <div class="col-md-3" style="text-align: right;">
+        </a>
+        <a class="col-md-3" style="text-align: right;" [routerLink]="'../block/'+block.number">
           {{ block.number }}
-        </div>
+        </a>
         <div class="col-md-3" style="text-align: right;">
           {{ block.timestamp * 1000 | date : 'short' }}
         </div>
