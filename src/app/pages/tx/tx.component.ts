@@ -1,0 +1,55 @@
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+import { Apollo, gql } from 'apollo-angular'
+import { switchMap } from 'rxjs/operators'
+
+@Component({
+  selector: 'ngx-blocks',
+  templateUrl: './tx.component.html',
+  styleUrls: ['./tx.component.scss']
+})
+export class TxComponent implements OnInit {
+
+  tx: any
+  loading = true
+  error: any
+  hash: String
+
+  constructor(
+    private apollo: Apollo,
+    private activatedRoute: ActivatedRoute,
+  ) {
+  }
+
+  async ngOnInit() {
+    this.activatedRoute.params
+      .pipe(
+        switchMap(params => this.apollo
+          .query<any>({
+            variables: {
+              hash: params['hash'],
+            },
+            query: gql`
+          query($hash: ID!)
+            {
+              tx(id: $hash) {
+                hash
+                blockNumber
+                blockHash
+                from
+                to
+                input
+                confirmedAt
+                creates
+              }
+            }
+          `,
+          }))
+      ).subscribe(response => {
+        this.tx = response.data?.tx
+        this.loading = response.loading
+        this.error = response.error
+      })
+  }
+
+}
