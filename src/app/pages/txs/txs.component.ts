@@ -11,24 +11,34 @@ export class TxsComponent implements OnInit {
   txs: any[]
   loading = true
   error: any
+  currentTimestamp
 
   constructor(private apollo: Apollo) { }
 
   async ngOnInit() {
-    const { data, loading, error } = await this.apollo
-      .query<any>({
-        query: gql`
-          {
-            txs(query:{}, limit: 50) {
-              hash
-              blockNumber
-            }
+
+    this.currentTimestamp = Math.floor(Date.now()/1000);
+
+    this.apollo
+    .watchQuery<any>({
+      pollInterval: 10000,
+      query: gql`
+        {
+          txs(query:{}, limit: 10, sort: "desc") {
+            hash
+            confirmedAt
+            from
+            to
           }
-        `,
-      }).toPromise()
-    this.txs = data?.txs
-    this.loading = loading
-    this.error = error
+        }
+      `,
+    }).valueChanges.subscribe((response)=>{
+      this.currentTimestamp = Math.floor(Date.now()/1000);
+      this.txs = response.data?.txs
+      this.loading = response.loading
+      this.error = response.error
+    })
+
   }
 
 }

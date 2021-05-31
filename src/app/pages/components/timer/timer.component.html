@@ -1,0 +1,11 @@
+<div *ngIf="time >= 0">
+  <span *ngIf="time >= 3600000">
+    {{time | date: 'hh': 'UTC'}} hours
+  </span>
+  <span *ngIf="time >= 60000">
+    {{time | date: 'mm': 'UTC'}} minutes
+  </span>
+  <span>
+    {{time | date: 'ss': 'UTC'}} seconds ago
+  </span>
+</div>

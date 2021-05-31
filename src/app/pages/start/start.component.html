@@ -2,18 +2,18 @@
   <nb-card>
     <nb-card-header>Price</nb-card-header>
     <nb-card-body class="row">
-      <div class="col-sm-4" style="text-align: center;">
+      <div class="col-sm-6" style="text-align: center;">
         <b>current</b><br>
         {{price.current_USD}} $
       </div>
-      <div class="col-sm-4" style="text-align: center;">
+      <div class="col-sm-6" style="text-align: center;">
         <b>1h change</b><br>
         {{price.change1h_USD}} $
       </div>
-      <div class="col-sm-4" style="text-align: center;">
+      <!--div class="col-sm-4" style="text-align: center;">
         <b>24h change</b><br>
         {{price.change24h_USD}} $
-      </div>
+      </div-->
     </nb-card-body>
   </nb-card>
   <div class="row">
@@ -22,18 +22,18 @@
         <nb-card-header>Latest Blocks</nb-card-header>
         <nb-list>
           <nb-list-item>
-            <div class="col-md-4">
+            <div class="col-md-6">
               Hash
             </div>
-            <div class="col-md-4" style="text-align: right;">
+            <div class="col-md-3" style="text-align: right;">
               Number
             </div>
-            <div class="col-md-4" style="text-align: right;">
+            <div class="col-md-3" style="text-align: right;">
               Time
             </div>
           </nb-list-item>
           <nb-list-item *ngFor="let block of blocks">
-            <div class="col-md-6" class="break-dots">
+            <div class="col-md-6 break-dots">
               {{ block.hash }}
             </div>
             <div class="col-md-3" style="text-align: right;">
@@ -62,10 +62,10 @@
             </div>
           </nb-list-item>
           <nb-list-item *ngFor="let tx of txs">
-            <div class="col-md-5" class="break-dots">
+            <div class="col-md-5 break-dots">
               {{ tx.hash }}
             </div>
-            <div class="col-md-5" class="break-dots">
+            <div class="col-md-5 break-dots">
               {{ tx.from }}
             </div>
             <div class="col-md-2" style="text-align: right;">
