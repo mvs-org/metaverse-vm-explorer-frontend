@@ -22,12 +22,12 @@
           </div>
         </nb-list-item>
         <nb-list-item *ngFor="let tx of txs">
-          <div class="col-md-3 break-dots">
+          <a class="col-md-3 break-dots" [routerLink]="'../tx/'+tx.hash">
             {{ tx.hash }}
-          </div>
-          <div class="col-md-2">
+          </a>
+          <a class="col-md-2" [routerLink]="'../block/'+tx.blockNumber">
             {{ tx.blockNumber }}
-          </div>
+          </a>
           <div class="col-md-2 break-dots">
             {{ tx.from }}
           </div>
