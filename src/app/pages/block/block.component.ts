@@ -4,7 +4,7 @@ import { Apollo, gql } from 'apollo-angular'
 import { switchMap } from 'rxjs/operators'
 
 @Component({
-  selector: 'ngx-blocks',
+  selector: 'ngx-block',
   templateUrl: './block.component.html',
   styleUrls: ['./block.component.scss']
 })

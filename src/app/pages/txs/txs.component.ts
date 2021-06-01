@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Apollo, gql } from 'apollo-angular'
 
 @Component({
-  selector: 'ngx-blocks',
+  selector: 'ngx-txs',
   templateUrl: './txs.component.html',
   styleUrls: ['./txs.component.scss']
 })

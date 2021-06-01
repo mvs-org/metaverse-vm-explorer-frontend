@@ -4,17 +4,17 @@ import { Apollo, gql } from 'apollo-angular'
 import { switchMap } from 'rxjs/operators'
 
 @Component({
-  selector: 'ngx-tx',
-  templateUrl: './tx.component.html',
-  styleUrls: ['./tx.component.scss']
+  selector: 'ngx-address',
+  templateUrl: './address.component.html',
+  styleUrls: ['./address.component.scss']
 })
-export class TxComponent implements OnInit {
+export class AddressComponent implements OnInit {
 
   price: any
-  tx: any
+  address: String
   loading = true
   error: any
-  hash: String
+  info: any
 
   constructor(
     private apollo: Apollo,
@@ -23,7 +23,11 @@ export class TxComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.activatedRoute.params
+    this.loading = false
+    this.activatedRoute.params.subscribe(({ address }: { address: string }) => {
+      this.address = address
+    })
+    /*this.activatedRoute.params
       .pipe(
         switchMap(params => this.apollo
           .query<any>({
@@ -58,7 +62,7 @@ export class TxComponent implements OnInit {
         this.tx = response.data?.tx
         this.loading = response.loading
         this.error = response.error
-      })
+      })*/
   }
 
 }
