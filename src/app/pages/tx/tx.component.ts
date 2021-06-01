@@ -10,6 +10,7 @@ import { switchMap } from 'rxjs/operators'
 })
 export class TxComponent implements OnInit {
 
+  price: any
   tx: any
   loading = true
   error: any
@@ -32,6 +33,9 @@ export class TxComponent implements OnInit {
             query: gql`
           query($hash: ID!)
             {
+              price{
+                current_USD
+              }
               tx(id: $hash) {
                 hash
                 blockNumber
@@ -41,11 +45,16 @@ export class TxComponent implements OnInit {
                 input
                 confirmedAt
                 creates
+                value
+                raw
+                gasPrice
+                gas
               }
             }
           `,
           }))
       ).subscribe(response => {
+        this.price = response.data?.price
         this.tx = response.data?.tx
         this.loading = response.loading
         this.error = response.error

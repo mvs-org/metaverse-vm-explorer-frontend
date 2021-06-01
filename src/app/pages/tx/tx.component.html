@@ -1,3 +1,66 @@
 <div *ngIf="!loading">
-  {{tx|json}}
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-sm-6">
+          <div>Transaction hash:</div>
+          {{tx.hash}}
+        </div>
+        <div class="col-sm-6" style="text-align: right;">
+          <div>{{tx.confirmedAt * 1000 | date : 'short'}}</div>
+          <a [routerLink]="'../block/'+tx.blockNumber">Block {{tx.blockNumber}}</a>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+
+      <div class="row">
+        <div class="col-sm-5">
+          <div>From:</div>
+          {{ tx.from }}
+        </div>
+        <div class="col-md-2" style="text-align: center;">
+          <br *ngIf="!tx.value || tx.value == 0">
+          <div *ngIf="tx.value && tx.value > 0">
+            {{tx.value/1000000000000000000}} ETP
+          </div>
+          <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+        </div>
+
+        <div class="col-sm-5" style="text-align: right;">
+          <div>To:</div>
+          {{ tx.to }}
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <div style="text-align: right;">
+        Fees: {{ tx.gasPrice*tx.gas | decimals: [18, 6] }} ETP (~{{tx.gasPrice*tx.gas*price.current_USD | decimals: [18, 6]}} USD)
+      </div>
+    </nb-card-footer>
+  </nb-card>
+
+
+  <nb-card>
+    <nb-card-header>Details</nb-card-header>
+    <nb-list>
+      <nb-list-item>
+        <div class="col-md-6">
+          Gas price
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+          {{ tx.gasPrice }}
+        </div>
+      </nb-list-item>
+      <nb-list-item>
+        <div class="col-md-6">
+          Gas limit
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+          {{ tx.gas }}
+        </div>
+      </nb-list-item>
+    </nb-list>
+  </nb-card>
+
 </div>
