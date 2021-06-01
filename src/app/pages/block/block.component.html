@@ -29,9 +29,9 @@
         <div class="col-md-4">
           Mined by
         </div>
-        <div class="col-md-8">
+        <a class="col-md-8" [routerLink]="'../../address/'+block.miner">
           {{ block.miner }}
-        </div>
+        </a>
       </nb-list-item>
       <nb-list-item>
         <div class="col-md-4">

@@ -65,9 +65,9 @@
             <a class="col-md-5 break-dots" [routerLink]="'../tx/'+tx.hash">
               {{ tx.hash }}
             </a>
-            <div class="col-md-5 break-dots">
+            <a class="col-md-5 break-dots" [routerLink]="'../address/'+tx.from">
               {{ tx.from }}
-            </div>
+            </a>
             <a class="col-md-2" style="text-align: right;" [routerLink]="'../block/'+tx.blockNumber">
               {{ tx.blockNumber }}
             </a>

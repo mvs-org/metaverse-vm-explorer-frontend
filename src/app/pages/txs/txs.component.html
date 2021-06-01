@@ -28,15 +28,15 @@
           <a class="col-md-2" [routerLink]="'../block/'+tx.blockNumber">
             {{ tx.blockNumber }}
           </a>
-          <div class="col-md-2 break-dots">
+          <a class="col-md-2 break-dots" [routerLink]="'../address/'+tx.from">
             {{ tx.from }}
-          </div>
+          </a>
           <div class="col-md-1" style="text-align: center;">
             <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
           </div>
-          <div class="col-md-2 break-dots">
+          <a class="col-md-2 break-dots" [routerLink]="'../address/'+tx.to">
             {{ tx.to }}
-          </div>
+          </a>
           <div class="col-md-2" style="text-align: right;">
             {{ tx.confirmedAt * 1000 | date : 'short'}}
           </div>
