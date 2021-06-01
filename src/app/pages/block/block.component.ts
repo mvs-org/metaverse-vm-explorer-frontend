@@ -14,6 +14,7 @@ export class BlockComponent implements OnInit {
   loading = true
   error: any
   hash: String
+  currentTimestamp
 
   constructor(
     private apollo: Apollo,
@@ -22,6 +23,7 @@ export class BlockComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.currentTimestamp = Math.floor(Date.now()/1000);
     this.activatedRoute.params
       .pipe(
         switchMap(params => this.apollo.query<any>(
@@ -39,8 +41,8 @@ export class BlockComponent implements OnInit {
   }
 
   blockByNumberQuery = gql`
-     query($id: Int!)
-     {
+    query($id: Int!)
+    {
         blockByNumber(number: $id){
           hash
           number
@@ -50,7 +52,7 @@ export class BlockComponent implements OnInit {
     miner
     gasUsed
         }
-     }`
+    }`
 
   blockByHashQuery = gql`
   query($id: ID!)

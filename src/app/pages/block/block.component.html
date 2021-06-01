@@ -1,3 +1,63 @@
 <div *ngIf="!loading">
-  {{block|json}}
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-md-6">
+          <a [routerLink]="'../'+(block.number-1)">
+            <nb-icon [icon]="'arrow-back-outline'"></nb-icon>
+          </a>
+          Block #{{ block.number }}
+          <a [routerLink]="'../'+(block.number+1)">
+            <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+          </a>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+          {{ block.timestamp * 1000 | date : 'short' }}
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-list>
+      <nb-list-item>
+        <div class="col-md-4">
+          Age
+        </div>
+        <div class="col-md-8">
+          <ngx-timer [time]="(currentTimestamp-block.timestamp)*1000"></ngx-timer>
+        </div>
+      </nb-list-item>
+      <nb-list-item>
+        <div class="col-md-4">
+          Mined by
+        </div>
+        <div class="col-md-8">
+          {{ block.miner }}
+        </div>
+      </nb-list-item>
+      <nb-list-item>
+        <div class="col-md-4">
+          Gas used
+        </div>
+        <div class="col-md-8">
+          {{ block.gasUsed }}
+        </div>
+      </nb-list-item>
+      <nb-list-item>
+        <div class="col-md-4">
+          Parent hash
+        </div>
+        <div class="col-md-8">
+          {{ block.parentHash }}
+        </div>
+      </nb-list-item>
+      <nb-list-item>
+        <div class="col-md-4">
+          Size
+        </div>
+        <div class="col-md-8">
+          {{ block.size }} bytes
+        </div>
+      </nb-list-item>
+    </nb-list>
+  </nb-card>
+
 </div>
