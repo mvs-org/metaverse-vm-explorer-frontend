@@ -131,7 +131,6 @@ export class AddressComponent implements OnInit {
       }
       `,
     }).subscribe((response)=>{
-      console.log(response)
       this.mstTransfers = this.mstTransfers.concat(response.data?.mstTransfers)
       //this.loading = response.loading
       this.error = response.error
