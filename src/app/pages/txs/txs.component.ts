@@ -8,7 +8,8 @@ import { Apollo, gql } from 'apollo-angular'
 })
 export class TxsComponent implements OnInit {
 
-  txs: any[]
+  txs: any[] = []
+  initialLoading = true
   loading = true
   error: any
   currentTimestamp
@@ -17,13 +18,26 @@ export class TxsComponent implements OnInit {
 
   async ngOnInit() {
 
-    this.currentTimestamp = Math.floor(Date.now()/1000);
+    this.loadTxs()
 
+  }
+
+  onScroll() {
+    this.loadTxs()
+  }
+
+  loadTxs() {
+    this.loading = true
     this.apollo
     .query<any>({
+      variables: {
+        startBlock: this.txs[0] ? this.txs[0].blockNumber : 0,
+        offset: this.txs.length
+      },
       query: gql`
+      query($startBlock: Int!, $offset: Int!)
         {
-          txs(query:{}, limit: 100, sort: "desc") {
+          txs(query:{blockNumber_lte: $startBlock}, limit: 100, sort: "desc", offset: $offset) {
             hash
             confirmedAt
             from
@@ -34,11 +48,11 @@ export class TxsComponent implements OnInit {
       `,
     }).subscribe((response)=>{
       this.currentTimestamp = Math.floor(Date.now()/1000);
-      this.txs = response.data?.txs
+      this.txs = this.txs.concat(response.data?.txs)
       this.loading = response.loading
+      this.initialLoading = false
       this.error = response.error
     })
-
   }
 
 }
