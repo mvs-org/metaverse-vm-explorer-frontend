@@ -1,10 +1,11 @@
 <div *ngIf="!loading">
   <nb-card>
+    <nb-card-header>Metaverse Smart Tokens (MST)</nb-card-header>
     <nb-list>
       <nb-list-item>
         <div class="col-md-1">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           Name
         </div>
         <div class="col-md-2">
@@ -13,7 +14,7 @@
         <div class="col-md-1" style="text-align: right;">
           Decimals
         </div>
-        <div class="col-md-3" style="text-align: right;">
+        <div class="col-md-4" style="text-align: right;">
           Address
         </div>
       </nb-list-item>
@@ -21,7 +22,7 @@
         <div class="col-md-1">
           <img [src]="mst.logoURI" [alt]="mst.symbol" height=32 width=32>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           {{ mst.name }}
         </div>
         <div class="col-md-2">
@@ -30,7 +31,7 @@
         <div class="col-md-1" style="text-align: right;">
           {{ mst.decimals }}
         </div>
-        <a class="col-md-3 mono" style="text-align: right;"  [routerLink]="'../address/'+mst.address">
+        <a class="col-md-4 mono" style="text-align: right;"  [routerLink]="'../address/'+mst.address">
           {{ mst.address }}
         </a>
       </nb-list-item>
