@@ -35,8 +35,8 @@
   <div class="row">
     <div class="col-12">
       <nb-card>
-        <nb-tabset>
-          <nb-tab class="noPadding" tabTitle="Transactions">
+        <nb-tabset (changeTab)="onChangeTab($event)">
+          <nb-tab class="noPadding" tabTitle="{{tabsTitles[0]}}">
             <nb-list *ngIf="!(address.transactions && address.transactions.length > 0)">
               <nb-list-item>
                 No transactions for this address
@@ -45,7 +45,7 @@
             <nb-list *ngIf="address.transactions && address.transactions.length > 0">
               <nb-list-item>
                 <div class="col-md-3">
-                  Hash
+                  Transaction
                 </div>
                 <div class="col-md-3 break-dots">
                   From
@@ -79,32 +79,39 @@
               </nb-list-item>
             </nb-list>
           </nb-tab>
-          <nb-tab *ngIf="address.mstTransfers && address.mstTransfers.length > 0" class="noPadding" tabTitle="MST Transfers">
-            <nb-list>
+          <nb-tab *ngIf="mstTransfers && mstTransfers.length > 0" class="noPadding"
+            tabTitle="{{tabsTitles[1]}}">
+            <nb-list infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="scrollMst()">
               <nb-list-item>
-                <div class="col-md-4 break-dots">
+                <div class="col-md-3 break-dots">
+                  Transaction
+                </div>
+                <div class="col-md-3 break-dots">
                   From
                 </div>
                 <div class="col-md-1 break-dots">
                 </div>
-                <div class="col-md-4 break-dots">
+                <div class="col-md-3 break-dots">
                   To
                 </div>
-                <div class="col-md-3" style="text-align: right;">
+                <div class="col-md-2" style="text-align: right;">
                   Value
                 </div>
               </nb-list-item>
-              <nb-list-item *ngFor="let tx of address.mstTransfers">
-                <a class="col-md-4 break-dots mono" [routerLink]="'../'+tx.from">
+              <nb-list-item *ngFor="let tx of mstTransfers">
+                <a class="col-md-3 break-dots mono" [routerLink]="'../'+tx.from">
+                  {{ tx.transactionHash }}
+                </a>
+                <a class="col-md-3 break-dots mono" [routerLink]="'../'+tx.from">
                   {{ tx.from }}
                 </a>
                 <div class="col-md-1" style="text-align: center;">
                   <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
                 </div>
-                <a class="col-md-4 break-dots mono" [routerLink]="'../'+tx.to">
+                <a class="col-md-3 break-dots mono" [routerLink]="'../'+tx.to">
                   {{ tx.to }}
                 </a>
-                <div class="col-md-3" style="text-align: right;">
+                <div class="col-md-2" style="text-align: right;">
                   {{ tx.value | decimals : [tx.tokenInfo.decimals, 6]}} {{tx.tokenInfo.symbol}}
                 </div>
 
