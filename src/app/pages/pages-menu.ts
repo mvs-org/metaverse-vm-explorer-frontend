@@ -18,8 +18,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/blocks',
   },
   {
-    title: 'Contracts',
-    icon: 'file-text-outline',
-    link: '/contracts',
+    title: 'MST',
+    icon: 'code-outline',
+    link: '/msts',
   },
 ];

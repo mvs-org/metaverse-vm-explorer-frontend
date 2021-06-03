@@ -1,0 +1,39 @@
+<div *ngIf="!loading">
+  <nb-card>
+    <nb-list>
+      <nb-list-item>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-3">
+          Name
+        </div>
+        <div class="col-md-2">
+          Symbol
+        </div>
+        <div class="col-md-1" style="text-align: right;">
+          Decimals
+        </div>
+        <div class="col-md-3" style="text-align: right;">
+          Address
+        </div>
+      </nb-list-item>
+      <nb-list-item *ngFor="let mst of msts">
+        <div class="col-md-1">
+          <img [src]="mst.logoURI" [alt]="mst.symbol" height=32 width=32>
+        </div>
+        <div class="col-md-3">
+          {{ mst.name }}
+        </div>
+        <div class="col-md-2">
+          {{ mst.symbol }}
+        </div>
+        <div class="col-md-1" style="text-align: right;">
+          {{ mst.decimals }}
+        </div>
+        <a class="col-md-3" style="text-align: right;"  [routerLink]="'../address/'+mst.address">
+          {{ mst.address }}
+        </a>
+      </nb-list-item>
+    </nb-list>
+  </nb-card>
+</div>
