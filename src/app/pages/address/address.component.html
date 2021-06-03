@@ -25,6 +25,57 @@
         </nb-list>
       </nb-card>
     </div>
+    <div *ngIf="address.contract" class="col-12 col-md-6">
+      <!-- {{address.contract|json}} -->
+      <nb-card>
+        <nb-card-header>
+          Smart Contract
+        </nb-card-header>
+        <nb-list>
+          <nb-list-item *ngIf="address.contract.contractName">
+            <div class="col-md-4">
+              Name
+            </div>
+            <div class="col-md-8 break-dots">
+              {{ address.contract.contractName }}
+            </div>
+          </nb-list-item>
+          <nb-list-item *ngIf="address.contract.logoURI">
+            <div class="col-md-4">
+              Icon
+            </div>
+            <div class="col-md-8 break-dots">
+              <img [src]="address.contract.logoURI" [alt]="'icon '+address.contract.contractName" class="contract-icon">
+            </div>
+          </nb-list-item>
+          <nb-list-item>
+            <div class="col-md-4">
+              Creation Transaction
+            </div>
+            <a class="col-md-8 break-dots mono" [routerLink]="'../../tx/'+address.contract.creationTransaction.hash">
+              {{ address.contract.creationTransaction.hash }}
+            </a>
+          </nb-list-item>
+          <nb-list-item>
+            <div class="col-md-4">
+              Creator
+            </div>
+            <a class="col-md-8 break-dots mono"
+              [routerLink]="'../../address/'+address.contract.creationTransaction.from">
+              {{ address.contract.creationTransaction.from }}
+            </a>
+          </nb-list-item>
+          <nb-list-item>
+            <div class="col-md-4">
+              Created At
+            </div>
+            <div class="col-md-8 break-dots">
+              {{ address.contract.creationTransaction.confirmedAt * 1000 | date : 'medium' }}
+            </div>
+          </nb-list-item>
+        </nb-list>
+      </nb-card>
+    </div>
     <!--div class="col-12 col-md-6">
       <nb-card>
         QR Code
@@ -79,8 +130,7 @@
               </nb-list-item>
             </nb-list>
           </nb-tab>
-          <nb-tab *ngIf="mstTransfers && mstTransfers.length > 0" class="noPadding"
-            tabTitle="{{tabsTitles[1]}}">
+          <nb-tab *ngIf="mstTransfers && mstTransfers.length > 0" class="noPadding" tabTitle="{{tabsTitles[1]}}">
             <nb-list infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="scrollMst()">
               <nb-list-item>
                 <div class="col-md-3 break-dots">
@@ -118,6 +168,20 @@
               </nb-list-item>
             </nb-list>
           </nb-tab>
+
+          <!--   Contract related tabs   -->
+          <nb-tab *ngIf="address.contract && address.contract.source" class="noPadding" tabTitle="Source Code">
+            <pre>
+              {{'\n'+address.contract.source}}
+            </pre>
+          </nb-tab>
+
+          <nb-tab *ngIf="address.contract && address.contract.bytecode" class="noPadding" tabTitle="Bytecode">
+            <pre class="break-word">
+              {{'\n'+address.contract.bytecode}}
+            </pre>
+          </nb-tab>
+
         </nb-tabset>
       </nb-card>
     </div>

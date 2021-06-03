@@ -64,6 +64,18 @@ export class AddressComponent implements OnInit {
                   decimals
                 }
               }
+              contract {
+                contractName
+                logoURI
+                source
+                abi
+                bytecode
+                creationTransaction{
+                  hash
+                  from
+                  confirmedAt
+                }
+              }
             }
           }
           `,

@@ -7,3 +7,19 @@
 .noPadding {
   padding: 0;
 }
+
+.contract-icon {
+  width: 100%;
+  max-width: 128px;
+  max-height:128px;
+}
+
+pre {
+  color: white;
+  padding: 20px;
+}
+
+.break-word {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
