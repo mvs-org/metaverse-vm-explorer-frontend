@@ -37,7 +37,7 @@ export class StartComponent implements OnInit, OnDestroy {
         {
           price{
             current_USD
-            change1h_USD
+            change7d_USD
             change24h_USD
             low24h_USD
             high_USD
