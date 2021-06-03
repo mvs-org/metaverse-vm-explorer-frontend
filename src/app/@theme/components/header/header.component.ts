@@ -80,6 +80,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if(term.length==66){
         this.router.navigate(['/', this.networkService.network$.value, 'tx', term])
       }
+      if(term.length<12 && !isNaN(Number(term))){
+        this.router.navigate(['/', this.networkService.network$.value, 'block', term])
+      }
     })
     //this.currentTheme = this.themeService.currentTheme;
     this.changeTheme(this.currentTheme)
