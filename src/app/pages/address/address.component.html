@@ -1,11 +1,113 @@
 <div *ngIf="!loading">
-  <nb-card>
-    <nb-card-header>
-      {{address}}
-    </nb-card-header>
-    <nb-card-body>
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <nb-card>
+        <nb-card-header>
+          {{address.address}}
+        </nb-card-header>
+        <nb-list>
+          <nb-list-item>
+            <div class="col-md-4">
+              Balance
+            </div>
+            <div class="col-md-8">
+              {{address.etpBalance | decimals : [18,18]}}
+            </div>
+          </nb-list-item>
+          <nb-list-item>
+            <div class="col-md-4">
+              Value
+            </div>
+            <a class="col-md-8">
+              {{ address.price? address.price.current_USD : 0 | decimals : [18,2] }}
+            </a>
+          </nb-list-item>
+        </nb-list>
+      </nb-card>
+    </div>
+    <!--div class="col-12 col-md-6">
+      <nb-card>
+        QR Code
+      </nb-card>
+    </div-->
+  </div>
 
-    </nb-card-body>
-  </nb-card>
+  <div class="row">
+    <div class="col-12">
+      <nb-card>
+        <nb-tabset>
+          <nb-tab class="noPadding" tabTitle="Transactions">
+            <nb-list>
+              <nb-list-item>
+                <div class="col-md-3">
+                  Hash
+                </div>
+                <div class="col-md-3 break-dots">
+                  From
+                </div>
+                <div class="col-md-1 break-dots">
+                </div>
+                <div class="col-md-3 break-dots">
+                  To
+                </div>
+                <div class="col-md-2" style="text-align: right;">
+                  Value
+                </div>
+              </nb-list-item>
+              <nb-list-item *ngFor="let tx of address.transactions">
+                <a class="col-md-3 break-dots" [routerLink]="'../../tx/'+tx.hash">
+                  {{ tx.hash }}
+                </a>
+                <a class="col-md-3 break-dots" [routerLink]="'../'+tx.from">
+                  {{ tx.from }}
+                </a>
+                <div class="col-md-1" style="text-align: center;">
+                  <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+                </div>
+                <a class="col-md-3 break-dots" [routerLink]="'../'+tx.to">
+                  {{ tx.to }}
+                </a>
+                <div class="col-md-2" style="text-align: right;">
+                  {{ tx.value | decimals : [18, 6]}} ETP
+                </div>
 
-</div>
+              </nb-list-item>
+            </nb-list>
+          </nb-tab>
+          <nb-tab class="noPadding" tabTitle="MST Transfers">
+            <nb-list>
+              <nb-list-item>
+                <div class="col-md-4 break-dots">
+                  From
+                </div>
+                <div class="col-md-1 break-dots">
+                </div>
+                <div class="col-md-4 break-dots">
+                  To
+                </div>
+                <div class="col-md-3" style="text-align: right;">
+                  Value
+                </div>
+              </nb-list-item>
+              <nb-list-item *ngFor="let tx of address.mstTransfers">
+                <a class="col-md-4 break-dots" [routerLink]="'../'+tx.from">
+                  {{ tx.from }}
+                </a>
+                <div class="col-md-1" style="text-align: center;">
+                  <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+                </div>
+                <a class="col-md-4 break-dots" [routerLink]="'../'+tx.to">
+                  {{ tx.to }}
+                </a>
+                <div class="col-md-3" style="text-align: right;">
+                  {{ tx.value | decimals : [tx.tokenInfo.decimals, 6]}} {{tx.tokenInfo.symbol}}
+                </div>
+
+              </nb-list-item>
+            </nb-list>
+          </nb-tab>
+        </nb-tabset>
+      </nb-card>
+    </div>
+
+  </div>

@@ -11,7 +11,7 @@ import { switchMap } from 'rxjs/operators'
 export class AddressComponent implements OnInit {
 
   price: any
-  address: String
+  address: any
   loading = true
   error: any
   info: any
@@ -23,46 +23,52 @@ export class AddressComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.loading = false
+    /*this.loading = false
     this.activatedRoute.params.subscribe(({ address }: { address: string }) => {
       this.address = address
-    })
-    /*this.activatedRoute.params
+    })*/
+    this.activatedRoute.params
       .pipe(
         switchMap(params => this.apollo
           .query<any>({
             variables: {
-              hash: params['hash'],
+              address: params['address'],
             },
             query: gql`
-          query($hash: ID!)
-            {
-              price{
-                current_USD
-              }
-              tx(id: $hash) {
+          query($address: String)
+          {
+            price{
+              current_USD
+            }
+            address(address: $address) {
+              etpBalance
+              address
+              transactions(limit: 25, sort: "desc") {
                 hash
-                blockNumber
-                blockHash
                 from
                 to
-                input
-                confirmedAt
-                creates
                 value
-                raw
-                gasPrice
-                gas
+              }
+              mstTransfers(limit: 25, sort: "desc") {
+                from
+                to
+                value
+                tokenInfo {
+                  symbol
+                  decimals
+                }
               }
             }
+          }
           `,
           }))
       ).subscribe(response => {
+        console.log(response)
         this.price = response.data?.price
-        this.tx = response.data?.tx
+        this.address = response.data?.address
         this.loading = response.loading
         this.error = response.error
-      })*/
+      })
   }
 
 }

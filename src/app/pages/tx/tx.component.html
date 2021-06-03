@@ -8,7 +8,7 @@
         </div>
         <div class="col-sm-6" style="text-align: right;">
           <div>{{tx.confirmedAt * 1000 | date : 'short'}}</div>
-          <a [routerLink]="'../block/'+tx.blockNumber">Block {{tx.blockNumber}}</a>
+          <a [routerLink]="'../../block/'+tx.blockNumber">Block {{tx.blockNumber}}</a>
         </div>
       </div>
     </nb-card-header>
@@ -17,7 +17,7 @@
       <div class="row">
         <div class="col-sm-5">
           <div>From:</div>
-          <a [routerLink]="'../address/'+tx.from">{{ tx.from }}</a>
+          <a [routerLink]="'../../address/'+tx.from">{{ tx.from }}</a>
         </div>
         <div class="col-md-2" style="text-align: center;">
           <br *ngIf="!tx.value || tx.value == 0">
@@ -29,7 +29,7 @@
 
         <div class="col-sm-5" style="text-align: right;">
           <div>To:</div>
-          <a [routerLink]="'../address/'+tx.to">{{ tx.to }}</a>
+          <a [routerLink]="'../../address/'+tx.to">{{ tx.to }}</a>
         </div>
       </div>
     </nb-card-body>
