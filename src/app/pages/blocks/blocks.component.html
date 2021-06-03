@@ -1,4 +1,4 @@
-<div *ngIf="!loading">
+<div *ngIf="!initialLoading" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="loadBlocks()">
   <nb-card>
     <nb-card-header>Blocks</nb-card-header>
     <nb-list>

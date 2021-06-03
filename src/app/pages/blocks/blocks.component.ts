@@ -8,28 +8,41 @@ import { Apollo, gql } from 'apollo-angular'
 })
 export class BlocksComponent implements OnInit {
 
-  blocks: any[]
+  blocks: any[] = []
+  initialLoading = true
   loading = true
   error: any
 
   constructor(private apollo: Apollo) { }
 
   async ngOnInit() {
-    const { data, loading, error } = await this.apollo
-      .query<any>({
-        query: gql`
-        {
-          blocks(query:{}, limit: 100, sort: "desc") {
-            hash
-            number
-            timestamp
-          }
+    this.loadBlocks()
+  }
+
+  loadBlocks() {
+    this.loading = true
+    this.apollo
+    .query<any>({
+      variables: {
+        startBlock: this.blocks[0] ? this.blocks[0].number : 0,
+        offset: this.blocks.length
+      },
+      query: gql`
+      query($startBlock: Int!, $offset: Int!)
+      {
+        blocks(query:{number_lte: $startBlock}, limit: 100, sort: "desc", offset: $offset) {
+          hash
+          number
+          timestamp
         }
+      }
       `,
-    }).toPromise()
-    this.blocks = data?.blocks
-    this.loading = loading
-    this.error = error
+    }).subscribe((response)=>{
+      this.blocks = this.blocks.concat(response.data?.blocks)
+      this.loading = response.loading
+      this.initialLoading = false
+      this.error = response.error
+    })
   }
 
 }

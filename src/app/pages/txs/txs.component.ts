@@ -22,10 +22,6 @@ export class TxsComponent implements OnInit {
 
   }
 
-  onScroll() {
-    this.loadTxs()
-  }
-
   loadTxs() {
     this.loading = true
     this.apollo
