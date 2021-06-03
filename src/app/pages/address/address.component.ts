@@ -48,8 +48,10 @@ export class AddressComponent implements OnInit {
                 from
                 to
                 value
+                confirmedAt
               }
               mstTransfers(limit: 25, sort: "desc") {
+                transactionHash
                 from
                 to
                 value

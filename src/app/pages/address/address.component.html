@@ -11,7 +11,7 @@
               Balance
             </div>
             <div class="col-md-8">
-              {{address.etpBalance | decimals : [18,18]}}
+              {{address.etpBalance | decimals : [18,18]}} ETP
             </div>
           </nb-list-item>
           <nb-list-item>
@@ -19,7 +19,7 @@
               Value
             </div>
             <a class="col-md-8">
-              {{ address.price? address.price.current_USD : 0 | decimals : [18,2] }}
+              {{ address.etpBalance*price.current_USD | decimals : [18,2] }} USD
             </a>
           </nb-list-item>
         </nb-list>
@@ -37,7 +37,12 @@
       <nb-card>
         <nb-tabset>
           <nb-tab class="noPadding" tabTitle="Transactions">
-            <nb-list>
+            <nb-list *ngIf="!(address.transactions && address.transactions.length > 0)">
+              <nb-list-item>
+                No transactions for this address
+              </nb-list-item>
+            </nb-list>
+            <nb-list *ngIf="address.transactions && address.transactions.length > 0">
               <nb-list-item>
                 <div class="col-md-3">
                   Hash
@@ -74,7 +79,7 @@
               </nb-list-item>
             </nb-list>
           </nb-tab>
-          <nb-tab class="noPadding" tabTitle="MST Transfers">
+          <nb-tab *ngIf="address.mstTransfers && address.mstTransfers.length > 0" class="noPadding" tabTitle="MST Transfers">
             <nb-list>
               <nb-list-item>
                 <div class="col-md-4 break-dots">

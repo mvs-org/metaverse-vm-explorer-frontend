@@ -61,7 +61,12 @@
   </nb-card>
   <nb-card>
     <nb-card-header>Transactions</nb-card-header>
-    <nb-list>
+    <nb-list *ngIf="!(block.transactions && block.transactions.length>0)">
+      <nb-list-item>
+        No transactions in this block
+      </nb-list-item>
+    </nb-list>
+    <nb-list *ngIf="block.transactions && block.transactions.length>0">
       <nb-list-item>
         <div class="col-md-3">
           Hash
@@ -79,16 +84,16 @@
         </div>
       </nb-list-item>
       <nb-list-item *ngFor="let tx of block.transactions">
-        <a class="col-md-3 break-dots" [routerLink]="'../tx/'+tx.hash">
+        <a class="col-md-3 break-dots" [routerLink]="'../../tx/'+tx.hash">
           {{ tx.hash }}
         </a>
-        <a class="col-md-3 break-dots" [routerLink]="'../address/'+tx.from">
+        <a class="col-md-3 break-dots" [routerLink]="'../../address/'+tx.from">
           {{ tx.from }}
         </a>
         <div class="col-md-1" style="text-align: center;">
           <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
         </div>
-        <a class="col-md-3 break-dots" [routerLink]="'../address/'+tx.to">
+        <a class="col-md-3 break-dots" [routerLink]="'../../address/'+tx.to">
           {{ tx.to }}
         </a>
         <div class="col-md-2" style="text-align: right;">
