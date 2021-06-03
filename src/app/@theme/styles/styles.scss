@@ -38,6 +38,20 @@
   @include nb-overrides();
   @include material-overrides();
 
+  .search{
+    .form-wrapper{
+      width: 100%;
+    }
+    form{
+      .info{
+        text-align: center;
+      }
+      input{
+        text-align: center;
+        font-size: 2vw !important;
+      }
+    }
+  }
 .mono {
   font-family: monospace;
 }

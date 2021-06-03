@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
+import { NbMediaBreakpointsService, NbMenuService, NbSearchService, NbSidebarService, NbThemeService } from '@nebular/theme';
 
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
@@ -7,6 +7,7 @@ import { map, takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { RippleService } from '../../../@core/utils/ripple.service';
 import { NetworkService } from '../../../services/network.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'ngx-header',
@@ -60,6 +61,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private breakpointService: NbMediaBreakpointsService,
     private rippleService: RippleService,
     public networkService: NetworkService,
+    private searchService: NbSearchService,
+    private router: Router,
   ) {
     this.networkService.network$.subscribe(console.log)
     this.materialTheme$ = this.themeService.onThemeChange()
@@ -70,6 +73,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.searchService.onSearchSubmit().subscribe(({term})=>{
+      if(term.length==42){
+        this.router.navigate(['/', this.networkService.network$.value, 'address', term])
+      }
+      if(term.length==66){
+        this.router.navigate(['/', this.networkService.network$.value, 'tx', term])
+      }
+    })
     //this.currentTheme = this.themeService.currentTheme;
     this.changeTheme(this.currentTheme)
 
@@ -116,4 +127,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuService.navigateHome();
     return false;
   }
+
 }
