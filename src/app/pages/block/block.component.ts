@@ -51,6 +51,12 @@ export class BlockComponent implements OnInit {
     timestamp
     miner
     gasUsed
+    transactions{
+      hash
+      from
+      to
+      value
+    }
         }
     }`
 
@@ -65,6 +71,12 @@ export class BlockComponent implements OnInit {
     timestamp
     miner
     gasUsed
+    transactions{
+      hash
+      from
+      to
+      value
+    }
               }
             }
 `
