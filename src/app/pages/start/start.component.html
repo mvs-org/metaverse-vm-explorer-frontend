@@ -33,7 +33,7 @@
             </div>
           </nb-list-item>
           <nb-list-item *ngFor="let block of blocks">
-            <a class="col-md-6 break-dots" [routerLink]="'../block/'+block.hash">
+            <a class="col-md-6 break-dots mono" [routerLink]="'../block/'+block.hash">
               {{ block.hash }}
             </a>
             <a class="col-md-2" style="text-align: right;" [routerLink]="'../block/'+block.number">
@@ -62,10 +62,10 @@
             </div>
           </nb-list-item>
           <nb-list-item *ngFor="let tx of txs">
-            <a class="col-md-5 break-dots" [routerLink]="'../tx/'+tx.hash">
+            <a class="col-md-5 break-dots mono" [routerLink]="'../tx/'+tx.hash">
               {{ tx.hash }}
             </a>
-            <a class="col-md-5 break-dots" [routerLink]="'../address/'+tx.from">
+            <a class="col-md-5 break-dots mono" [routerLink]="'../address/'+tx.from">
               {{ tx.from }}
             </a>
             <a class="col-md-2" style="text-align: right;" [routerLink]="'../block/'+tx.blockNumber">

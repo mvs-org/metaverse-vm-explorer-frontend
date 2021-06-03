@@ -22,19 +22,19 @@
           </div>
         </nb-list-item>
         <nb-list-item *ngFor="let tx of txs">
-          <a class="col-md-3 break-dots" [routerLink]="'../tx/'+tx.hash">
+          <a class="col-md-3 break-dots mono" [routerLink]="'../tx/'+tx.hash">
             {{ tx.hash }}
           </a>
           <a class="col-md-2" [routerLink]="'../block/'+tx.blockNumber">
             {{ tx.blockNumber }}
           </a>
-          <a class="col-md-2 break-dots" [routerLink]="'../address/'+tx.from">
+          <a class="col-md-2 break-dots mono" [routerLink]="'../address/'+tx.from">
             {{ tx.from }}
           </a>
           <div class="col-md-1" style="text-align: center;">
             <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
           </div>
-          <a class="col-md-2 break-dots" [routerLink]="'../address/'+tx.to">
+          <a class="col-md-2 break-dots mono" [routerLink]="'../address/'+tx.to">
             {{ tx.to }}
           </a>
           <div class="col-md-2" style="text-align: right;">

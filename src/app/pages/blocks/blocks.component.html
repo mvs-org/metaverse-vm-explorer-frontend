@@ -13,7 +13,7 @@
         </div>
       </nb-list-item>
       <nb-list-item *ngFor="let block of blocks">
-        <a class="col-md-6 break-dots" [routerLink]="'../block/'+block.hash">
+        <a class="col-md-6 break-dots mono" [routerLink]="'../block/'+block.hash">
           {{ block.hash }}
         </a>
         <a class="col-md-3" style="text-align: right;" [routerLink]="'../block/'+block.number">

@@ -29,7 +29,7 @@
         <div class="col-md-4">
           Mined by
         </div>
-        <a class="col-md-8" [routerLink]="'../../address/'+block.miner">
+        <a class="col-md-8 mono" [routerLink]="'../../address/'+block.miner">
           {{ block.miner }}
         </a>
       </nb-list-item>
@@ -45,7 +45,7 @@
         <div class="col-md-4">
           Parent hash
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 mono">
           {{ block.parentHash }}
         </div>
       </nb-list-item>
@@ -84,16 +84,16 @@
         </div>
       </nb-list-item>
       <nb-list-item *ngFor="let tx of block.transactions">
-        <a class="col-md-3 break-dots" [routerLink]="'../../tx/'+tx.hash">
+        <a class="col-md-3 break-dots mono" [routerLink]="'../../tx/'+tx.hash">
           {{ tx.hash }}
         </a>
-        <a class="col-md-3 break-dots" [routerLink]="'../../address/'+tx.from">
+        <a class="col-md-3 break-dots mono" [routerLink]="'../../address/'+tx.from">
           {{ tx.from }}
         </a>
         <div class="col-md-1" style="text-align: center;">
           <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
         </div>
-        <a class="col-md-3 break-dots" [routerLink]="'../../address/'+tx.to">
+        <a class="col-md-3 break-dots mono" [routerLink]="'../../address/'+tx.to">
           {{ tx.to }}
         </a>
         <div class="col-md-2" style="text-align: right;">

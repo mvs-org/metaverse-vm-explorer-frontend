@@ -37,4 +37,8 @@
 
   @include nb-overrides();
   @include material-overrides();
+
+.mono {
+  font-family: monospace;
+}
 };

@@ -60,16 +60,16 @@
                 </div>
               </nb-list-item>
               <nb-list-item *ngFor="let tx of address.transactions">
-                <a class="col-md-3 break-dots" [routerLink]="'../../tx/'+tx.hash">
+                <a class="col-md-3 break-dots mono" [routerLink]="'../../tx/'+tx.hash">
                   {{ tx.hash }}
                 </a>
-                <a class="col-md-3 break-dots" [routerLink]="'../'+tx.from">
+                <a class="col-md-3 break-dots mono" [routerLink]="'../'+tx.from">
                   {{ tx.from }}
                 </a>
                 <div class="col-md-1" style="text-align: center;">
                   <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
                 </div>
-                <a class="col-md-3 break-dots" [routerLink]="'../'+tx.to">
+                <a class="col-md-3 break-dots mono" [routerLink]="'../'+tx.to">
                   {{ tx.to }}
                 </a>
                 <div class="col-md-2" style="text-align: right;">
@@ -95,13 +95,13 @@
                 </div>
               </nb-list-item>
               <nb-list-item *ngFor="let tx of address.mstTransfers">
-                <a class="col-md-4 break-dots" [routerLink]="'../'+tx.from">
+                <a class="col-md-4 break-dots mono" [routerLink]="'../'+tx.from">
                   {{ tx.from }}
                 </a>
                 <div class="col-md-1" style="text-align: center;">
                   <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
                 </div>
-                <a class="col-md-4 break-dots" [routerLink]="'../'+tx.to">
+                <a class="col-md-4 break-dots mono" [routerLink]="'../'+tx.to">
                   {{ tx.to }}
                 </a>
                 <div class="col-md-3" style="text-align: right;">
