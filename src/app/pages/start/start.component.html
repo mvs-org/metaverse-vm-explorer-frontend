@@ -39,7 +39,7 @@
             <a class="col-md-2" style="text-align: right;" [routerLink]="'../block/'+block.number">
               {{ block.number }}
             </a>
-            <div class="col-md-4" style="text-align: right;">
+            <div class="col-md-4 break-dots" style="text-align: right;">
               <ngx-timer [time]="(currentTimestamp-block.timestamp)*1000"></ngx-timer>
             </div>
           </nb-list-item>
