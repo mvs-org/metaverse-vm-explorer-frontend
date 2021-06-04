@@ -79,9 +79,6 @@
         <div class="col-md-3 break-dots">
           To
         </div>
-        <div class="col-md-2" style="text-align: right;">
-          Value
-        </div>
       </nb-list-item>
       <nb-list-item *ngFor="let tx of block.transactions">
         <a class="col-md-3 break-dots mono" [routerLink]="'../../tx/'+tx.hash">
@@ -91,14 +88,12 @@
           {{ tx.from }}
         </a>
         <div class="col-md-1" style="text-align: center;">
+          <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [18] }} ETP</div>
           <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
         </div>
         <a class="col-md-3 break-dots mono" [routerLink]="'../../address/'+tx.to">
           {{ tx.to }}
         </a>
-        <div class="col-md-2" style="text-align: right;">
-          {{ tx.value | number }} ETP
-        </div>
 
       </nb-list-item>
     </nb-list>

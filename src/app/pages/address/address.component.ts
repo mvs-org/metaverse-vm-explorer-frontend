@@ -12,6 +12,7 @@ export class AddressComponent implements OnInit {
 
   price: any
   address: any
+  transactions = []
   mstTransfers = []
   loading = true
   error: any
@@ -52,6 +53,7 @@ export class AddressComponent implements OnInit {
                 to
                 value
                 confirmedAt
+                blockNumber
               }
               mstTransfers(limit: 25, sort: "desc") {
                 transactionHash
@@ -84,6 +86,8 @@ export class AddressComponent implements OnInit {
         console.log(response)
         this.price = response.data?.price
         this.address = response.data?.address
+        this.transactions = this.address.transactions
+        console.log(this.transactions)
         this.mstTransfers = this.address.mstTransfers
         this.loading = response.loading
         this.error = response.error
@@ -96,7 +100,7 @@ export class AddressComponent implements OnInit {
 
   scrollTx() {
     if(this.selectedTab == 'Transactions') {
-      //TODO
+      this.loadMoreTransactions()
     }
   }
 
@@ -104,6 +108,33 @@ export class AddressComponent implements OnInit {
     if(this.selectedTab == 'MST Transfers') {
       this.loadMoreMstTransfers()
     }
+  }
+
+  loadMoreTransactions() {
+    this.apollo
+    .query<any>({
+      variables: {
+        address: this.address.address,
+        startBlock: this.transactions[0] ? this.transactions[0].blockNumber + 0 : 0,
+        offset: this.transactions.length
+      },
+      query: gql`
+      query($address: String, $startBlock: Int!, $offset: Int!)
+      {
+        txs(query:{address: $address, blockNumber_lte: $startBlock}, limit: 25, sort: "desc", offset: $offset) {
+          hash
+          from
+          to
+          value
+          confirmedAt
+        }
+      }
+      `,
+    }).subscribe((response)=>{
+      this.transactions = this.transactions.concat(response.data?.txs)
+      //this.loading = response.loading
+      this.error = response.error
+    })
   }
 
   loadMoreMstTransfers() {
@@ -135,10 +166,6 @@ export class AddressComponent implements OnInit {
       //this.loading = response.loading
       this.error = response.error
     })
-  }
-
-  loadTransactions() {
-    //TODO
   }
 
 }

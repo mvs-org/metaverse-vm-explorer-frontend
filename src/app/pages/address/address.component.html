@@ -88,12 +88,12 @@
       <nb-card>
         <nb-tabset (changeTab)="onChangeTab($event)">
           <nb-tab class="noPadding" tabTitle="{{tabsTitles[0]}}">
-            <nb-list *ngIf="!(address.transactions && address.transactions.length > 0)">
+            <nb-list *ngIf="!(transactions && transactions.length > 0)">
               <nb-list-item>
                 No transactions for this address
               </nb-list-item>
             </nb-list>
-            <nb-list *ngIf="address.transactions && address.transactions.length > 0">
+            <nb-list *ngIf="transactions && transactions.length > 0" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="scrollTx()">
               <nb-list-item>
                 <div class="col-md-3">
                   Transaction
@@ -107,10 +107,10 @@
                   To
                 </div>
                 <div class="col-md-2" style="text-align: right;">
-                  Value
+                  Date
                 </div>
               </nb-list-item>
-              <nb-list-item *ngFor="let tx of address.transactions">
+              <nb-list-item *ngFor="let tx of transactions">
                 <a class="col-md-3 break-dots mono" [routerLink]="'../../tx/'+tx.hash">
                   {{ tx.hash }}
                 </a>
@@ -118,15 +118,15 @@
                   {{ tx.from }}
                 </a>
                 <div class="col-md-1" style="text-align: center;">
+                  <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [18, 6]}} ETP</div>
                   <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
                 </div>
                 <a class="col-md-3 break-dots mono" [routerLink]="'../'+tx.to">
                   {{ tx.to }}
                 </a>
                 <div class="col-md-2" style="text-align: right;">
-                  {{ tx.value | decimals : [18, 6]}} ETP
+                  {{ tx.confirmedAt * 1000 | date : 'short'}}
                 </div>
-
               </nb-list-item>
             </nb-list>
           </nb-tab>
@@ -145,7 +145,7 @@
                   To
                 </div>
                 <div class="col-md-2" style="text-align: right;">
-                  Value
+                  Block
                 </div>
               </nb-list-item>
               <nb-list-item *ngFor="let tx of mstTransfers">
@@ -156,15 +156,15 @@
                   {{ tx.from }}
                 </a>
                 <div class="col-md-1" style="text-align: center;">
+                  <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [tx.tokenInfo.decimals, 6]}} {{tx.tokenInfo.symbol}}</div>
                   <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
                 </div>
                 <a class="col-md-3 break-dots mono" [routerLink]="'../'+tx.to">
                   {{ tx.to }}
                 </a>
-                <div class="col-md-2" style="text-align: right;">
-                  {{ tx.value | decimals : [tx.tokenInfo.decimals, 6]}} {{tx.tokenInfo.symbol}}
-                </div>
-
+                <a class="col-md-2" style="text-align: right;" [routerLink]="'../../block/'+tx.blockNumber">
+                  {{tx.blockNumber}}
+                </a>
               </nb-list-item>
             </nb-list>
           </nb-tab>
