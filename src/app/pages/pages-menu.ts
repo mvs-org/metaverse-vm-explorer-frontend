@@ -19,7 +19,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'MST',
-    icon: 'code-outline',
+    icon: 'trending-up-outline',
     link: '/msts',
   },
   {
