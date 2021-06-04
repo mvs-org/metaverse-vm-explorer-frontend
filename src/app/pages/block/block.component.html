@@ -48,9 +48,9 @@
         <div class="col-md-4">
           Parent hash
         </div>
-        <div class="col-md-8 mono">
+        <a class="col-md-8 mono" [routerLink]="['..',block.parentHash]">
           {{ block.parentHash }}
-        </div>
+        </a>
       </nb-list-item>
       <nb-list-item>
         <div class="col-md-4">
