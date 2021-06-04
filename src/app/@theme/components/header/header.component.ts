@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbMediaBreakpointsService, NbMenuService, NbSearchService, NbSidebarService, NbThemeService } from '@nebular/theme';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { NbMediaBreakpointsService, NbMenuService, NbSearchService, NbSidebarService, NbThemeService } from '@nebular/theme'
 
-import { LayoutService } from '../../../@core/utils';
-import { map, takeUntil } from 'rxjs/operators';
-import { Subject, Observable } from 'rxjs';
-import { RippleService } from '../../../@core/utils/ripple.service';
+import { LayoutService } from '../../../@core/utils'
+import { filter, map, switchMap, takeUntil } from 'rxjs/operators'
+import { Subject, Observable } from 'rxjs'
+import { RippleService } from '../../../@core/utils/ripple.service'
 import { NetworkService } from '../../../services/network.service'
 import { Router } from '@angular/router'
 
@@ -16,9 +16,9 @@ import { Router } from '@angular/router'
 export class HeaderComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<void> = new Subject<void>();
-  public readonly materialTheme$: Observable<boolean>;
+  public readonly materialTheme$: Observable<boolean>
   userPictureOnly: boolean = false;
-  user: any;
+  user: any
 
   themes = [
     {
@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = 'material-dark';
 
-  userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
+  userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
 
   public constructor(
     private sidebarService: NbSidebarService,
@@ -65,33 +65,41 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.networkService.network$.subscribe(console.log)
     this.materialTheme$ = this.themeService.onThemeChange()
       .pipe(map(theme => {
-        const themeName: string = theme?.name || '';
-        return themeName.startsWith('material-dark');
-      }));
+        const themeName: string = theme?.name || ''
+        return themeName.startsWith('material-dark')
+      }))
   }
 
   ngOnInit() {
-    this.searchService.onSearchSubmit().subscribe(({term})=>{
-      if(term.length==42){
+    this.searchService.onSearchSubmit().subscribe(({ term }) => {
+      if (term.length == 42) {
         this.router.navigate(['/', this.networkService.network$.value, 'address', term])
       }
-      if(term.length==66){
+      if (term.length == 66) {
         this.router.navigate(['/', this.networkService.network$.value, 'tx', term])
       }
-      if(term.length<12 && !isNaN(Number(term))){
+      if (term.length < 12 && !isNaN(Number(term))) {
         this.router.navigate(['/', this.networkService.network$.value, 'block', term])
       }
     })
+
+    const { xl } = this.breakpointService.getBreakpointsMap()
+    this.menuService.onItemSelect()
+      .pipe(
+        switchMap(() => this.themeService.onMediaQueryChange()),
+        map(([, currentBreakpoint]) => currentBreakpoint.width < xl),
+      )
+      .subscribe((shouldCollapse) => {
+        if (shouldCollapse) {
+          this.sidebarService.collapse('menu-sidebar')
+        } else {
+          this.sidebarService.compact('menu-sidebar')
+        }
+      })
+
+
     //this.currentTheme = this.themeService.currentTheme;
     this.changeTheme(this.currentTheme)
-
-    const { xl } = this.breakpointService.getBreakpointsMap();
-    this.themeService.onMediaQueryChange()
-      .pipe(
-        map(([, currentBreakpoint]) => currentBreakpoint.width < xl),
-        takeUntil(this.destroy$),
-      )
-      .subscribe((isLessThanXl: boolean) => this.userPictureOnly = isLessThanXl);
 
     this.themeService.onThemeChange()
       .pipe(
@@ -99,30 +107,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe(themeName => {
-        this.currentTheme = themeName;
-        this.rippleService.toggle(themeName?.startsWith('material'));
-      });
+        this.currentTheme = themeName
+        this.rippleService.toggle(themeName?.startsWith('material'))
+      })
   }
 
   ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 
   changeTheme(themeName: string) {
-    this.themeService.changeTheme(themeName);
+    this.themeService.changeTheme(themeName)
   }
 
   toggleSidebar(): boolean {
-    this.sidebarService.toggle(true, 'menu-sidebar');
-    this.layoutService.changeLayoutSize();
+    this.sidebarService.toggle(true, 'menu-sidebar')
+    this.layoutService.changeLayoutSize()
 
-    return false;
+    return false
   }
 
   navigateHome() {
-    this.menuService.navigateHome();
-    return false;
+    this.menuService.navigateHome()
+    return false
   }
 
 }
