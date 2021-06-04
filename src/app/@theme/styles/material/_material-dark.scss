@@ -18,6 +18,10 @@ $theme: (
   color-primary-800: #870935,
   color-primary-900: #70062a,
 
+  layout-background-color: black,
+  card-background-color: #191919,
+  card-header-basic-background-color: #6a6582,
+
   color-primary-transparent-100: rgba(233, 29, 99, 0.08),
   color-primary-transparent-200: rgba(233, 29, 99, 0.16),
   color-primary-transparent-300: rgba(233, 29, 99, 0.24),
@@ -393,7 +397,6 @@ $theme: (
   menu-submenu-item-active-background-color: rgba(0, 0, 0, 0.25),
 
   card-border-style: none,
-  card-background-color: color-basic-800,
   card-divider-color: color-basic-700,
 
   input-border-width: 1px,
