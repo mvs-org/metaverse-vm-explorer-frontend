@@ -11,6 +11,9 @@
       <nb-icon [icon]="(materialTheme$ | async) ? 'menu-outline' : 'menu-2-outline'"></nb-icon>
     </a>
     <a class="logo" href="#" (click)="navigateHome()">MetaverseVM Explorer</a>
+    <div class="logo" (click)="toggleTheme()">
+      <nb-icon icon="bulb-outline"></nb-icon>
+    </div>
     <!-- <a class="logo" (click)="networkService.switchNetwork()">{{networkService.network}}</a> -->
 
   </div>

@@ -93,6 +93,9 @@ $nb-themes: nb-register-theme((
 $nb-themes: nb-register-theme((
   layout-padding-top: 2.25rem,
 
+  header-height: 2.25rem,
+  footer-padding: 0.5rem,
+  search-text-font-size: 1rem,
   menu-item-icon-margin: 0 0.5rem 0 0,
 
   card-height-tiny: 13.5rem,
@@ -115,7 +118,7 @@ $nb-themes: nb-register-theme((
 $nb-themes: nb-register-theme((
   layout-padding-top: 2.25rem,
 
-  header-height: 1.25rem,
+  header-height: 2.25rem,
   footer-padding: 0.5rem,
   search-text-font-size: 1rem,
 
