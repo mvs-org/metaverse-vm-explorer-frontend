@@ -61,7 +61,6 @@ export class MITsComponent implements OnInit {
         if(tokens && tokens.length){
           this.skip+=tokens.length
         }
-        this.currentTimestamp = Math.floor(Date.now() / 1000)
         this.tokens = this.tokens.concat(tokens.filter((t: Metadata) => t.image))
         this.initialLoading = false
       })
