@@ -10,6 +10,9 @@
           <a [routerLink]="'../'+(block.number+1)">
             <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
           </a>
+          <div>
+            {{block.hash}}
+          </div>
         </div>
         <div class="col-md-6" style="text-align: right;">
           {{ block.timestamp * 1000 | date : 'short' }}
