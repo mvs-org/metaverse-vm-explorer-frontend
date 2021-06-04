@@ -14,7 +14,7 @@
       "node_modules/@types"
     ],
     "lib": [
-      "es2018",
+      "es2017",
       "dom",
       "esnext.asynciterable"
     ],
@@ -24,5 +24,8 @@
       }
     ],
     "allowSyntheticDefaultImports": true
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true
   }
 }

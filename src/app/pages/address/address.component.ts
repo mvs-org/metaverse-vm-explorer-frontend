@@ -13,6 +13,7 @@ export class AddressComponent implements OnInit {
   price: any
   address: any
   transactions = []
+  contract: any
   mstTransfers = []
   loading = true
   error: any
@@ -89,6 +90,12 @@ export class AddressComponent implements OnInit {
         this.transactions = this.address.transactions
         console.log(this.transactions)
         this.mstTransfers = this.address.mstTransfers
+        if (response.data?.address.contract) {
+          this.contract = {
+            ...response.data?.address.contract,
+            ...(response.data?.address.contract.abi && { abi: JSON.parse(response.data?.address.contract.abi) })
+          }
+        }
         this.loading = response.loading
         this.error = response.error
       })
@@ -105,7 +112,7 @@ export class AddressComponent implements OnInit {
   }
 
   scrollMst() {
-    if(this.selectedTab == 'MST Transfers') {
+    if (this.selectedTab == 'MST Transfers') {
       this.loadMoreMstTransfers()
     }
   }
@@ -139,13 +146,13 @@ export class AddressComponent implements OnInit {
 
   loadMoreMstTransfers() {
     this.apollo
-    .query<any>({
-      variables: {
-        address: this.address.address,
-        startBlock: this.mstTransfers[0] ? this.mstTransfers[0].blockNumber + 0 : 0,
-        offset: this.mstTransfers.length
-      },
-      query: gql`
+      .query<any>({
+        variables: {
+          address: this.address.address,
+          startBlock: this.mstTransfers[0] ? this.mstTransfers[0].blockNumber + 0 : 0,
+          offset: this.mstTransfers.length
+        },
+        query: gql`
       query($address: String, $startBlock: Int!, $offset: Int!)
       {
         mstTransfers(query:{address: $address, blockNumber_lte: $startBlock}, limit: 25, sort: "desc", offset: $offset) {
@@ -161,11 +168,11 @@ export class AddressComponent implements OnInit {
         }
       }
       `,
-    }).subscribe((response)=>{
-      this.mstTransfers = this.mstTransfers.concat(response.data?.mstTransfers)
-      //this.loading = response.loading
-      this.error = response.error
-    })
+      }).subscribe((response) => {
+        this.mstTransfers = this.mstTransfers.concat(response.data?.mstTransfers)
+        //this.loading = response.loading
+        this.error = response.error
+      })
   }
 
 }

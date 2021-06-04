@@ -170,6 +170,35 @@
           </nb-tab>
 
           <!--   Contract related tabs   -->
+          <nb-tab *ngIf="contract && contract.abi" class="noPadding" tabTitle="Functions">
+            <nb-list-item *ngFor="let func of contract.abi | filter: {type: 'function'} " class="row">
+              <div class="col-md-4">
+                <b>{{func.name}}</b>
+                <div>{{ func.constant ? 'Constant' : 'Function'}}</div>
+                <div>{{func.stateMutability}}</div>
+              </div>
+              <div class="col-md-5">
+                <div *ngIf="func.inputs.length">
+                  Parameters
+                  <form>
+                    <div *ngFor="let input of func.inputs" class="row">
+                      <label class="col-md-3" [for]="input.name">{{input.name}}</label>
+                      <input class="col-md-9" [name]="input.name" type="text" [placeholder]="input.type">
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="col-md-3" style="text-align: right;">
+                <div>
+                  Output type
+                  <div>
+                    <span *ngFor="let output of func.outputs">{{output.type}} </span>
+                  </div>
+                </div>
+              </div>
+            </nb-list-item>
+          </nb-tab>
+
           <nb-tab *ngIf="address.contract && address.contract.source" class="noPadding" tabTitle="Source Code">
             <pre>
               {{'\n'+address.contract.source}}
