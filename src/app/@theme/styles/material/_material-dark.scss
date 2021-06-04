@@ -9,9 +9,9 @@
 
 $theme: (
   color-primary-100: #fff2f7,
-  color-primary-200: #ffd4e3,
-  color-primary-300: #fc9abc,
-  color-primary-400: #1f5de8,
+  color-primary-200: #c0c0c0,
+  color-primary-300: #e01afa,
+  color-primary-400: #7705e0,
   color-primary-500: #fff2f7,
   color-primary-600: #211d33,
   color-primary-700: #a80d43,
@@ -20,7 +20,10 @@ $theme: (
 
   layout-background-color: black,
   card-background-color: #191919,
-  card-header-basic-background-color: #6a6582,
+  card-header-background-color: red,
+  card-header-basic-background-color: color-primary-400,
+  sidebar-menu-item-highlight-color: color-primary-400,
+  color-basic-700: color-primary-400,
 
   color-primary-transparent-100: rgba(233, 29, 99, 0.08),
   color-primary-transparent-200: rgba(233, 29, 99, 0.16),
@@ -103,7 +106,6 @@ $theme: (
   color-basic-400: #d4d4d4,
   color-basic-500: #b3b3b3,
   color-basic-600: #808080,
-  color-basic-700: #404040,
   color-basic-800: #353535,
   color-basic-900: #303030,
   color-basic-1000: #1f1f1f,
@@ -146,7 +148,7 @@ $theme: (
   color-basic-transparent-disabled-border: color-basic-transparent-300,
 
   color-primary-focus: color-primary-600,
-  color-primary-hover: color-primary-400,
+  color-primary-hover: color-primary-300,
   color-primary-default: color-primary-500,
   color-primary-active: color-primary-600,
   color-primary-disabled: color-basic-transparent-300,
