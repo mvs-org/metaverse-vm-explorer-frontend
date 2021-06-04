@@ -49,6 +49,11 @@ const routes: Routes = [{
         .then(m => m.MSTsModule),
     },
     {
+      path: 'mits',
+      loadChildren: () => import('./mits/mits.module')
+        .then(m => m.MITsModule),
+    },
+    {
       path: 'miscellaneous',
       loadChildren: () => import('./miscellaneous/miscellaneous.module')
         .then(m => m.MiscellaneousModule),

@@ -22,4 +22,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'code-outline',
     link: '/msts',
   },
+  {
+    title: 'MIT',
+    icon: 'image-outline',
+    link: '/mits',
+  },
 ];
