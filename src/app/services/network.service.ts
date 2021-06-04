@@ -17,7 +17,6 @@ export class NetworkService {
   setNetwork(network: string){
     if(this.allowedNetworks.indexOf(network)!==-1){
       this.network$.next(network)
-      console.log('foo')
       this.network = network
     }
   }
