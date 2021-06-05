@@ -7,3 +7,21 @@
 .price-info {
   padding: 10px;
 }
+
+.dapp-list{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  .dapp-item{
+    max-width: 100%;
+    flex: auto;
+    text-align: center;
+    img.logo{
+      margin: 20px 0 20px 0px;
+      max-width: 300px;
+      max-height:180px;
+      height: auto;
+    }
+  }
+}

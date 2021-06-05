@@ -4,15 +4,27 @@
     <nb-card-body class="row">
       <div class="col-sm-4 price-info" style="text-align: center;">
         <b>current</b><br>
-        {{price.current_USD | currency :  ' ' :'symbol':'0.2-4'}} $
+        {{price.current_USD | currency : ' ' :'symbol':'0.2-4'}} $
       </div>
       <div class="col-sm-4 price-info" style="text-align: center;">
         <b>24h change</b><br>
-        {{price.change24h_USD | currency :  ' ' :'symbol':'0.2-4'}} $ ({{(price.current_USD/(price.current_USD-price.change24h_USD)-1)*100 | number}}%)
-    </div>
+        {{price.change24h_USD | currency : ' ' :'symbol':'0.2-4'}} $
+        ({{(price.current_USD/(price.current_USD-price.change24h_USD)-1)*100 | number}}%)
+      </div>
       <div class="col-sm-4 price-info" style="text-align: center;">
         <b>7d change</b><br>
-        {{price.change7d_USD | currency :  ' ' :'symbol':'0.2-4' }} $ ({{(price.current_USD/(price.current_USD-price.change7d_USD)-1)*100 | number}}%)
+        {{price.change7d_USD | currency : ' ' :'symbol':'0.2-4' }} $
+        ({{(price.current_USD/(price.current_USD-price.change7d_USD)-1)*100 | number}}%)
+      </div>
+    </nb-card-body>
+  </nb-card>
+  <nb-card>
+    <nb-card-header>
+      Trending dApps on the MetaverseVM
+    </nb-card-header>
+    <nb-card-body>
+      <div class="dapp-list">
+        <a [href]="dapp.url" target="_blank" rel="noopener noreferrer" class="dapp-item" *ngFor="let dapp of dapps"><img [src]="dapp.image" class="logo" [alt]="dapp.name"></a>
       </div>
     </nb-card-body>
   </nb-card>

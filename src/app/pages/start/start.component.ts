@@ -19,6 +19,24 @@ export class StartComponent implements OnInit, OnDestroy {
   dataSubscription: Subscription
   currentTimestamp
 
+  dapps = [
+    {
+      name: 'Gene.finance',
+      image: '/assets/dapps/genefinance.png',
+      url: 'https://gene.finance',
+    },
+    {
+      name: 'Stickers.art',
+      image: '/assets/dapps/stickers.png',
+      url: 'https://stickers.art',
+    },
+    {
+      name: 'OpenNFT.io',
+      image: '/assets/dapps/opennft.png',
+      url: 'https://opennft.io',
+    },
+  ]
+
   constructor(private apollo: Apollo) { }
 
   ngOnDestroy(): void {
