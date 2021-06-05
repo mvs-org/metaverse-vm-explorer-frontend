@@ -38,3 +38,44 @@
     </nb-list>
   </nb-card>
 </div>
+<div *ngIf="pairs">
+  <nb-card>
+    <nb-card-header>Pairs</nb-card-header>
+    <nb-list>
+      <nb-list-item>
+        <div class="col-md-2">
+          Pair
+        </div>
+        <div class="col-md-2" style="text-align: right;">
+          Liquidity (USD)
+        </div>
+        <div class="col-md-3" style="text-align: right;">
+          Liquidity
+        </div>
+        <div class="col-md-2" style="text-align: right;">
+          24h Tx Count
+        </div>
+        <div class="col-md-3" style="text-align: right;">
+          24h Trading Volume (USD)
+        </div>
+      </nb-list-item>
+      <nb-list-item *ngFor="let pair of pairs">
+        <div class="col-md-2">
+          {{ pair.token0.symbol }}_{{ pair.token1.symbol }}
+        </div>
+        <a class="col-md-2" style="text-align: right;">
+          {{ pair.volumeUSD | currency : ' ' }}
+        </a>
+        <div class="col-md-3" style="text-align: right;">
+          {{ pair.volumeToken1 | currency : ' ' }} {{ pair.token1.symbol }}
+        </div>
+        <div class="col-md-2" style="text-align: right;">
+          {{ pair.txs24h }}
+        </div>
+        <div class="col-md-3" style="text-align: right;">
+          {{ pair.volumeUSD24h | currency : ' ' }}
+        </div>
+      </nb-list-item>
+    </nb-list>
+  </nb-card>
+</div>
