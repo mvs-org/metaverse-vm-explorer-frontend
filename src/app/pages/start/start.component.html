@@ -24,7 +24,7 @@
     </nb-card-header>
     <nb-card-body>
       <div class="dapp-list">
-        <a [href]="dapp.url" target="_blank" rel="noopener noreferrer" class="dapp-item" *ngFor="let dapp of dapps"><img [src]="dapp.image" class="logo" [alt]="dapp.name"></a>
+        <a [href]="dapp.url" [ngStyle]="{'background-color': dapp.bg,  'background-image': dapp.gradient}" target="_blank" rel="noopener noreferrer" class="dapp-item" *ngFor="let dapp of dapps"><img [src]="dapp.image" class="logo" [alt]="dapp.name"></a>
       </div>
     </nb-card-body>
   </nb-card>

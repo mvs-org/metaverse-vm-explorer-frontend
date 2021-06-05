@@ -24,16 +24,19 @@ export class StartComponent implements OnInit, OnDestroy {
       name: 'Gene.finance',
       image: '/assets/dapps/genefinance.png',
       url: 'https://gene.finance',
+      gradient: 'linear-gradient(120deg, #E81E78 , #270E42)'
     },
     {
       name: 'Stickers.art',
       image: '/assets/dapps/stickers.png',
       url: 'https://stickers.art',
+      bg: '#022780',
     },
     {
       name: 'OpenNFT.io',
       image: '/assets/dapps/opennft.png',
       url: 'https://opennft.io',
+      bg: '#1B1A1C',
     },
   ]
 
