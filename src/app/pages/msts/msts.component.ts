@@ -22,10 +22,10 @@ export class MSTsComponent implements OnInit {
     this.loadPairs()
   }
 
-  async loadMSTs(){
+  async loadMSTs() {
     const { data, loading, error } = await this.apollo
-    .query<any>({
-      query: gql`
+      .query<any>({
+        query: gql`
       {
         msts {
           symbol
@@ -36,14 +36,14 @@ export class MSTsComponent implements OnInit {
         }
       }
     `,
-    }).toPromise()
-  this.msts = data?.msts
-  this.loading = loading
-  this.error = error
+      }).toPromise()
+    this.msts = data?.msts
+    this.loading = loading
+    this.error = error
   }
 
   async loadPairs() {
-    const { data, loading, error } = await this.apollo.use('genefinance')
+    const { data } = await this.apollo.use('genefinance')
       .query<any>({
         query: gql`
 {
@@ -60,20 +60,20 @@ export class MSTsComponent implements OnInit {
     reserve1
     pairHourData(orderBy:hourStartUnix orderDirection:desc first: 24){
       hourStartUnix
-      reserveUSD
       hourlyVolumeUSD
       hourlyTxns
-      hourlyVolumeToken0
-      hourlyVolumeToken1
     }
   }
 }
       `
       }).toPromise()
-    this.pairs = data?.pairs.map((pair:any)=>({
+    const yesterdayTimestamp = new Date().getTime() / 1000 - 86400
+    this.pairs = data?.pairs.map((pair: any) => ({
       ...pair,
-      volumeUSD24h: pair.pairHourData.reduce((acc, cur)=>acc+Number(cur.hourlyVolumeUSD), 0),
-      txs24h: pair.pairHourData.reduce((acc, cur)=>acc+Number(cur.hourlyTxns), 0),
+      volumeUSD24h: pair.pairHourData
+        .reduce((acc, cur) => yesterdayTimestamp <= cur.hourStartUnix ? acc + Number(cur.hourlyVolumeUSD) : acc, 0),
+      txs24h: pair.pairHourData
+        .reduce((acc, cur) => yesterdayTimestamp <= cur.hourStartUnix ? acc + Number(cur.hourlyTxns) : acc, 0),
     }))
   }
 
