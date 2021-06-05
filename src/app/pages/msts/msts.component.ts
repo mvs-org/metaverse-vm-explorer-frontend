@@ -56,9 +56,8 @@ export class MSTsComponent implements OnInit {
     }
     token0Price
     token1Price
-    volumeToken0
-    volumeToken1
-    volumeUSD
+    reserveUSD
+    reserve1
     pairHourData(orderBy:hourStartUnix orderDirection:desc first: 24){
       hourStartUnix
       reserveUSD

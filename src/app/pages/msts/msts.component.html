@@ -64,10 +64,10 @@
           {{ pair.token0.symbol }}_{{ pair.token1.symbol }}
         </div>
         <a class="col-md-2" style="text-align: right;">
-          {{ pair.volumeUSD | currency : ' ' }}
+          {{ pair.reserveUSD | currency : ' ' }}
         </a>
         <div class="col-md-3" style="text-align: right;">
-          {{ pair.volumeToken1 | currency : ' ' }} {{ pair.token1.symbol }}
+          {{ pair.reserve1 | currency : ' ' }} {{ pair.token1.symbol }}
         </div>
         <div class="col-md-2" style="text-align: right;">
           {{ pair.txs24h }}
