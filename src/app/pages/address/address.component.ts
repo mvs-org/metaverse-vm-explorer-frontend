@@ -62,6 +62,7 @@ export class AddressComponent implements OnInit {
                 to
                 value
                 blockNumber
+                confirmedAt
                 tokenInfo {
                   symbol
                   decimals
@@ -161,6 +162,7 @@ export class AddressComponent implements OnInit {
           to
           value
           blockNumber
+          confirmedAt
           tokenInfo {
             symbol
             decimals

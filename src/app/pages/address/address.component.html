@@ -145,7 +145,7 @@
                   To
                 </div>
                 <div class="col-md-2" style="text-align: right;">
-                  Block
+                  Date
                 </div>
               </nb-list-item>
               <nb-list-item *ngFor="let tx of mstTransfers">
@@ -163,7 +163,7 @@
                   {{ tx.to }}
                 </a>
                 <a class="col-md-2" style="text-align: right;" [routerLink]="'../../block/'+tx.blockNumber">
-                  {{tx.blockNumber}}
+                  {{ tx.confirmedAt * 1000 | date : 'short'}}
                 </a>
               </nb-list-item>
             </nb-list>
