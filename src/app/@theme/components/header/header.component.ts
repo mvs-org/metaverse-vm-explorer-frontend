@@ -47,7 +47,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     },
   ];
 
-  currentTheme = 'material-light';
+  currentTheme = 'material-dark';
 
   userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
 
@@ -66,7 +66,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.materialTheme$ = this.themeService.onThemeChange()
       .pipe(map(theme => {
         const themeName: string = theme?.name || ''
-        return themeName.startsWith('material-light')
+        return themeName.startsWith('material')
       }))
   }
 
