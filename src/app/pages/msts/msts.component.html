@@ -11,11 +11,11 @@
         <div class="col-md-2">
           Symbol
         </div>
+        <div class="col-md-4">
+          Address
+        </div>
         <div class="col-md-1" style="text-align: right;">
           Decimals
-        </div>
-        <div class="col-md-4" style="text-align: right;">
-          Address
         </div>
       </nb-list-item>
       <nb-list-item *ngFor="let mst of msts">
@@ -28,12 +28,12 @@
         <div class="col-md-2">
           {{ mst.symbol }}
         </div>
+        <a class="col-md-4 mono break-dots" [routerLink]="'../address/'+mst.address">
+          {{ mst.address }}
+        </a>
         <div class="col-md-1" style="text-align: right;">
           {{ mst.decimals }}
         </div>
-        <a class="col-md-4 mono" style="text-align: right;"  [routerLink]="'../address/'+mst.address">
-          {{ mst.address }}
-        </a>
       </nb-list-item>
     </nb-list>
   </nb-card>
