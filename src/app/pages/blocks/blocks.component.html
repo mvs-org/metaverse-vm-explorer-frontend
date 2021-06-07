@@ -1,8 +1,10 @@
-<div *ngIf="!initialLoading" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="loadBlocks()">
+<div *ngIf="!initialLoading" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0"
+  (scrolled)="loadBlocks()">
   <nb-card>
     <nb-card-header>Blocks</nb-card-header>
-    <nb-list>
-      <nb-list-item>
+    <!--Display large screens-->
+    <nb-list class="col-12 d-none d-md-block">
+      <nb-list-item class="row">
         <div class="col-md-6">
           Hash
         </div>
@@ -13,7 +15,7 @@
           Time
         </div>
       </nb-list-item>
-      <nb-list-item *ngFor="let block of blocks">
+      <nb-list-item *ngFor="let block of blocks" class="row">
         <a class="col-md-6 break-dots mono" [routerLink]="'../block/'+block.hash">
           {{ block.hash }}
         </a>
@@ -21,6 +23,25 @@
           {{ block.number }}
         </a>
         <div class="col-md-3" style="text-align: right;">
+          {{ block.timestamp * 1000 | date : 'short' }}
+        </div>
+      </nb-list-item>
+    </nb-list>
+
+    <!--Display small screens-->
+    <nb-list class="col-12 d-md-none">
+      <nb-list-item *ngFor="let block of blocks" class="row">
+        <a class="col-12 break-dots mono" [routerLink]="'../block/'+block.hash">
+          {{ block.hash }}
+        </a>
+        <br>
+        <div class="col-6">
+          Block
+          <a [routerLink]="'../block/'+block.number">
+            {{ block.number }}
+          </a>
+        </div>
+        <div class="col-6" style="text-align: right;">
           {{ block.timestamp * 1000 | date : 'short' }}
         </div>
       </nb-list-item>
