@@ -43,7 +43,7 @@
       <div class="row" *ngIf="tx.input!=='0x'">
         <div class="col-md-12">
           Input data:
-          <div class="break-word">{{tx.input}}</div>
+          <div class="break-word mono">{{tx.input}}</div>
         </div>
       </div>
     </nb-card-body>
@@ -82,17 +82,17 @@
         <div class="log" *ngFor="let log of tx.receipt.logs">
           <div class="row">
             <div class="col-md-3">Address</div>
-            <a [routerLink]="'../../address/'+log.address" class="col-md-9 break-word">{{log.address}}</a>
+            <a [routerLink]="'../../address/'+log.address" class="col-md-9 break-word mono">{{log.address}}</a>
           </div>
           <div class="row">
             <div class="col-md-3">Topics</div>
             <div class="col-md-9">
-              <div class="break-word" *ngFor="let topic of log.topics">{{topic}}</div>
+              <div class="break-word mono" *ngFor="let topic of log.topics">{{topic}}</div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-3">Data</div>
-            <div class="col-md-9 break-word">{{log.data}}</div>
+            <div class="col-md-9 break-word mono">{{log.data}}</div>
           </div>
           <hr>
         </div>
