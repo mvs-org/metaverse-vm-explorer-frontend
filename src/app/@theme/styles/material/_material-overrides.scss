@@ -6,7 +6,7 @@
           color: nb-theme(color-basic-100) !important;
         }
       }
-  
+
       .select-button {
         background-color: nb-theme(background-basic-color-3) !important;
       }
@@ -25,7 +25,7 @@
       border-bottom-right-radius: 0.125rem;
 
       nb-card-header, .tabset {
-        background-color: nb-theme(card-divider-color);
+        background-color: none;
       }
     }
 
