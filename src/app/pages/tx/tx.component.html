@@ -13,7 +13,6 @@
       </div>
     </nb-card-header>
     <nb-card-body>
-
       <div class="row">
         <div class="col-sm-5">
           <div>From:</div>
@@ -60,6 +59,15 @@
     <nb-tabset>
       <nb-tab class="noPadding" tabTitle="Details">
         <nb-list>
+          <nb-list-item>
+            <div class="col-md-6">
+              Status
+            </div>
+            <div class="col-md-6" style="text-align: right;">
+              <nb-icon *ngIf="tx.receipt.status" status="success" [icon]="'checkmark-outline'"></nb-icon>
+              <nb-icon *ngIf="!tx.receipt.status" status="danger" [icon]="'close-outline'"></nb-icon>
+            </div>
+          </nb-list-item>
           <nb-list-item>
             <div class="col-md-6">
               Gas price
