@@ -25,14 +25,14 @@ export class StartComponent implements OnInit, OnDestroy {
       image: '/assets/dapps/genefinance.png',
       url: 'https://gene.finance',
       gradient: 'linear-gradient(120deg, #E81E78 , #270E42)',
-      description: 'Gene Finance is a multi-chain Defi ecosystem that is currently on the Metaverse, Ethereum and Heco Blockchain.'
+      description: 'Gene Finance is a multi-chain Defi ecosystem that is currently on the Metaverse, Ethereum and Heco Blockchain'
     },
     {
       name: 'Stickers.art',
       image: '/assets/dapps/stickers.png',
       url: 'https://stickers.art',
       bg: '#022780',
-      description: 'Stickers is an NFT platform powered by the Gene Finance ecosystem and a cross-chain Defi project.'
+      description: 'Stickers is an NFT platform powered by the Gene Finance ecosystem and a cross-chain Defi project'
     },
     {
       name: 'OpenNFT.io',
