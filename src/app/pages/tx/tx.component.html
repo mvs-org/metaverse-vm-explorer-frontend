@@ -24,13 +24,22 @@
           <div *ngIf="tx.value && tx.value > 0">
             {{tx.value/1000000000000000000}} ETP
           </div>
-          <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+          <nb-icon *ngIf="tx.input==='0x'" [icon]="'arrow-forward-outline'"></nb-icon>
+          <div *ngIf="tx.input!=='0x' && tx.to">calls</div>
+          <div *ngIf="tx.creates">deploys</div>
         </div>
 
         <div class="col-sm-5" style="text-align: right;">
-          <div>To:</div>
-          <a class="mono" [routerLink]="'../../address/'+tx.to">{{ tx.to }}</a>
+          <div *ngIf="tx.to">
+            <div>To:</div>
+            <a class="mono" [routerLink]="'../../address/'+tx.to">{{ tx.to }}</a>
+          </div>
+          <div *ngIf="tx.creates">
+            <div>Contract:</div>
+            <a class="mono" [routerLink]="'../../address/'+tx.creates">{{ tx.creates }}</a>
+          </div>
         </div>
+      </div>
       <div class="row" *ngIf="tx.input!=='0x'">
         <div class="col-md-12">
           Input data:
@@ -40,7 +49,8 @@
     </nb-card-body>
     <nb-card-footer>
       <div style="text-align: right;">
-        Fees: {{ tx.gasPrice*tx.gas | decimals: [18, 6] }} ETP (~{{tx.gasPrice*tx.gas*price.current_USD | decimals: [18, 6]}} USD)
+        Fees: {{ tx.gasPrice*tx.gas | decimals: [18, 6] }} ETP (~{{tx.gasPrice*tx.gas*price.current_USD | decimals: [18,
+        6]}} USD)
       </div>
     </nb-card-footer>
   </nb-card>
