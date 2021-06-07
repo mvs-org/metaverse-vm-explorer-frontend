@@ -19,23 +19,24 @@
     max-width: 100%;
     flex: 1;
     background-color: lightgray;
-    min-height: 230px;
+    min-height: 200px;
     margin: 20px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     padding: 20px;
     text-decoration: none !important;
 
     img.logo{
       max-width: 300px;
-      max-height: 120px;
+      max-height: 100px;
       height: auto;
     }
 
     p{
+      color: white;
       padding-top: 10px;
       text-align: left;
       min-height: 2ex;

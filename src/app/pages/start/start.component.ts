@@ -38,7 +38,7 @@ export class StartComponent implements OnInit, OnDestroy {
       name: 'OpenNFT.io',
       image: '/assets/dapps/opennft.png',
       url: 'https://opennft.io',
-      bg: '#1B1A1C',
+      bg: '#2d2c2f',
       description: 'Multichain NFT Marketplace for the Metaverse and Heco Blockchain'
     },
   ]
