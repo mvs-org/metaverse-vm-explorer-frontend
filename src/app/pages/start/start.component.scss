@@ -9,26 +9,38 @@
 }
 
 .dapp-list{
+
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+
   .dapp-item{
     max-width: 100%;
-    flex: auto;
-    text-align: center;
+    flex: 1;
     background-color: lightgray;
-min-height: 230px;
-margin: 20px;
-border-radius: 20px;
-display: flex;
-  justify-content: center;
-  align-items: center;
+    min-height: 230px;
+    margin: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    text-decoration: none !important;
+
     img.logo{
-      margin: 20px;
       max-width: 300px;
-      max-height:180px;
+      max-height: 120px;
       height: auto;
     }
+
+    p{
+      padding-top: 10px;
+      text-align: left;
+      min-height: 2ex;
+    }
+
   }
+
 }

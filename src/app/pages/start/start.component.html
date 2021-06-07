@@ -23,7 +23,10 @@
       Trending dApps on the MetaverseVM
     </nb-card-header>
       <div class="dapp-list">
-        <a [href]="dapp.url" [ngStyle]="{'background-color': dapp.bg,  'background-image': dapp.gradient}" target="_blank" rel="noopener noreferrer" class="dapp-item" *ngFor="let dapp of dapps"><img [src]="dapp.image" class="logo" [alt]="dapp.name"></a>
+        <a [href]="dapp.url" [ngStyle]="{'background-color': dapp.bg,  'background-image': dapp.gradient}" target="_blank" rel="noopener noreferrer" class="dapp-item" *ngFor="let dapp of dapps">
+          <img [src]="dapp.image" class="logo" [alt]="dapp.name">
+          <p *ngIf="dapp.description" [innerText]="dapp.description"></p>
+        </a>
       </div>
   </nb-card>
   <div class="row">
