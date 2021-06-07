@@ -1,9 +1,11 @@
-<div *ngIf="!initialLoading" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="loadTxs()">
+<div *ngIf="!initialLoading" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0"
+  (scrolled)="loadTxs()">
   <div class="col-md-12">
     <nb-card>
       <nb-card-header>Transactions</nb-card-header>
-      <nb-list>
-        <nb-list-item>
+      <!--Display large screens-->
+      <nb-list class="col-12 d-none d-md-block">
+        <nb-list-item class="row">
           <div class="col-md-3">
             Hash
           </div>
@@ -22,7 +24,7 @@
             Time
           </div>
         </nb-list-item>
-        <nb-list-item *ngFor="let tx of txs">
+        <nb-list-item *ngFor="let tx of txs" class="row">
           <a class="col-md-3 break-dots mono" [routerLink]="'../tx/'+tx.hash">
             {{ tx.hash }}
           </a>
@@ -41,7 +43,36 @@
           <div class="col-md-2" style="text-align: right;">
             {{ tx.confirmedAt * 1000 | date : 'short'}}
           </div>
+        </nb-list-item>
+      </nb-list>
 
+      <!--Display small screens-->
+      <nb-list class="col-12 d-md-none">
+        <nb-list-item *ngFor="let tx of txs" class="row">
+          <a class="col-12 break-dots mono padding-bottom" [routerLink]="'../tx/'+tx.hash">
+            {{ tx.hash }}
+          </a>
+          <div class="col-12">From:</div>
+          <a class="col-12 break-dots mono" [routerLink]="'../address/'+tx.from">
+            {{ tx.from }}
+          </a>
+          <div class="col-12" style="text-align: center;">
+            <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+          </div>
+          <div class="col-12" style="text-align: right;">To:</div>
+          <a class="col-md-12 break-dots mono padding-bottom" style="text-align: right;" [routerLink]="'../address/'+tx.to">
+            {{ tx.to }}
+          </a>
+          <div class="col-6">
+            Block
+            <a [routerLink]="'../block/'+tx.blockNumber">
+              {{ tx.blockNumber }}
+            </a>
+          </div>
+
+          <div class="col-6" style="text-align: right;">
+            {{ tx.confirmedAt * 1000 | date : 'short'}}
+          </div>
         </nb-list-item>
       </nb-list>
     </nb-card>
