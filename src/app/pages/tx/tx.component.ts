@@ -16,6 +16,8 @@ export class TxComponent implements OnInit {
   error: any
   hash: String
 
+  showInputData = false
+
   constructor(
     private apollo: Apollo,
     private activatedRoute: ActivatedRoute,
