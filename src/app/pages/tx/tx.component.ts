@@ -47,6 +47,14 @@ export class TxComponent implements OnInit {
                 creates
                 value
                 raw
+                receipt{
+                  status
+                  logs{
+                    address
+                    data
+                    topics
+                  }
+                }
                 gasPrice
                 gas
               }

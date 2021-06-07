@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TxRoutingModule, routedComponents } from './tx-routing.module'
-import { NbCardModule, NbListModule, NbIconModule } from '@nebular/theme'
+import { NbCardModule, NbListModule, NbIconModule, NbTabsetModule } from '@nebular/theme'
 import { PipesModule } from '../../pipes/pipes.module'
 
 @NgModule({
@@ -10,6 +10,7 @@ import { PipesModule } from '../../pipes/pipes.module'
     NbCardModule,
     NbListModule,
     NbIconModule,
+    NbTabsetModule,
     PipesModule,
     TxRoutingModule,
   ],

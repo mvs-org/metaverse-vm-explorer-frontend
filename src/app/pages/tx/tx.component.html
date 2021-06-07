@@ -57,25 +57,47 @@
 
 
   <nb-card>
-    <nb-card-header>Details</nb-card-header>
-    <nb-list>
-      <nb-list-item>
-        <div class="col-md-6">
-          Gas price
+    <nb-tabset>
+      <nb-tab class="noPadding" tabTitle="Details">
+        <nb-list>
+          <nb-list-item>
+            <div class="col-md-6">
+              Gas price
+            </div>
+            <div class="col-md-6" style="text-align: right;">
+              {{ tx.gasPrice }}
+            </div>
+          </nb-list-item>
+          <nb-list-item>
+            <div class="col-md-6">
+              Gas limit
+            </div>
+            <div class="col-md-6" style="text-align: right;">
+              {{ tx.gas }}
+            </div>
+          </nb-list-item>
+        </nb-list>
+      </nb-tab>
+      <nb-tab *ngIf="tx.receipt.logs.length" class="noPadding" tabTitle="Logs">
+        <div class="log" *ngFor="let log of tx.receipt.logs">
+          <div class="row">
+            <div class="col-md-3">Address</div>
+            <a [routerLink]="'../../address/'+log.address" class="col-md-9 break-word">{{log.address}}</a>
+          </div>
+          <div class="row">
+            <div class="col-md-3">Topics</div>
+            <div class="col-md-9">
+              <div class="break-word" *ngFor="let topic of log.topics">{{topic}}</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">Data</div>
+            <div class="col-md-9 break-word">{{log.data}}</div>
+          </div>
+          <hr>
         </div>
-        <div class="col-md-6" style="text-align: right;">
-          {{ tx.gasPrice }}
-        </div>
-      </nb-list-item>
-      <nb-list-item>
-        <div class="col-md-6">
-          Gas limit
-        </div>
-        <div class="col-md-6" style="text-align: right;">
-          {{ tx.gas }}
-        </div>
-      </nb-list-item>
-    </nb-list>
+      </nb-tab>
+    </nb-tabset>
   </nb-card>
 
 </div>
