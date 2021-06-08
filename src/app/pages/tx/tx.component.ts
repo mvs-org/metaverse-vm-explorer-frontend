@@ -55,6 +55,11 @@ export class TxComponent implements OnInit {
                     address
                     data
                     topics
+                    decoded{
+                      name
+                      signature
+                      values
+                    }
                   }
                 }
                 gasPrice

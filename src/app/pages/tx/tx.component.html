@@ -105,14 +105,30 @@
             <a [routerLink]="'../../address/'+log.address" class="col-md-9 break-word mono">{{log.address}}</a>
           </div>
           <div class="row">
-            <div class="col-md-3">Topics</div>
-            <div class="col-md-9">
-              <div class="break-word mono" *ngFor="let topic of log.topics">{{topic}}</div>
+            <div *ngIf="log.decoded" class="col-md-12 decoded">
+              <div class="break-word mono">{{log.decoded.signature}}</div>
+              <div *ngFor="let value of log.decoded.values" class="break-word mono row">
+                <div class="col-md-3">
+                {{value.name}}
+                </div>
+                <div class="col-md-9">
+                  <span *ngIf="value.value?.hex">{{value.value.hex}}</span>
+                  <span *ngIf="!value.value?.hex">{{value.value}}</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-3">Data</div>
-            <div class="col-md-9 break-word mono">{{log.data}}</div>
+          <div *ngIf="!log.decoded">
+            <div class="row">
+              <div class="col-md-3">Topics</div>
+              <div class="col-md-9">
+                <div class="break-word mono" *ngFor="let topic of log.topics">{{topic}}</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">Data</div>
+              <div class="col-md-9 break-word mono">{{log.data}}</div>
+            </div>
           </div>
           <hr>
         </div>
