@@ -31,10 +31,6 @@
     <!--Display small screens-->
     <nb-list class="col-12 d-md-none">
       <nb-list-item *ngFor="let block of blocks" class="row">
-        <a class="col-12 break-dots mono" [routerLink]="'../block/'+block.hash">
-          {{ block.hash }}
-        </a>
-        <br>
         <div class="col-6">
           Block
           <a [routerLink]="'../block/'+block.number">
@@ -44,6 +40,9 @@
         <div class="col-6" style="text-align: right;">
           {{ block.timestamp * 1000 | date : 'short' }}
         </div>
+        <a class="col-12 break-dots mono" [routerLink]="'../block/'+block.hash">
+          {{ block.hash }}
+        </a>
       </nb-list-item>
     </nb-list>
   </nb-card>

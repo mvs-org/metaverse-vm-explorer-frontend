@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>MetaverseVM Blockchain Explorer</title>
@@ -9,18 +10,127 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="favicon.png">
 </head>
+
 <body>
   <ngx-app>Loading...</ngx-app>
 
-  <style>@-webkit-keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@-moz-keyframes spin{0%{-moz-transform:rotate(0)}100%{-moz-transform:rotate(360deg)}}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.spinner{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1003;background: #000000;overflow:hidden}  .spinner div:first-child{display:block;position:relative;left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;box-shadow:0 3px 3px 0 rgba(255,56,106,1);transform:translate3d(0,0,0);animation:spin 2s linear infinite}  .spinner div:first-child:after,.spinner div:first-child:before{content:'';position:absolute;border-radius:50%}  .spinner div:first-child:before{top:5px;left:5px;right:5px;bottom:5px;box-shadow:0 3px 3px 0 rgb(255, 228, 32);-webkit-animation:spin 3s linear infinite;animation:spin 3s linear infinite}  .spinner div:first-child:after{top:15px;left:15px;right:15px;bottom:15px;box-shadow:0 3px 3px 0 rgba(61, 175, 255,1);animation:spin 1.5s linear infinite}</style>
-  <div id="nb-global-spinner" class="spinner">
-    <div class="blob blob-0"></div>
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-    <div class="blob blob-4"></div>
-    <div class="blob blob-5"></div>
+  <style>
+    body {
+      background: #000000
+    }
+
+    .icon-container {
+      width: 10vh;
+      height: 10vh;
+      margin-right: auto;
+      margin-left: auto;
+      margin-top: 30vh;
+      perspective: 400px;
+      -webkit-animation-name: rotate;
+      -webkit-animation-duration: 2s;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+      animation-name: rotate;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    @-webkit-keyframes rotate {
+      from {
+        -webkit-transform: rotate(0deg);
+      }
+
+      to {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes rotate {
+      from {
+        -webkit-transform: rotate(0deg);
+      }
+
+      to {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+  </style>
+
+  <div class="icon-container">
+    <svg id="mvs_dots" data-name="metaverse dots" xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 786.37 742.23">
+      <defs>
+        <style>
+          .cls-1 {
+            fill: #e71a13;
+          }
+
+          .cls-2 {
+            fill: #e44215;
+          }
+
+          .cls-3 {
+            fill: #15608b;
+          }
+
+          .cls-4 {
+            fill: #e65b13;
+          }
+
+          .cls-5 {
+            fill: #1577a6;
+          }
+
+          .cls-6 {
+            fill: #ee7624;
+          }
+
+          .cls-7 {
+            fill: #eb8e17;
+          }
+
+          .cls-8 {
+            fill: #eda819;
+          }
+
+          .cls-9 {
+            fill: #fbc93b;
+          }
+
+          .cls-10 {
+            fill: #2aa7d7;
+          }
+
+          .cls-11 {
+            fill: #238ec2;
+          }
+
+          .cls-12 {
+            fill: #34bdef;
+          }
+        </style>
+      </defs>
+      <path class="cls-1" d="M112.48,518.36c31.89,0,57.29,25.35,57.08,57a57.06,57.06,0,1,1-57.08-57Z" />
+      <path class="cls-2"
+        d="M100.94,407.58c-.15,28.7-22.14,50.07-50.87,50.37-27.44.29-51-23.86-50-52.38.94-26.63,23.43-48.92,50.79-48.78A50.2,50.2,0,0,1,100.94,407.58Z" />
+      <path class="cls-3"
+        d="M738.55,389.84a47,47,0,1,1,1.12-94.06c29.81.69,46.94,23.61,46.7,47.33C786.12,367.59,768.14,389.67,738.55,389.84Z" />
+      <path class="cls-4" d="M126,228A43.93,43.93,0,1,1,82.29,183.7C107.05,183.84,126,203.08,126,228Z" />
+      <path class="cls-5"
+        d="M706.61,484.59c21.82.05,38.49,16.74,38.49,38.52,0,22.49-16.9,39.12-39.67,39-21-.07-37.87-17.47-37.84-38.95C667.63,501.23,684.5,484.53,706.61,484.59Z" />
+      <path class="cls-6"
+        d="M194.83,130.57c-21.13.1-37.52-16-37.61-37a37.3,37.3,0,0,1,37.12-37.73,37.7,37.7,0,0,1,38.07,37.5C232.51,114,215.85,130.46,194.83,130.57Z" />
+      <path class="cls-7"
+        d="M392.62,31.1c0,18-12.87,31.09-30.55,31.08-17.4,0-31.32-13.69-30.82-31.16C331.83,11,345.91.1,361.9,0,379.69-.11,393.4,13.6,392.62,31.1Z" />
+      <circle class="cls-8" cx="541.69" cy="62.18" r="25.71" />
+      <circle class="cls-9" cx="676.36" cy="176.45" r="19.61" />
+      <circle class="cls-10" cx="426.16" cy="718.42" r="23.82" />
+      <circle class="cls-11" cx="592.25" cy="657.15" r="31.83" />
+      <circle class="cls-12" cx="248.59" cy="687" r="16.07" />
+    </svg>
   </div>
 
 </body>
+
 </html>
