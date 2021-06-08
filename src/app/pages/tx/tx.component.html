@@ -40,8 +40,17 @@
         </div>
       </div>
       <div class="row" *ngIf="tx.input!=='0x'">
+        <div *ngIf="tx.decoded" class="col-md-12 decoded">
+          <div class="break-word mono">{{tx.decoded.name}}</div>
+          <div *ngFor="let arg of tx.decoded.arguments" class="break-word mono">
+            {{arg.name}}:
+            <span *ngIf="arg.value?.hex">{{arg.value.hex}}</span>
+            <span *ngIf="!arg.value?.hex">{{arg.value}}</span>
+          </div>
+        </div>
         <div class="col-md-12">
-          <a *ngIf="!showInputData" style="cursor: pointer; text-decoration:underline;" (click)="showInputData=true">show input data</a>
+          <a *ngIf="!showInputData" style="cursor: pointer; text-decoration:underline;"
+            (click)="showInputData=true">show input data</a>
         </div>
         <div *ngIf="showInputData" class="col-md-12">
           Input data:

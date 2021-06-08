@@ -59,6 +59,11 @@ export class TxComponent implements OnInit {
                 }
                 gasPrice
                 gas
+                decoded{
+                  name
+                  arguments
+                  signature
+                }
               }
             }
           `,
