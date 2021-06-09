@@ -1,4 +1,5 @@
-<div *ngIf="!loading">
+<div *ngIf="initialLoading" class="loading-spinner"></div>
+<div *ngIf="!initialLoading">
   <div class="row">
     <div class="col-12 col-md-6">
       <nb-card>
@@ -93,7 +94,8 @@
                 No transactions for this address
               </nb-list-item>
             </nb-list>
-            <nb-list *ngIf="transactions && transactions.length > 0" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="scrollTx()">
+            <nb-list *ngIf="transactions && transactions.length > 0" infiniteScroll [infiniteScrollDistance]="2"
+              [infiniteScrollThrottle]="0" (scrolled)="scrollTx()">
               <nb-list-item>
                 <div class="col-md-3">
                   Transaction
@@ -156,7 +158,8 @@
                   {{ tx.from }}
                 </a>
                 <div class="col-md-1" style="text-align: center;">
-                  <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [tx.tokenInfo.decimals, 6]}} {{tx.tokenInfo.symbol}}</div>
+                  <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [tx.tokenInfo.decimals, 6]}}
+                    {{tx.tokenInfo.symbol}}</div>
                   <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
                 </div>
                 <a class="col-md-3 break-dots mono" [routerLink]="'../'+tx.to">
@@ -210,9 +213,9 @@
               {{'\n'+address.contract.bytecode}}
             </pre>
           </nb-tab>
-
         </nb-tabset>
       </nb-card>
     </div>
-
+    <div *ngIf="(selectedTab == tabsTitles[0] && loadingTxs) || (selectedTab == tabsTitles[1] && loadingMstTxs)" class="loading-spinner"></div>
   </div>
+</div>

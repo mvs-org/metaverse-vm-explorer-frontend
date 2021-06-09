@@ -58,4 +58,41 @@
     font-family: monospace;
   }
 
+  .loading-spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-image: url("/assets/img/mvs_dots.svg");
+    background-size: 40px 40px;
+    margin-left: calc(50% - 20px);
+    -webkit-animation-name: spinner;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    animation-name: spinner;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+
+  @-webkit-keyframes spinner {
+    from {
+      -webkit-transform: rotate(0deg);
+    }
+
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spinner {
+    from {
+      -webkit-transform: rotate(0deg);
+    }
+
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+
 }

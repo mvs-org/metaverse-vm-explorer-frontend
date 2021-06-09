@@ -15,7 +15,9 @@ export class AddressComponent implements OnInit {
   transactions = []
   contract: any
   mstTransfers = []
-  loading = true
+  initialLoading = true
+  loadingTxs = true
+  loadingMstTxs = true
   error: any
   info: any
   selectedTab: string
@@ -85,7 +87,6 @@ export class AddressComponent implements OnInit {
           `,
           }))
       ).subscribe(response => {
-        console.log(response)
         this.price = response.data?.price
         this.address = response.data?.address
         this.transactions = this.address.transactions
@@ -97,7 +98,7 @@ export class AddressComponent implements OnInit {
             ...(response.data?.address.contract.abi && { abi: JSON.parse(response.data?.address.contract.abi) })
           }
         }
-        this.loading = response.loading
+        this.initialLoading = response.loading
         this.error = response.error
       })
   }
@@ -119,6 +120,7 @@ export class AddressComponent implements OnInit {
   }
 
   loadMoreTransactions() {
+    this.loadingTxs = true
     this.apollo
     .query<any>({
       variables: {
@@ -140,12 +142,13 @@ export class AddressComponent implements OnInit {
       `,
     }).subscribe((response)=>{
       this.transactions = this.transactions.concat(response.data?.txs)
-      //this.loading = response.loading
+      this.loadingTxs = response.loading
       this.error = response.error
     })
   }
 
   loadMoreMstTransfers() {
+    this.loadingMstTxs = true
     this.apollo
       .query<any>({
         variables: {
@@ -172,7 +175,7 @@ export class AddressComponent implements OnInit {
       `,
       }).subscribe((response) => {
         this.mstTransfers = this.mstTransfers.concat(response.data?.mstTransfers)
-        //this.loading = response.loading
+        this.loadingMstTxs = response.loading
         this.error = response.error
       })
   }
