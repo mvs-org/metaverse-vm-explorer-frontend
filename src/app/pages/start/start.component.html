@@ -1,4 +1,4 @@
-<div *ngIf="!loading">
+<div *ngIf="!loading; else spinner">
   <nb-card>
     <nb-card-header>Price</nb-card-header>
     <nb-card-body class="row">
@@ -89,5 +89,7 @@
       </nb-card>
     </div>
   </div>
-
 </div>
+<ng-template #spinner>
+  <div class="loading-spinner page-spinner"></div>
+</ng-template>

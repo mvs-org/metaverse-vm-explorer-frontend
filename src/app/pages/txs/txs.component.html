@@ -1,4 +1,4 @@
-<div *ngIf="!initialLoading" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0"
+<div *ngIf="!initialLoading; else spinner" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0"
   (scrolled)="loadTxs()">
   <div class="col-md-12">
     <nb-card>
@@ -78,5 +78,7 @@
     </nb-card>
   </div>
   <div *ngIf="loading" class="loading-spinner"></div>
-
 </div>
+<ng-template #spinner>
+  <div class="loading-spinner page-spinner"></div>
+</ng-template>

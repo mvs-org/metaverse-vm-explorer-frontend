@@ -1,4 +1,4 @@
-<div *ngIf="!loading">
+<div *ngIf="!loading; else spinner">
   <nb-card>
     <nb-card-header>Metaverse Smart Tokens (MST)</nb-card-header>
     <nb-list>
@@ -79,3 +79,6 @@
     </nb-list>
   </nb-card>
 </div>
+<ng-template #spinner>
+  <div class="loading-spinner page-spinner"></div>
+</ng-template>

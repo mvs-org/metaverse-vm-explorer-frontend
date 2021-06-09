@@ -16,8 +16,8 @@ export class AddressComponent implements OnInit {
   contract: any
   mstTransfers = []
   initialLoading = true
-  loadingTxs = true
-  loadingMstTxs = true
+  loadingTxs = false
+  loadingMstTxs = false
   error: any
   info: any
   selectedTab: string

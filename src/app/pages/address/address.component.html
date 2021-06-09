@@ -1,5 +1,4 @@
-<div *ngIf="initialLoading" class="loading-spinner"></div>
-<div *ngIf="!initialLoading">
+<div *ngIf="!initialLoading; else spinner">
   <div class="row">
     <div class="col-12 col-md-6">
       <nb-card>
@@ -219,3 +218,6 @@
     <div *ngIf="(selectedTab == tabsTitles[0] && loadingTxs) || (selectedTab == tabsTitles[1] && loadingMstTxs)" class="loading-spinner"></div>
   </div>
 </div>
+<ng-template #spinner>
+  <div class="loading-spinner page-spinner"></div>
+</ng-template>

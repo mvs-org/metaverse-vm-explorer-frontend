@@ -5,7 +5,7 @@ import { switchMap } from 'rxjs/operators'
 import { Metadata, TokenService } from '../../services/token.service'
 
 @Component({
-  selector: 'ngx-txs',
+  selector: 'ngx-mits',
   templateUrl: './mits.component.html',
   styleUrls: ['./mits.component.scss']
 })
