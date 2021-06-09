@@ -60,7 +60,7 @@
     </nb-card-body>
     <nb-card-footer>
       <div style="text-align: right;">
-        Fees: {{ tx.gasPrice*tx.gas | decimals: [18, 6] }} ETP (~{{tx.gasPrice*tx.gas*price.current_USD | decimals: [18,
+        Fees: {{ tx.gasPrice*tx.receipt.gasUsed | decimals: [18, 6] }} ETP (~{{tx.gasPrice*tx.gas*price.current_USD | decimals: [18,
         6]}} USD)
       </div>
     </nb-card-footer>
@@ -85,7 +85,7 @@
               Gas price
             </div>
             <div class="col-md-6" style="text-align: right;">
-              {{ tx.gasPrice }}
+              {{ tx.gasPrice / 1000000000 }}
             </div>
           </nb-list-item>
           <nb-list-item>
@@ -94,6 +94,14 @@
             </div>
             <div class="col-md-6" style="text-align: right;">
               {{ tx.gas }}
+            </div>
+          </nb-list-item>
+          <nb-list-item>
+            <div class="col-md-6">
+              Gas used
+            </div>
+            <div class="col-md-6" style="text-align: right;">
+              {{ tx.receipt.gasUsed }}
             </div>
           </nb-list-item>
         </nb-list>

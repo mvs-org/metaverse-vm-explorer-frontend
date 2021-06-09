@@ -51,6 +51,7 @@ export class TxComponent implements OnInit {
                 raw
                 receipt{
                   status
+                  gasUsed
                   logs{
                     address
                     data
