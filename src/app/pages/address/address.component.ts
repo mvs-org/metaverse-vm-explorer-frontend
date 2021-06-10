@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core'
+import { NgForm } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { Apollo, gql } from 'apollo-angular'
 import { switchMap } from 'rxjs/operators'
+import { WalletService } from '../../services/wallet.service'
 
 @Component({
   selector: 'ngx-address',
@@ -25,6 +27,8 @@ export class AddressComponent implements OnInit {
     'Transactions',
     'MST Transfers',
   ]
+
+  callResults: { [name: string]: any[] } = {}
 
   constructor(
     private apollo: Apollo,
@@ -95,7 +99,14 @@ export class AddressComponent implements OnInit {
         if (response.data?.address.contract) {
           this.contract = {
             ...response.data?.address.contract,
-            ...(response.data?.address.contract.abi && { abi: JSON.parse(response.data?.address.contract.abi) })
+            ...(response.data?.address.contract.abi && {
+              abi: JSON.parse(response.data?.address.contract.abi).sort((a, b) => {
+                if (a.stateMutability == b.stateMutability) {
+                  return a.name >= b.name
+                }
+                return a.stateMutability < b.stateMutability
+              })
+            })
           }
         }
         this.initialLoading = response.loading
@@ -108,7 +119,7 @@ export class AddressComponent implements OnInit {
   }
 
   scrollTx() {
-    if(this.selectedTab == 'Transactions') {
+    if (this.selectedTab == 'Transactions') {
       this.loadMoreTransactions()
     }
   }
@@ -122,13 +133,13 @@ export class AddressComponent implements OnInit {
   loadMoreTransactions() {
     this.loadingTxs = true
     this.apollo
-    .query<any>({
-      variables: {
-        address: this.address.address,
-        startBlock: this.transactions[0] ? this.transactions[0].blockNumber + 0 : 0,
-        offset: this.transactions.length
-      },
-      query: gql`
+      .query<any>({
+        variables: {
+          address: this.address.address,
+          startBlock: this.transactions[0] ? this.transactions[0].blockNumber + 0 : 0,
+          offset: this.transactions.length
+        },
+        query: gql`
       query($address: String, $startBlock: Int!, $offset: Int!)
       {
         txs(query:{address: $address, blockNumber_lte: $startBlock}, limit: 25, sort: "desc", offset: $offset) {
@@ -140,12 +151,14 @@ export class AddressComponent implements OnInit {
         }
       }
       `,
-    }).subscribe((response)=>{
-      this.transactions = this.transactions.concat(response.data?.txs)
-      this.loadingTxs = response.loading
-      this.error = response.error
-    })
+      }).subscribe((response) => {
+        this.transactions = this.transactions.concat(response.data?.txs)
+        this.loadingTxs = response.loading
+        this.error = response.error
+      })
   }
+
+
 
   loadMoreMstTransfers() {
     this.loadingMstTxs = true

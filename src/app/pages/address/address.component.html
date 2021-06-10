@@ -180,15 +180,7 @@
                 <div>{{func.stateMutability}}</div>
               </div>
               <div class="col-md-5">
-                <div *ngIf="func.inputs.length">
-                  Parameters
-                  <form>
-                    <div *ngFor="let input of func.inputs" class="row">
-                      <label class="col-md-3" [for]="input.name">{{input.name}}</label>
-                      <input class="col-md-9" [name]="input.name" type="text" [placeholder]="input.type">
-                    </div>
-                  </form>
-                </div>
+                  <mvs-contract-call [address]="address.address" [stateMutability]="func.stateMutability" [abi]="contract.abi" [method]="func.name" [inputs]="func.inputs"></mvs-contract-call>
               </div>
               <div class="col-md-3" style="text-align: right;">
                 <div>
