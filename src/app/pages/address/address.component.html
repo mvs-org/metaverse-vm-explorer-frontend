@@ -95,6 +95,19 @@
         </nb-list>
       </nb-card>
     </div>
+    <div *ngIf="!address.contract" class="col-12 col-md-6">
+      <nb-card>
+        <nb-card-header>
+          QR Code
+        </nb-card-header>
+        <nb-card-body>
+          <ngx-qrcode
+          [value]="address.address"
+          cssClass="qrcode">
+        </ngx-qrcode>
+        </nb-card-body>
+      </nb-card>
+    </div>
   </div>
 
   <div class="row">

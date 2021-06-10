@@ -6,6 +6,7 @@ import { PipesModule } from '../../pipes/pipes.module'
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FormsModule } from '@angular/forms'
 import { ContractCallModule } from '../../components/contract-call/contract-call.module'
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode'
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { ContractCallModule } from '../../components/contract-call/contract-call
     AddressRoutingModule,
     InfiniteScrollModule,
     ContractCallModule,
+    NgxQRCodeModule,
   ],
   declarations: [
     ...routedComponents,

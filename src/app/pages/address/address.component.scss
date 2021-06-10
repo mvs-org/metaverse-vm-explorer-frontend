@@ -23,3 +23,12 @@ pre {
   white-space: pre-wrap;
   word-break: break-all;
 }
+
+div.qrcode{
+  text-align: center;
+  img{
+    width: 100%;
+    max-width: 300px;
+    margin: 10px;
+  }
+}
