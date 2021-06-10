@@ -43,8 +43,8 @@
     }
 
     .logo {
-      padding: 0 1.25rem;
-      font-size: 1.75rem;
+      padding: 0 0.5rem;
+      font-size: 0.75rem;
       @include nb-ltr(border-left, 1px solid nb-theme(divider-color));
       @include nb-rtl(border-right, 1px solid nb-theme(divider-color));
       white-space: nowrap;
@@ -59,6 +59,24 @@
     .user-action {
       border: none;
       padding: 0;
+    }
+  }
+
+  @include media-breakpoint-up(sm) {
+    .header-container {
+      .logo {
+        padding: 0 0.75rem;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    .header-container {
+      .logo {
+        padding: 0 1.25rem;
+        font-size: 1.75rem;
+      }
     }
   }
 
