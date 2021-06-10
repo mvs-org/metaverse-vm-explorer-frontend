@@ -62,7 +62,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private searchService: NbSearchService,
     private router: Router,
   ) {
-    this.networkService.network$.subscribe(console.log)
     this.materialTheme$ = this.themeService.onThemeChange()
       .pipe(map(theme => {
         const themeName: string = theme?.name || ''

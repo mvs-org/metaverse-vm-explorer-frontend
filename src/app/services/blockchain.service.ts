@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment'
 @Injectable({
   providedIn: 'root'
 })
-export class WalletService {
+export class BlockchainService {
 
   web3: Web3
 

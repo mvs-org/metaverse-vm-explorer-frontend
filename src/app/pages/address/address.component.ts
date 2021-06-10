@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core'
-import { NgForm } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { Apollo, gql } from 'apollo-angular'
 import { switchMap } from 'rxjs/operators'
-import { WalletService } from '../../services/wallet.service'
-
+import { TokenService } from '../../services/token.service'
+import BN from 'bignumber.js'
 @Component({
   selector: 'ngx-address',
   templateUrl: './address.component.html',
@@ -27,12 +26,14 @@ export class AddressComponent implements OnInit {
     'Transactions',
     'MST Transfers',
   ]
+  mstBalances: any[] = []
 
   callResults: { [name: string]: any[] } = {}
 
   constructor(
     private apollo: Apollo,
     private activatedRoute: ActivatedRoute,
+    private tokenService: TokenService,
   ) {
   }
 
@@ -74,6 +75,13 @@ export class AddressComponent implements OnInit {
                   decimals
                 }
               }
+              msts {
+                address
+                symbol
+                decimals
+                logoURI
+                name
+              }
               contract {
                 contractName
                 logoURI
@@ -90,11 +98,10 @@ export class AddressComponent implements OnInit {
           }
           `,
           }))
-      ).subscribe(response => {
+      ).subscribe(async response => {
         this.price = response.data?.price
         this.address = response.data?.address
         this.transactions = this.address.transactions
-        console.log(this.transactions)
         this.mstTransfers = this.address.mstTransfers
         if (response.data?.address.contract) {
           this.contract = {
@@ -109,6 +116,14 @@ export class AddressComponent implements OnInit {
             })
           }
         }
+        this.mstBalances = await Promise.all(this.address.msts.map(async contract => {
+          const balance = new BN(await this.tokenService.getMSTBalance(contract.address, this.address.address)).shiftedBy(-contract.decimals)
+          return {
+            ...contract,
+            balance,
+          }
+        }))
+          .then(msts => msts.filter((mst: any) => mst.balance.gt(0)))
         this.initialLoading = response.loading
         this.error = response.error
       })

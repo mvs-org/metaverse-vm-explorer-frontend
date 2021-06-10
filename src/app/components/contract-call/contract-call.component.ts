@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { NgForm } from '@angular/forms'
-import { WalletService } from '../../services/wallet.service'
+import { BlockchainService } from '../../services/blockchain.service'
 
 @Component({
   selector: 'mvs-contract-call',
@@ -27,7 +27,7 @@ export class ContractCallComponent implements OnInit {
   results: any[] = []
 
   constructor(
-    private walletService: WalletService,
+    private blockchainService: BlockchainService,
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +37,7 @@ export class ContractCallComponent implements OnInit {
     const params = Object.values(e.value)
     let result
     try {
-      result = await this.walletService.call(this.abi, this.address, this.method, params)
+      result = await this.blockchainService.call(this.abi, this.address, this.method, params)
     } catch (error) {
       result = error.message
     }

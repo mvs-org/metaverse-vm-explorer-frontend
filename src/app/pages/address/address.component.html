@@ -22,11 +22,38 @@
               {{ address.etpBalance*price.current_USD | decimals : [18,2] }} USD
             </a>
           </nb-list-item>
+          <nb-list-item *ngFor="let mst of mstBalances">
+            <div class="col-md-4">
+              {{mst.name}}
+            </div>
+            <a class="col-md-8">
+              {{mst.balance | json }} {{mst.symbol}}
+            </a>
+          </nb-list-item>
+        </nb-list>
+      </nb-card>
+      <nb-card *ngIf="mstBalances.length">
+        <nb-card-header>
+          MST Balances
+        </nb-card-header>
+        <nb-list>
+          <nb-list-item *ngFor="let mst of mstBalances">
+            <div class="col-md-4">
+              <a [routerLink]="'../'+mst.address">
+                {{mst.name}}
+              </a>
+            </div>
+            <a class="col-md-7" style="text-align: right;">
+              {{mst.balance }}
+            </a>
+            <a class="col-md-1">
+              {{mst.symbol}}
+            </a>
+          </nb-list-item>
         </nb-list>
       </nb-card>
     </div>
     <div *ngIf="address.contract" class="col-12 col-md-6">
-      <!-- {{address.contract|json}} -->
       <nb-card>
         <nb-card-header>
           Smart Contract
@@ -76,11 +103,6 @@
         </nb-list>
       </nb-card>
     </div>
-    <!--div class="col-12 col-md-6">
-      <nb-card>
-        QR Code
-      </nb-card>
-    </div-->
   </div>
 
   <div class="row">
@@ -180,7 +202,8 @@
                 <div>{{func.stateMutability}}</div>
               </div>
               <div class="col-md-5">
-                  <mvs-contract-call [address]="address.address" [stateMutability]="func.stateMutability" [abi]="contract.abi" [method]="func.name" [inputs]="func.inputs"></mvs-contract-call>
+                <mvs-contract-call [address]="address.address" [stateMutability]="func.stateMutability"
+                  [abi]="contract.abi" [method]="func.name" [inputs]="func.inputs"></mvs-contract-call>
               </div>
               <div class="col-md-3" style="text-align: right;">
                 <div>
@@ -207,7 +230,8 @@
         </nb-tabset>
       </nb-card>
     </div>
-    <div *ngIf="(selectedTab == tabsTitles[0] && loadingTxs) || (selectedTab == tabsTitles[1] && loadingMstTxs)" class="loading-spinner"></div>
+    <div *ngIf="(selectedTab == tabsTitles[0] && loadingTxs) || (selectedTab == tabsTitles[1] && loadingMstTxs)"
+      class="loading-spinner"></div>
   </div>
 </div>
 <ng-template #spinner>

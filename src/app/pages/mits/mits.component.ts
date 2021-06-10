@@ -25,8 +25,6 @@ export class MITsComponent implements OnInit {
 
   loadTxs() {
     this.loading = true
-
-    console.log(this.skip)
     this.apollo.use('opennft')
       .query<any>({
         variables: {
