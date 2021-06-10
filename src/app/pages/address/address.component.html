@@ -22,14 +22,6 @@
               {{ address.etpBalance*price.current_USD | decimals : [18,2] }} USD
             </a>
           </nb-list-item>
-          <nb-list-item *ngFor="let mst of mstBalances">
-            <div class="col-md-4">
-              {{mst.name}}
-            </div>
-            <a class="col-md-8">
-              {{mst.balance | json }} {{mst.symbol}}
-            </a>
-          </nb-list-item>
         </nb-list>
       </nb-card>
       <nb-card *ngIf="mstBalances.length">
