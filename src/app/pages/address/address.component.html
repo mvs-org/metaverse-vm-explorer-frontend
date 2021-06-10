@@ -150,7 +150,7 @@
                 </div>
               </nb-list-item>
               <nb-list-item *ngFor="let tx of mstTransfers">
-                <a class="col-md-3 break-dots mono" [routerLink]="'../'+tx.from">
+                <a class="col-md-3 break-dots mono" [routerLink]="'../../tx/'+tx.transactionHash">
                   {{ tx.transactionHash }}
                 </a>
                 <a class="col-md-3 break-dots mono" [routerLink]="'../'+tx.from">
