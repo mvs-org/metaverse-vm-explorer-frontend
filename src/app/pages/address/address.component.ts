@@ -38,16 +38,28 @@ export class AddressComponent implements OnInit {
   ) {
   }
 
+  reset() {
+    this.contract=undefined
+    this.transactions = []
+    this.initialLoading = true
+    this.loadingTxs = false
+    this.loadingMstTxs = false
+    this.selectedTab = undefined
+    this.mstBalances = []
+  }
+
   async ngOnInit() {
     this.selectedTab = this.tabsTitles[0]
     this.activatedRoute.params
       .pipe(
-        switchMap(params => this.apollo
-          .query<any>({
-            variables: {
-              address: params['address'],
-            },
-            query: gql`
+        switchMap(params => {
+          this.reset()
+          return this.apollo
+            .query<any>({
+              variables: {
+                address: params['address'],
+              },
+              query: gql`
           query($address: String)
           {
             price{
@@ -98,7 +110,8 @@ export class AddressComponent implements OnInit {
             }
           }
           `,
-          }))
+            })
+        })
       ).subscribe(async response => {
         this.price = response.data?.price
         this.address = response.data?.address
