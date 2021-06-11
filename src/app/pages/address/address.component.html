@@ -101,10 +101,8 @@
           QR Code
         </nb-card-header>
         <nb-card-body>
-          <ngx-qrcode
-          [value]="address.address"
-          cssClass="qrcode">
-        </ngx-qrcode>
+          <ngx-qrcode [value]="address.address" cssClass="qrcode">
+          </ngx-qrcode>
         </nb-card-body>
       </nb-card>
     </div>
@@ -120,8 +118,9 @@
                 No transactions for this address
               </nb-list-item>
             </nb-list>
+            <!--Display large screens-->
             <nb-list *ngIf="transactions && transactions.length > 0" infiniteScroll [infiniteScrollDistance]="2"
-              [infiniteScrollThrottle]="0" (scrolled)="scrollTx()">
+              [infiniteScrollThrottle]="0" (scrolled)="scrollTx()" class="d-none d-md-block">
               <nb-list-item>
                 <div class="col-md-3">
                   Transaction
@@ -157,9 +156,41 @@
                 </div>
               </nb-list-item>
             </nb-list>
+            <!--Display small screens-->
+            <nb-list class="col-12 d-md-none small-tx-list">
+              <nb-list-item *ngFor="let tx of transactions" class="row small-tx-item">
+                <a class="col-12 break-dots mono padding-bottom" [routerLink]="'../tx/'+tx.hash">
+                  {{ tx.hash }}
+                </a>
+                <div class="col-12">From:</div>
+                <a class="col-12 break-dots mono" [routerLink]="'../address/'+tx.from">
+                  {{ tx.from }}
+                </a>
+                <div class="col-12" style="text-align: center;">
+                  <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [18, 6]}} ETP</div>
+                  <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+                </div>
+                <div class="col-12" style="text-align: right;">To:</div>
+                <a class="col-md-12 break-dots mono padding-bottom" style="text-align: right;"
+                  [routerLink]="'../address/'+tx.to">
+                  {{ tx.to }}
+                </a>
+                <div class="col-6">
+                  Block
+                  <a [routerLink]="'../block/'+tx.blockNumber">
+                    {{ tx.blockNumber }}
+                  </a>
+                </div>
+
+                <div class="col-6" style="text-align: right;">
+                  {{ tx.confirmedAt * 1000 | date : 'short'}}
+                </div>
+              </nb-list-item>
+            </nb-list>
           </nb-tab>
           <nb-tab *ngIf="mstTransfers && mstTransfers.length > 0" class="noPadding" tabTitle="{{tabsTitles[1]}}">
-            <nb-list infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="scrollMst()">
+            <!--Display large screens-->
+            <nb-list infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="scrollMst()" class="d-none d-md-block">
               <nb-list-item>
                 <div class="col-md-3 break-dots">
                   Transaction
@@ -194,6 +225,38 @@
                 <a class="col-md-2" style="text-align: right;" [routerLink]="'../../block/'+tx.blockNumber">
                   {{ tx.confirmedAt * 1000 | date : 'short'}}
                 </a>
+              </nb-list-item>
+            </nb-list>
+
+            <!--Display small screens-->
+            <nb-list class="col-12 d-md-none small-tx-list">
+              <nb-list-item *ngFor="let tx of mstTransfers" class="row small-tx-item">
+                <a class="col-12 break-dots mono padding-bottom" [routerLink]="'../tx/'+tx.transactionHash">
+                  {{ tx.transactionHash }}
+                </a>
+                <div class="col-12">From:</div>
+                <a class="col-12 break-dots mono" [routerLink]="'../address/'+tx.from">
+                  {{ tx.from }}
+                </a>
+                <div class="col-12" style="text-align: center;">
+                  <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [tx.tokenInfo.decimals, 6]}}
+                    {{tx.tokenInfo.symbol}}</div>
+                  <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+                </div>
+                <div class="col-12" style="text-align: right;">To:</div>
+                <a class="col-md-12 break-dots mono padding-bottom" style="text-align: right;"
+                  [routerLink]="'../address/'+tx.to">
+                  {{ tx.to }}
+                </a>
+                <div class="col-6">
+                  Block
+                  <a [routerLink]="'../block/'+tx.blockNumber">
+                    {{ tx.blockNumber }}
+                  </a>
+                </div>
+                <div class="col-6" style="text-align: right;">
+                  {{ tx.confirmedAt * 1000 | date : 'short'}}
+                </div>
               </nb-list-item>
             </nb-list>
           </nb-tab>

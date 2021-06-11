@@ -5,7 +5,7 @@
 }
 
 .noPadding {
-  padding: 0;
+  padding: 0 !important;
 }
 
 .contract-icon {
@@ -32,3 +32,11 @@ div.qrcode{
     margin: 10px;
   }
 }
+
+.small-tx-list {
+
+  nb-list-item {
+    padding: 40px 0;
+  }
+}
+
