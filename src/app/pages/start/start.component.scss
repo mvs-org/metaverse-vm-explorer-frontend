@@ -16,7 +16,8 @@
   justify-content: space-between;
 
   .dapp-item{
-    max-width: 100%;
+    width: 100%;
+    max-width: 500px;
     flex: 1;
     background-color: lightgray;
     min-height: 200px;
@@ -30,9 +31,10 @@
     text-decoration: none !important;
 
     img.logo{
-      max-width: 300px;
+      max-width: 100%;
       max-height: 100px;
       height: auto;
+      margin: 20px;
     }
 
     p{
