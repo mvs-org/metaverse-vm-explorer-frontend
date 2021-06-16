@@ -14,6 +14,7 @@ export class AddressComponent implements OnInit {
 
   price: any
   address: any
+  lowercaseAddress: string = ''
   transactions = []
   contract: any
   mstTransfers = []
@@ -115,6 +116,7 @@ export class AddressComponent implements OnInit {
       ).subscribe(async response => {
         this.price = response.data?.price
         this.address = response.data?.address
+        this.lowercaseAddress = this.address.address.toLowerCase()
         this.transactions = this.address.transactions
         this.mstTransfers = this.address.mstTransfers
         if (response.data?.address.contract) {

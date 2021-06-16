@@ -122,35 +122,49 @@
             <nb-list *ngIf="transactions && transactions.length > 0" infiniteScroll [infiniteScrollDistance]="2"
               [infiniteScrollThrottle]="0" (scrolled)="scrollTx()" class="d-none d-md-block">
               <nb-list-item>
-                <div class="col-md-3">
+                <div class="col-md-4">
                   Transaction
-                </div>
-                <div class="col-md-3 break-dots">
-                  From
                 </div>
                 <div class="col-md-1 break-dots">
                 </div>
-                <div class="col-md-3 break-dots">
-                  To
+                <div class="col-md-1 break-dots">
+                </div>
+                <div class="col-md-4 break-dots">
+                  Counterparty
                 </div>
                 <div class="col-md-2" style="text-align: right;">
                   Date
                 </div>
               </nb-list-item>
               <nb-list-item *ngFor="let tx of transactions">
-                <a class="col-md-3 break-dots mono" [routerLink]="'../../tx/'+tx.hash">
+                <a class="col-md-4 break-dots mono" [routerLink]="'../../tx/'+tx.hash">
                   {{ tx.hash }}
                 </a>
-                <a class="col-md-3 break-dots mono" [routerLink]="'../'+tx.from">
-                  {{ tx.from }}
-                </a>
+                <div class="col-md-1">
+                  <div *ngIf="tx.value && tx.value > 0">
+                    <nb-badge text="IN" status="success" *ngIf="tx.from !== address.address && tx.to == address.address"></nb-badge>
+                    <nb-badge text="OUT" status="danger" *ngIf="tx.from == address.address && tx.to !== address.address"></nb-badge>
+                    <nb-badge text="SELF" status="info" *ngIf="tx.from == address.address && tx.to == address.address"></nb-badge>
+                  </div>
+                  <div *ngIf="!(tx.value && tx.value > 0)">
+                    <nb-badge *ngIf="tx.to" status="warning" text="CALL"></nb-badge>
+                    <nb-badge *ngIf="!tx.to" status="control" text="DEPLOY"></nb-badge>
+                  </div>
+                </div>
                 <div class="col-md-1" style="text-align: center;">
                   <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [18, 6]}} ETP</div>
                   <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
                 </div>
-                <a class="col-md-3 break-dots mono" [routerLink]="'../'+tx.to">
-                  {{ tx.to }}
-                </a>
+                <div  class="col-md-4 break-dots mono">
+                  <a *ngIf="tx.from === address.address && tx.to !== address.address" [routerLink]="'../'+tx.to">
+                    {{tx.to}}
+                  </a>
+                  <a *ngIf="tx.from !== address.address && tx.to == address.address" [routerLink]="'../'+tx.from">
+                    {{tx.from}}</a>
+                  <a *ngIf="tx.from === address.address && tx.to == address.address" [routerLink]="'../'+tx.to">
+                    {{tx.to}}
+                  </a>
+                </div>
                 <div class="col-md-2" style="text-align: right;">
                   {{ tx.confirmedAt * 1000 | date : 'short'}}
                 </div>
@@ -190,38 +204,55 @@
           </nb-tab>
           <nb-tab *ngIf="mstTransfers && mstTransfers.length > 0" class="noPadding" tabTitle="{{tabsTitles[1]}}">
             <!--Display large screens-->
-            <nb-list infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="scrollMst()" class="d-none d-md-block">
+            <nb-list infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="scrollMst()"
+              class="d-none d-md-block">
               <nb-list-item>
-                <div class="col-md-3 break-dots">
+                <div class="col-md-4 break-dots">
                   Transaction
-                </div>
-                <div class="col-md-3 break-dots">
-                  From
                 </div>
                 <div class="col-md-1 break-dots">
                 </div>
-                <div class="col-md-3 break-dots">
-                  To
+                <div class="col-md-1 break-dots">
+                </div>
+                <div class="col-md-4 break-dots">
+                  Counterparty
                 </div>
                 <div class="col-md-2" style="text-align: right;">
                   Date
                 </div>
               </nb-list-item>
               <nb-list-item *ngFor="let tx of mstTransfers">
-                <a class="col-md-3 break-dots mono" [routerLink]="'../../tx/'+tx.transactionHash">
+                <a class="col-md-4 break-dots mono" [routerLink]="'../../tx/'+tx.transactionHash">
                   {{ tx.transactionHash }}
                 </a>
-                <a class="col-md-3 break-dots mono" [routerLink]="'../'+tx.from">
-                  {{ tx.from }}
-                </a>
+                <div class="col-md-1">
+                  <div *ngIf="tx.value && tx.value > 0">
+                    <nb-badge text="IN" status="success" *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
+                    <nb-badge text="OUT" status="danger" *ngIf="tx.from == lowercaseAddress && tx.to !== lowercaseAddress"></nb-badge>
+                    <nb-badge text="SELF" status="info" *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
+                  </div>
+                  <div *ngIf="!(tx.value && tx.value > 0)">
+                    <nb-badge *ngIf="tx.to" status="warning" text="CALL"></nb-badge>
+                    <nb-badge *ngIf="!tx.to" status="control" text="DEPLOY"></nb-badge>
+                  </div>
+                </div>
                 <div class="col-md-1" style="text-align: center;">
                   <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [tx.tokenInfo.decimals, 6]}}
                     {{tx.tokenInfo.symbol}}</div>
-                  <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+                  <div>
+                    <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+                  </div>
                 </div>
-                <a class="col-md-3 break-dots mono" [routerLink]="'../'+tx.to">
-                  {{ tx.to }}
-                </a>
+                <div  class="col-md-4 break-dots mono">
+                  <a *ngIf="tx.from === lowercaseAddress && tx.to !== lowercaseAddress" [routerLink]="'../'+tx.to">
+                    {{tx.to}}
+                  </a>
+                  <a *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress" [routerLink]="'../'+tx.from">
+                    {{tx.from}}</a>
+                  <a *ngIf="tx.from === lowercaseAddress && tx.to == lowercaseAddress" [routerLink]="'../'+tx.to">
+                    {{tx.to}}
+                  </a>
+                </div>
                 <a class="col-md-2" style="text-align: right;" [routerLink]="'../../block/'+tx.blockNumber">
                   {{ tx.confirmedAt * 1000 | date : 'short'}}
                 </a>
