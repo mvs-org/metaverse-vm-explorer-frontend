@@ -17,10 +17,10 @@
 
   .dapp-item{
     width: 100%;
-    max-width: 500px;
+    min-width: 250px;
     flex: 1;
     background-color: lightgray;
-    min-height: 200px;
+    height: 300px;
     margin: 20px;
     border-radius: 20px;
     display: flex;
@@ -41,7 +41,7 @@
       color: white;
       padding-top: 10px;
       text-align: left;
-      min-height: 2ex;
+      height: 100px;
     }
 
   }
