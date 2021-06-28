@@ -22,18 +22,21 @@
     <nb-card-header>
       Trending dApps on the MetaverseVM
     </nb-card-header>
-      <div class="dapp-list">
-        <a [href]="dapp.url" [ngStyle]="{'background-color': dapp.bg,  'background-image': dapp.gradient}" target="_blank" rel="noopener noreferrer" class="dapp-item" *ngFor="let dapp of dapps">
-          <img [src]="dapp.image" class="logo" [alt]="dapp.name">
-          <p *ngIf="dapp.description" [innerText]="dapp.description"></p>
-        </a>
-      </div>
+    <div class="dapp-list">
+      <a [href]="dapp.url" [ngStyle]="{'background-color': dapp.bg,  'background-image': dapp.gradient}" target="_blank"
+        rel="noopener noreferrer" class="dapp-item" *ngFor="let dapp of dapps">
+        <img [src]="dapp.image" class="logo" [alt]="dapp.name">
+        <p *ngIf="dapp.description" [innerText]="dapp.description"></p>
+      </a>
+    </div>
   </nb-card>
+
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12 col-lg-6">
       <nb-card>
         <nb-card-header>Latest Blocks</nb-card-header>
-        <nb-list>
+        <!--Display large screens-->
+        <nb-list class="d-none d-md-block">
           <nb-list-item>
             <div class="col-md-6">
               Hash
@@ -57,12 +60,32 @@
             </div>
           </nb-list-item>
         </nb-list>
+
+        <!--Display small screens-->
+        <nb-list class="d-md-none">
+          <nb-list-item *ngFor="let block of blocks" class="row">
+            <div class="col-6">
+              Block
+              <a [routerLink]="'../block/'+block.number">
+                {{ block.number }}
+              </a>
+            </div>
+            <div class="col-6" style="text-align: right;">
+              {{ block.timestamp * 1000 | date : 'short' }}
+            </div>
+            <a class="col-12 break-dots mono" [routerLink]="'../block/'+block.hash">
+              {{ block.hash }}
+            </a>
+          </nb-list-item>
+        </nb-list>
       </nb-card>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-12 col-lg-6">
       <nb-card>
         <nb-card-header>Latest Transactions</nb-card-header>
-        <nb-list>
+
+        <!--Display large screens-->
+        <nb-list class="d-none d-md-block">
           <nb-list-item>
             <div class="col-md-5">
               Hash
@@ -84,6 +107,38 @@
             <a class="col-md-2" style="text-align: right;" [routerLink]="'../block/'+tx.blockNumber">
               {{ tx.blockNumber }}
             </a>
+          </nb-list-item>
+        </nb-list>
+
+        <!--Display small screens-->
+        <nb-list class="d-md-none">
+          <nb-list-item *ngFor="let tx of txs" class="row small-screen-item">
+            <div class="col-6">
+              Block
+              <a [routerLink]="'../block/'+tx.blockNumber">
+                {{ tx.blockNumber }}
+              </a>
+            </div>
+            <div class="col-6" style="text-align: right;">
+              {{ tx.confirmedAt * 1000 | date : 'short'}}
+            </div>
+
+            <a class="col-12 break-dots mono padding-bottom" [routerLink]="'../tx/'+tx.hash">
+              {{ tx.hash }}
+            </a>
+            <div class="col-12">From:</div>
+            <a class="col-12 break-dots mono" [routerLink]="'../address/'+tx.from">
+              {{ tx.from }}
+            </a>
+            <div class="col-12" style="text-align: center;">
+              <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+            </div>
+            <div class="col-12" style="text-align: right;">To:</div>
+            <a class="col-md-12 break-dots mono padding-bottom" style="text-align: right;"
+              [routerLink]="'../address/'+tx.to">
+              {{ tx.to }}
+            </a>
+
           </nb-list-item>
         </nb-list>
       </nb-card>

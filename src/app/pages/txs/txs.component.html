@@ -48,7 +48,17 @@
 
       <!--Display small screens-->
       <nb-list class="col-12 d-md-none">
-        <nb-list-item *ngFor="let tx of txs" class="row">
+        <nb-list-item *ngFor="let tx of txs" class="row small-screen-item">
+          <div class="col-6">
+            Block
+            <a [routerLink]="'../block/'+tx.blockNumber">
+              {{ tx.blockNumber }}
+            </a>
+          </div>
+          <div class="col-6" style="text-align: right;">
+            {{ tx.confirmedAt * 1000 | date : 'short'}}
+          </div>
+
           <a class="col-12 break-dots mono padding-bottom" [routerLink]="'../tx/'+tx.hash">
             {{ tx.hash }}
           </a>
@@ -63,16 +73,7 @@
           <a class="col-md-12 break-dots mono padding-bottom" style="text-align: right;" [routerLink]="'../address/'+tx.to">
             {{ tx.to }}
           </a>
-          <div class="col-6">
-            Block
-            <a [routerLink]="'../block/'+tx.blockNumber">
-              {{ tx.blockNumber }}
-            </a>
-          </div>
 
-          <div class="col-6" style="text-align: right;">
-            {{ tx.confirmedAt * 1000 | date : 'short'}}
-          </div>
         </nb-list-item>
       </nb-list>
     </nb-card>

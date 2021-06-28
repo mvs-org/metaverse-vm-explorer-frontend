@@ -75,6 +75,8 @@ export class StartComponent implements OnInit, OnDestroy {
             hash
             blockNumber
             from
+            to
+            confirmedAt
           }
         }
       `,

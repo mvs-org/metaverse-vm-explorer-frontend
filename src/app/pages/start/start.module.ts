@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StartRoutingModule, routedComponents } from './start-routing.module'
-import { NbCardModule, NbListModule } from '@nebular/theme'
+import { NbCardModule, NbListModule, NbIconModule } from '@nebular/theme'
 import { TimerModule } from '../components/timer/timer.module'
 
 @NgModule({
@@ -9,6 +9,7 @@ import { TimerModule } from '../components/timer/timer.module'
     CommonModule,
     NbCardModule,
     NbListModule,
+    NbIconModule,
     TimerModule,
     StartRoutingModule,
   ],
