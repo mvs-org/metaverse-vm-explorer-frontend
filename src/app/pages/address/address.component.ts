@@ -23,6 +23,7 @@ export class AddressComponent implements OnInit {
   loadingMstTxs = false
   error: any
   info: any
+  logs: any[]
   selectedTab: string
   tabsTitles = [
     'Transactions',
@@ -47,6 +48,10 @@ export class AddressComponent implements OnInit {
     this.loadingMstTxs = false
     this.selectedTab = undefined
     this.mstBalances = []
+  }
+
+  formatHexNumber(hex: string){
+    return new BN(hex).toString()
   }
 
   async ngOnInit() {
@@ -110,6 +115,7 @@ export class AddressComponent implements OnInit {
               }
               logs {
                 blockNumber
+                blockHash
                 transactionHash
                 decoded {
                   signature
@@ -128,6 +134,7 @@ export class AddressComponent implements OnInit {
         this.lowercaseAddress = this.address.address.toLowerCase()
         this.transactions = this.address.transactions
         this.mstTransfers = this.address.mstTransfers
+        this.logs = this.address.logs
         if (response.data?.address.contract) {
           this.contract = {
             ...response.data?.address.contract,
