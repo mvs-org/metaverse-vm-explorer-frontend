@@ -61,7 +61,7 @@ export class AddressComponent implements OnInit {
                 address: params['address'],
               },
               query: gql`
-          query($address: String)
+          query($address: String!)
           {
             price{
               current_USD
