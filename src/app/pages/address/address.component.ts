@@ -108,6 +108,15 @@ export class AddressComponent implements OnInit {
                   confirmedAt
                 }
               }
+              logs {
+                blockNumber
+                transactionHash
+                decoded {
+                  signature
+                  name
+                  values
+                }
+              }
             }
           }
           `,
