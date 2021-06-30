@@ -76,8 +76,8 @@
               Status
             </div>
             <div class="col-md-6" style="text-align: right;">
-              <nb-icon *ngIf="tx.receipt.status" status="success" [icon]="'checkmark-outline'"></nb-icon>
-              <nb-icon *ngIf="!tx.receipt.status" status="danger" [icon]="'close-outline'"></nb-icon>
+              <div *ngIf="tx.receipt.status" class="text-success">Success</div>
+              <div *ngIf="!tx.receipt.status" class="text-danger">Failed</div>
             </div>
           </nb-list-item>
           <nb-list-item>
