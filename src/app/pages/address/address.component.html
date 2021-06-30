@@ -142,9 +142,12 @@
                 </a>
                 <div class="col-md-1">
                   <div *ngIf="tx.value && tx.value > 0">
-                    <nb-badge text="IN" status="success" *ngIf="tx.from !== address.address && tx.to == address.address"></nb-badge>
-                    <nb-badge text="OUT" status="danger" *ngIf="tx.from == address.address && tx.to !== address.address"></nb-badge>
-                    <nb-badge text="SELF" status="info" *ngIf="tx.from == address.address && tx.to == address.address"></nb-badge>
+                    <nb-badge text="IN" status="success"
+                      *ngIf="tx.from !== address.address && tx.to == address.address"></nb-badge>
+                    <nb-badge text="OUT" status="danger"
+                      *ngIf="tx.from == address.address && tx.to !== address.address"></nb-badge>
+                    <nb-badge text="SELF" status="info" *ngIf="tx.from == address.address && tx.to == address.address">
+                    </nb-badge>
                   </div>
                   <div *ngIf="!(tx.value && tx.value > 0)">
                     <nb-badge *ngIf="tx.to" status="warning" text="CALL"></nb-badge>
@@ -155,7 +158,7 @@
                   <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [18, 6]}} ETP</div>
                   <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
                 </div>
-                <div  class="col-md-4 break-dots mono">
+                <div class="col-md-4 break-dots mono">
                   <a *ngIf="tx.from === address.address && tx.to !== address.address" [routerLink]="'../'+tx.to">
                     {{tx.to}}
                   </a>
@@ -227,9 +230,12 @@
                 </a>
                 <div class="col-md-1">
                   <div *ngIf="tx.value && tx.value > 0">
-                    <nb-badge text="IN" status="success" *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
-                    <nb-badge text="OUT" status="danger" *ngIf="tx.from == lowercaseAddress && tx.to !== lowercaseAddress"></nb-badge>
-                    <nb-badge text="SELF" status="info" *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
+                    <nb-badge text="IN" status="success"
+                      *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
+                    <nb-badge text="OUT" status="danger"
+                      *ngIf="tx.from == lowercaseAddress && tx.to !== lowercaseAddress"></nb-badge>
+                    <nb-badge text="SELF" status="info"
+                      *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
                   </div>
                   <div *ngIf="!(tx.value && tx.value > 0)">
                     <nb-badge *ngIf="tx.to" status="warning" text="CALL"></nb-badge>
@@ -243,7 +249,7 @@
                     <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
                   </div>
                 </div>
-                <div  class="col-md-4 break-dots mono">
+                <div class="col-md-4 break-dots mono">
                   <a *ngIf="tx.from === lowercaseAddress && tx.to !== lowercaseAddress" [routerLink]="'../'+tx.to">
                     {{tx.to}}
                   </a>
@@ -315,44 +321,47 @@
             </nb-list-item>
           </nb-tab>
 
-          <nb-tab *ngIf="logs && logs.length" tabTitle="Log">
-            <div class="log" *ngFor="let log of logs">
-              <div class="row">
-                <div class="col-md-3">Transaction</div>
-                <a [routerLink]="'../../tx/'+log.transactionHash" class="col-md-9 break-word mono">{{log.transactionHash}}</a>
-              </div>
-              <div class="row">
-                <div class="col-md-3">Block</div>
-                <a [routerLink]="'../../block/'+log.blockHash" class="col-md-9 break-word mono">{{log.blockNumber}}</a>
-              </div>
-              <div class="row">
-                <div *ngIf="log.decoded" class="col-md-12 decoded">
-                  <div class="break-word mono">{{log.decoded.signature}}</div>
-                  <div *ngFor="let value of log.decoded.values" class="break-word mono row">
-                    <div class="col-md-3">
-                    {{value.name}}
-                    </div>
-                    <div class="col-md-9">
-                      <span *ngIf="value.value?.hex">{{formatHexNumber(value.value.hex)}}</span>
-                      <span *ngIf="!value.value?.hex">{{value.value}}</span>
+          <nb-tab *ngIf="contract.abi" tabTitle="Log">
+            <nb-select placeholder="Filter Event" style="width: 100%" (selectedChange)="logFilterSelected($event)">
+              <nb-option *ngFor="let event of contract.abi | filter : {type: 'event'}" [value]="event">{{event.name}}</nb-option>
+            </nb-select>
+            <nb-list *ngIf="logs && logs.length; else noLogs" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="scrollLogs()"
+              class="d-none d-md-block">
+              <nb-list-item *ngFor="let log of logs" class="row">
+                <div class="col-md-6">
+                  <div>
+                    <div>Transaction</div>
+                    <a [routerLink]="'../../tx/'+log.transactionHash"
+                      class="break-dots mono">{{log.transactionHash}}</a>
+                  </div>
+                  <div>
+                    <div>Block</div>
+                    <a [routerLink]="'../../block/'+log.blockHash"
+                      class="break-dots mono">{{log.blockNumber}}</a>
+                  </div>
+                </div>
+
+                <div class="row col-md-6">
+                  <div *ngIf="log.decoded" class="col-md-12 decoded">
+                    <div class="break-word mono">{{log.decoded.signature}}</div>
+                    <div *ngFor="let value of log.decoded.values" class="break-word mono row">
+                      <div class="col-md-3">
+                        {{value.name}}
+                      </div>
+                      <div class="col-md-9">
+                        <span *ngIf="value.value?.hex">{{formatHexNumber(value.value.hex)}}</span>
+                        <span *ngIf="!value.value?.hex">{{value.value}}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
+              </nb-list-item>
+            </nb-list>
+            <ng-template #noLogs>
+              <div>
+                No logs found
               </div>
-              <div *ngIf="!log.decoded">
-                <div class="row">
-                  <div class="col-md-3">Topics</div>
-                  <div class="col-md-9">
-                    <div class="break-word mono" *ngFor="let topic of log.topics">{{topic}}</div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-3">Data</div>
-                  <div class="col-md-9 break-word mono">{{log.data}}</div>
-                </div>
-              </div>
-              <hr>
-            </div>
+            </ng-template>
           </nb-tab>
 
           <nb-tab *ngIf="address.contract && address.contract.source" class="noPadding" tabTitle="Source Code">
@@ -369,7 +378,8 @@
         </nb-tabset>
       </nb-card>
     </div>
-    <div *ngIf="(selectedTab == tabsTitles[0] && loadingTxs) || (selectedTab == tabsTitles[1] && loadingMstTxs)"
+    <div
+      *ngIf="(selectedTab == tabsTitles[0] && loadingTxs) || (selectedTab == tabsTitles[1] && loadingMstTxs) || selectedTab === 'Log' && loadingLogs"
       class="loading-spinner"></div>
   </div>
 </div>

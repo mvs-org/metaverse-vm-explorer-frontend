@@ -4,6 +4,8 @@ import { Apollo, gql } from 'apollo-angular'
 import { switchMap } from 'rxjs/operators'
 import { TokenService } from '../../services/token.service'
 import BN from 'bignumber.js'
+import { AbiItem, Contract } from '../../interfaces/contract'
+import Web3 from 'web3'
 @Component({
   selector: 'ngx-address',
   templateUrl: './address.component.html',
@@ -16,20 +18,23 @@ export class AddressComponent implements OnInit {
   address: any
   lowercaseAddress: string = ''
   transactions = []
-  contract: any
+  contract: Contract
   mstTransfers = []
   initialLoading = true
   loadingTxs = false
   loadingMstTxs = false
   error: any
   info: any
-  logs: any[]
   selectedTab: string
   tabsTitles = [
     'Transactions',
     'MST Transfers',
   ]
   mstBalances: any[] = []
+
+  logs: any[]
+  loadingLogs = false
+  logTopicFilter = null
 
   callResults: { [name: string]: any[] } = {}
 
@@ -41,16 +46,17 @@ export class AddressComponent implements OnInit {
   }
 
   reset() {
-    this.contract=undefined
+    this.contract = undefined
     this.transactions = []
     this.initialLoading = true
     this.loadingTxs = false
+    this.loadingLogs = false
     this.loadingMstTxs = false
     this.selectedTab = undefined
     this.mstBalances = []
   }
 
-  formatHexNumber(hex: string){
+  formatHexNumber(hex: string) {
     return new BN(hex).toString()
   }
 
@@ -147,6 +153,7 @@ export class AddressComponent implements OnInit {
               })
             })
           }
+          console.log(this.contract)
         }
         this.mstBalances = await Promise.all(this.address.msts.map(async contract => {
           const balance = new BN(await this.tokenService.getMSTBalance(contract.address, this.address.address)).shiftedBy(-contract.decimals)
@@ -161,8 +168,21 @@ export class AddressComponent implements OnInit {
       })
   }
 
+  logFilterSelected(event: AbiItem) {
+    const signature = `${event.name}(${event.inputs.map(input => input.type).join(',')})`
+    this.logTopicFilter = Web3.utils.sha3(signature)
+    this.logs = []
+    this.loadMoreLogs()
+  }
+
   onChangeTab(event) {
     this.selectedTab = event.tabTitle
+  }
+
+  scrollLogs() {
+    if (this.selectedTab == 'Log') {
+      this.loadMoreLogs()
+    }
   }
 
   scrollTx() {
@@ -205,7 +225,37 @@ export class AddressComponent implements OnInit {
       })
   }
 
-
+  loadMoreLogs() {
+    this.loadingLogs = true
+    this.apollo
+      .query<any>({
+        variables: {
+          address: this.address.address,
+          topic: this.logTopicFilter,
+          startBlock: this.logs[0] ? this.logs[0].blockNumber + 0 : 0,
+          offset: this.logs.length
+        },
+        query: gql`
+      query($address: String, $topic: String, $startBlock: Int!, $offset: Int!)
+      {
+        logs(address: $address, topic: $topic, query:{blockNumber_lte: $startBlock }, limit: 25, offset: $offset) {
+          blockNumber
+          blockHash
+          transactionHash
+          decoded {
+            signature
+            name
+            values
+          }
+        }
+      }
+      `,
+      }).subscribe((response) => {
+        this.logs = this.logs.concat(response.data?.logs)
+        this.loadingLogs = response.loading
+        this.error = response.error
+      })
+  }
 
   loadMoreMstTransfers() {
     this.loadingMstTxs = true

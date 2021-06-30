@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddressRoutingModule, routedComponents } from './address-routing.module'
-import { NbCardModule, NbListModule, NbIconModule, NbTabsetModule, NbRouteTabsetModule, NbBadgeModule } from '@nebular/theme'
+import { NbCardModule, NbListModule, NbIconModule, NbTabsetModule, NbRouteTabsetModule, NbBadgeModule, NbSelectModule } from '@nebular/theme'
 import { PipesModule } from '../../pipes/pipes.module'
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FormsModule } from '@angular/forms'
@@ -13,6 +13,7 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode'
     CommonModule,
     NbCardModule,
     NbListModule,
+    NbSelectModule,
     NbIconModule,
     NbTabsetModule,
     NbRouteTabsetModule,
