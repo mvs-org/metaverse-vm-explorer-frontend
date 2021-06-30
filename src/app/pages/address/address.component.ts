@@ -54,6 +54,7 @@ export class AddressComponent implements OnInit {
     this.loadingMstTxs = false
     this.selectedTab = undefined
     this.mstBalances = []
+    this.logTopicFilter = null
   }
 
   formatHexNumber(hex: string) {
