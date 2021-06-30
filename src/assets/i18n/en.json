@@ -22,6 +22,7 @@
 			"FUNCTIONS": "Functions",
 			"MST_TRANSFERS": "MST Transfers",
 			"SOURCE_CODE": "Source Code",
+			"BYTECODE": "Bytecode",
 			"LOGS": "Logs"
 		}
 	}
