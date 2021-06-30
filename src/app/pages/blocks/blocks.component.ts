@@ -34,6 +34,7 @@ export class BlocksComponent implements OnInit {
           hash
           number
           timestamp
+          transactionCount
         }
       }
       `,

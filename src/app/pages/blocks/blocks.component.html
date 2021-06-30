@@ -8,10 +8,13 @@
         <div class="col-md-6">
           Hash
         </div>
-        <div class="col-md-3" style="text-align: right;">
+        <div class="col-md-2" style="text-align: right;">
           Number
         </div>
-        <div class="col-md-3" style="text-align: right;">
+        <div class="col-md-2" style="text-align: right;">
+          Transactions
+        </div>
+        <div class="col-md-2" style="text-align: right;">
           Time
         </div>
       </nb-list-item>
@@ -19,10 +22,13 @@
         <a class="col-md-6 break-dots mono" [routerLink]="'../block/'+block.hash">
           {{ block.hash }}
         </a>
-        <a class="col-md-3" style="text-align: right;" [routerLink]="'../block/'+block.number">
+        <a class="col-md-2" style="text-align: right;" [routerLink]="'../block/'+block.number">
           {{ block.number }}
         </a>
-        <div class="col-md-3" style="text-align: right;">
+        <div class="col-md-2" style="text-align: right;">
+          {{ block.transactionCount }}
+        </div>
+        <div class="col-md-2" style="text-align: right;">
           {{ block.timestamp * 1000 | date : 'short' }}
         </div>
       </nb-list-item>
@@ -43,6 +49,9 @@
         <a class="col-12 break-dots mono" [routerLink]="'../block/'+block.hash">
           {{ block.hash }}
         </a>
+        <div class="col-12">
+          Transactions: {{ block.transactionCount }}
+        </div>
       </nb-list-item>
     </nb-list>
   </nb-card>
