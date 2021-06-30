@@ -321,7 +321,7 @@
             </nb-list-item>
           </nb-tab>
 
-          <nb-tab *ngIf="contract.abi" tabTitle="Log">
+          <nb-tab *ngIf="contract && contract.abi" tabTitle="Log">
             <nb-select placeholder="Filter Event" style="width: 100%" (selectedChange)="logFilterSelected($event)">
               <nb-option *ngFor="let event of contract.abi | filter : {type: 'event'}" [value]="event">{{event.name}}</nb-option>
             </nb-select>
