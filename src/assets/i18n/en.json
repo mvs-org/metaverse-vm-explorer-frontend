@@ -1,0 +1,28 @@
+{
+	"ADDRESS": {
+		"BALANCE": "Balance",
+		"VALUE": "Value",
+		"MST_BALANCES": "MST Balances",
+		"SMART_CONTRACT": "Smart Contract",
+		"NAME": "Name",
+		"CREATION_TRANSACTION": "Creation Transaction",
+		"CREATOR": "Creator",
+		"CREATED_AT": "Created at",
+		"QR_CODE": "QR Code",
+		"NO_TRANSACTIONS": "No transactions for this address",
+		"NO_LOGS": "No logs found",
+		"TRANSACTION": "Transaction",
+		"BLOCK": "Block",
+		"COUNTERPARTY": "Counterparty",
+		"DATE": "Date",
+		"FROM": "From",
+		"OUTPUT_TYPE": "Output type",
+		"TABS": {
+			"TRANSACTIONS": "Transactions",
+			"FUNCTIONS": "Functions",
+			"MST_TRANSFERS": "MST Transfers",
+			"SOURCE_CODE": "Source Code",
+			"LOGS": "Logs"
+		}
+	}
+}

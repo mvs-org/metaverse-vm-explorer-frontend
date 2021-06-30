@@ -7,6 +7,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FormsModule } from '@angular/forms'
 import { ContractCallModule } from '../../components/contract-call/contract-call.module'
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode'
+import { TranslateModule } from '@ngx-translate/core'
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode'
     NbRouteTabsetModule,
     PipesModule,
     FormsModule,
+    TranslateModule.forChild(),
     AddressRoutingModule,
     InfiniteScrollModule,
     ContractCallModule,

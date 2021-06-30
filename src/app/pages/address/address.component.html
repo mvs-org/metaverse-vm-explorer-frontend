@@ -7,17 +7,13 @@
         </nb-card-header>
         <nb-list>
           <nb-list-item>
-            <div class="col-md-4">
-              Balance
-            </div>
+            <div class="col-md-4" translate="ADDRESS.BALANCE"></div>
             <div class="col-md-8">
               {{address.etpBalance | decimals : [18,18]}} ETP
             </div>
           </nb-list-item>
           <nb-list-item>
-            <div class="col-md-4">
-              Value
-            </div>
+            <div class="col-md-4" translate="ADDRESS.VALUE"></div>
             <a class="col-md-8">
               {{ address.etpBalance*price.current_USD | decimals : [18,2] }} USD
             </a>
@@ -25,9 +21,7 @@
         </nb-list>
       </nb-card>
       <nb-card *ngIf="mstBalances.length">
-        <nb-card-header>
-          MST Balances
-        </nb-card-header>
+        <nb-card-header translate="ADDRESS.MST_BALANCES"></nb-card-header>
         <nb-list>
           <nb-list-item *ngFor="let mst of mstBalances">
             <div class="col-md-4">
@@ -47,14 +41,10 @@
     </div>
     <div *ngIf="address.contract" class="col-12 col-md-6">
       <nb-card>
-        <nb-card-header>
-          Smart Contract
-        </nb-card-header>
+        <nb-card-header translate="ADDRESS.SMART_CONTRACT"></nb-card-header>
         <nb-list>
           <nb-list-item *ngIf="address.contract.contractName">
-            <div class="col-md-4">
-              Name
-            </div>
+            <div class="col-md-4" translate="ADDRESS.NAME"></div>
             <div class="col-md-8 break-dots">
               {{ address.contract.contractName }}
             </div>
@@ -68,26 +58,20 @@
             </div>
           </nb-list-item>
           <nb-list-item>
-            <div class="col-md-4">
-              Creation Transaction
-            </div>
+            <div class="col-md-4" translate="ADDRESS.CREATION_TRANSACTION"></div>
             <a class="col-md-8 break-dots mono" [routerLink]="'../../tx/'+address.contract.creationTransaction.hash">
               {{ address.contract.creationTransaction.hash }}
             </a>
           </nb-list-item>
           <nb-list-item>
-            <div class="col-md-4">
-              Creator
-            </div>
+            <div class="col-md-4" translate="ADDRESS.CREATOR"></div>
             <a class="col-md-8 break-dots mono"
               [routerLink]="'../../address/'+address.contract.creationTransaction.from">
               {{ address.contract.creationTransaction.from }}
             </a>
           </nb-list-item>
           <nb-list-item>
-            <div class="col-md-4">
-              Created At
-            </div>
+            <div class="col-md-4" translate="ADDRESS.CREATED_AT"></div>
             <div class="col-md-8 break-dots">
               {{ address.contract.creationTransaction.confirmedAt * 1000 | date : 'medium' }}
             </div>
@@ -97,9 +81,7 @@
     </div>
     <div *ngIf="!address.contract" class="col-12 col-md-6">
       <nb-card>
-        <nb-card-header>
-          QR Code
-        </nb-card-header>
+        <nb-card-header translate="ADDRESS.QR_CODE"></nb-card-header>
         <nb-card-body>
           <ngx-qrcode [value]="address.address" cssClass="qrcode">
           </ngx-qrcode>
@@ -112,19 +94,15 @@
     <div class="col-12">
       <nb-card>
         <nb-tabset (changeTab)="onChangeTab($event)">
-          <nb-tab class="noPadding" tabTitle="Transactions" [tabId]="TAB_IDS.TRANSACTIONS">
+          <nb-tab class="noPadding" [tabTitle]="'ADDRESS.TABS.TRANSACTIONS'|translate" [tabId]="TAB_IDS.TRANSACTIONS">
             <nb-list *ngIf="!(transactions && transactions.length > 0)">
-              <nb-list-item>
-                No transactions for this address
-              </nb-list-item>
+              <nb-list-item translate="ADDRESS.NO_TRANSACTIONS"></nb-list-item>
             </nb-list>
             <!--Display large screens-->
             <nb-list *ngIf="transactions && transactions.length > 0" infiniteScroll [infiniteScrollDistance]="2"
               [infiniteScrollThrottle]="80" (scrolled)="scroll()" class="d-none d-md-block">
               <nb-list-item>
-                <div class="col-md-4">
-                  Transaction
-                </div>
+                <div class="col-md-4" translate="ADDRESS.TRANSACTION"></div>
                 <div class="col-md-1 break-dots">
                 </div>
                 <div class="col-md-1 break-dots">
@@ -132,9 +110,7 @@
                 <div class="col-md-4 break-dots">
                   Counterparty
                 </div>
-                <div class="col-md-2" style="text-align: right;">
-                  Date
-                </div>
+                <div class="col-md-2" style="text-align: right;" translate="ADDRESS.DATE"></div>
               </nb-list-item>
               <nb-list-item *ngFor="let tx of transactions">
                 <a class="col-md-4 break-dots mono" [routerLink]="'../../tx/'+tx.hash">
@@ -193,36 +169,32 @@
                   {{ tx.to }}
                 </a>
                 <div class="col-6">
-                  Block
+                  <span translate="ADDRESS.BLOCK"></span>
                   <a [routerLink]="'../block/'+tx.blockNumber">
                     {{ tx.blockNumber }}
                   </a>
                 </div>
-
                 <div class="col-6" style="text-align: right;">
                   {{ tx.confirmedAt * 1000 | date : 'short'}}
                 </div>
               </nb-list-item>
             </nb-list>
           </nb-tab>
-          <nb-tab *ngIf="mstTransfers && mstTransfers.length > 0" class="noPadding" tabTitle="MST Transfers">
+          <nb-tab *ngIf="mstTransfers && mstTransfers.length > 0" class="noPadding"
+            [tabTitle]="'ADDRESS.TABS.MST_TRANSFERS'|translate">
             <!--Display large screens-->
             <nb-list infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="scroll()"
               class="d-none d-md-block">
               <nb-list-item>
                 <div class="col-md-4 break-dots">
-                  Transaction
+                  {{'ADDRESS.TRANSACTION'|translate}}
                 </div>
                 <div class="col-md-1 break-dots">
                 </div>
                 <div class="col-md-1 break-dots">
                 </div>
-                <div class="col-md-4 break-dots">
-                  Counterparty
-                </div>
-                <div class="col-md-2" style="text-align: right;">
-                  Date
-                </div>
+                <div class="col-md-4 break-dots" translate="ADDRESS.COUNTERPARTY"></div>
+                <div class="col-md-2" style="text-align: right;" translate="ADDRESS.DATE"></div>
               </nb-list-item>
               <nb-list-item *ngFor="let tx of mstTransfers">
                 <a class="col-md-4 break-dots mono" [routerLink]="'../../tx/'+tx.transactionHash">
@@ -271,7 +243,7 @@
                 <a class="col-12 break-dots mono padding-bottom" [routerLink]="'../tx/'+tx.transactionHash">
                   {{ tx.transactionHash }}
                 </a>
-                <div class="col-12">From:</div>
+                <div class="col-12">{{'ADDRESS.FROM'|translate}}:</div>
                 <a class="col-12 break-dots mono" [routerLink]="'../address/'+tx.from">
                   {{ tx.from }}
                 </a>
@@ -286,7 +258,7 @@
                   {{ tx.to }}
                 </a>
                 <div class="col-6">
-                  Block
+                  {{'ADDRESS.BLOCK'|translate}}
                   <a [routerLink]="'../block/'+tx.blockNumber">
                     {{ tx.blockNumber }}
                   </a>
@@ -299,7 +271,7 @@
           </nb-tab>
 
           <!--   Contract related tabs   -->
-          <nb-tab *ngIf="contract && contract.abi" class="noPadding" tabTitle="Functions">
+          <nb-tab *ngIf="contract && contract.abi" class="noPadding" [tabTitle]="'ADDRESS.TABS.FUNCTIONS'|translate">
             <nb-list-item *ngFor="let func of contract.abi | filter: {type: 'function'} " class="row">
               <div class="col-md-4">
                 <b>{{func.name}}</b>
@@ -312,7 +284,7 @@
               </div>
               <div class="col-md-3" style="text-align: right;">
                 <div>
-                  Output type
+                  {{'ADDRESS.OUTPUT_TYPE'|translate}}
                   <div>
                     <span *ngFor="let output of func.outputs">{{output.type}} </span>
                   </div>
@@ -321,7 +293,7 @@
             </nb-list-item>
           </nb-tab>
 
-          <nb-tab *ngIf="contract && contract.abi" tabTitle="Log" [tabId]="TAB_IDS.LOGS">
+          <nb-tab *ngIf="contract && contract.abi" [tabTitle]="'ADDRESS.TABS.LOGS'|translate" [tabId]="TAB_IDS.LOGS">
             <nb-select placeholder="Filter Event" style="width: 100%" (selectedChange)="logFilterSelected($event)">
               <nb-option *ngFor="let event of contract.abi | filter : {type: 'event'}" [value]="event">{{event.name}}
               </nb-option>
@@ -331,12 +303,12 @@
               <nb-list-item *ngFor="let log of logs" class="row">
                 <div class="col-md-6">
                   <div>
-                    <div>Transaction</div>
+                    <div translate="ADDRESS.TRANSACTION"></div>
                     <a [routerLink]="'../../tx/'+log.transactionHash"
                       class="break-dots mono">{{log.transactionHash}}</a>
                   </div>
                   <div>
-                    <div>Block</div>
+                    <div translate="ADDRESS.BLOCK"></div>
                     <a [routerLink]="'../../block/'+log.blockHash" class="break-dots mono">{{log.blockNumber}}</a>
                   </div>
                 </div>
@@ -358,19 +330,19 @@
               </nb-list-item>
             </nb-list>
             <ng-template #noLogs>
-              <div>
-                No logs found
-              </div>
+              <div translate="ADDRESS.NO_LOGS"></div>
             </ng-template>
           </nb-tab>
 
-          <nb-tab *ngIf="address.contract && address.contract.source" class="noPadding" tabTitle="Source Code">
+          <nb-tab *ngIf="address.contract && address.contract.source" class="noPadding"
+            [tabTitle]="'ADDRESS.TABS.SOURCE_CODE'|translate">
             <pre>
               {{'\n'+address.contract.source}}
             </pre>
           </nb-tab>
 
-          <nb-tab *ngIf="address.contract && address.contract.bytecode" class="noPadding" tabTitle="Bytecode">
+          <nb-tab *ngIf="address.contract && address.contract.bytecode" class="noPadding"
+            [tabTitle]="'ADDRESS.TABS.BYTECODE|translate'">
             <pre class="break-word">
               {{'\n'+address.contract.bytecode}}
             </pre>

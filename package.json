@@ -38,6 +38,8 @@
     "@nebular/eva-icons": "7.0.0",
     "@nebular/security": "7.0.0",
     "@nebular/theme": "7.0.0",
+    "@ngx-translate/core": "^13.0.0",
+    "@ngx-translate/http-loader": "^6.0.0",
     "@techiediaries/ngx-qrcode": "^9.1.0",
     "apollo-angular": "^2.6.0",
     "bignumber.js": "^9.0.1",
