@@ -2,15 +2,25 @@ nb-card-body .row {
   padding-bottom: 10px;
 }
 
+.break-dots {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .break-word {
   white-space: pre-wrap;
   word-break: break-all;
 }
 
-.log{
+.log {
+  margin: 10px 24px 10px;
+}
+
+.decoded {
   margin: 10px 0px 10px;
 }
 
-.decoded{
-  margin: 10px 0px 10px;
+.noPadding {
+  padding: 0 !important;
 }

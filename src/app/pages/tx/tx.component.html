@@ -2,11 +2,11 @@
   <nb-card>
     <nb-card-header>
       <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-8">
           <div>Transaction hash:</div>
-          <span class="mono">{{tx.hash}}</span>
+          <div class="mono break-dots">{{tx.hash}}</div>
         </div>
-        <div class="col-sm-6" style="text-align: right;">
+        <div class="col-sm-4" style="text-align: right;">
           <div>{{tx.confirmedAt * 1000 | date : 'short'}}</div>
           <a [routerLink]="'../../block/'+tx.blockNumber">Block {{tx.blockNumber}}</a>
         </div>
