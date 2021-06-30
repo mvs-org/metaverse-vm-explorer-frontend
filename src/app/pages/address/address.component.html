@@ -342,7 +342,7 @@
           </nb-tab>
 
           <nb-tab *ngIf="address.contract && address.contract.bytecode" class="noPadding"
-            [tabTitle]="'ADDRESS.TABS.BYTECODE|translate'">
+            [tabTitle]="'ADDRESS.TABS.BYTECODE'|translate">
             <pre class="break-word">
               {{'\n'+address.contract.bytecode}}
             </pre>
