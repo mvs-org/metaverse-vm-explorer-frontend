@@ -10,7 +10,7 @@
           <a [routerLink]="'../'+(block.number+1)">
             <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
           </a>
-          <div>
+          <div class="break-dots">
             {{block.hash}}
           </div>
         </div>
@@ -19,7 +19,7 @@
         </div>
       </div>
     </nb-card-header>
-    <nb-list>
+    <nb-list class="top-card-list">
       <nb-list-item>
         <div class="col-md-4">
           Age
@@ -32,7 +32,7 @@
         <div class="col-md-4">
           Mined by
         </div>
-        <a class="col-md-8 mono" [routerLink]="'../../address/'+block.miner">
+        <a class="col-md-8 mono break-dots" [routerLink]="'../../address/'+block.miner">
           {{ block.miner }}
         </a>
       </nb-list-item>
@@ -48,7 +48,7 @@
         <div class="col-md-4">
           Parent hash
         </div>
-        <a class="col-md-8 mono" [routerLink]="['..',block.parentHash]">
+        <a class="col-md-8 mono break-dots" [routerLink]="['..',block.parentHash]">
           {{ block.parentHash }}
         </a>
       </nb-list-item>
@@ -64,42 +64,66 @@
   </nb-card>
   <nb-card>
     <nb-card-header>Transactions</nb-card-header>
-    <nb-list *ngIf="!(block.transactions && block.transactions.length>0)">
+    <nb-list *ngIf="!(block.transactions && block.transactions.length>0)" class="col-12">
       <nb-list-item>
         No transactions in this block
       </nb-list-item>
     </nb-list>
-    <nb-list *ngIf="block.transactions && block.transactions.length>0">
-      <nb-list-item>
-        <div class="col-md-3">
-          Hash
-        </div>
-        <div class="col-md-3 break-dots">
-          From
-        </div>
-        <div class="col-md-1 break-dots">
-        </div>
-        <div class="col-md-3 break-dots">
-          To
-        </div>
-      </nb-list-item>
-      <nb-list-item *ngFor="let tx of block.transactions">
-        <a class="col-md-3 break-dots mono" [routerLink]="'../../tx/'+tx.hash">
-          {{ tx.hash }}
-        </a>
-        <a class="col-md-3 break-dots mono" [routerLink]="'../../address/'+tx.from">
-          {{ tx.from }}
-        </a>
-        <div class="col-md-1" style="text-align: center;">
-          <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [18] }} ETP</div>
-          <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
-        </div>
-        <a class="col-md-3 break-dots mono" [routerLink]="'../../address/'+tx.to">
-          {{ tx.to }}
-        </a>
+    <div *ngIf="block.transactions && block.transactions.length>0">
+      <!--Display large screens-->
+      <nb-list class="d-none d-md-block">
+        <nb-list-item>
+          <div class="col-md-3">
+            Hash
+          </div>
+          <div class="col-md-3 break-dots">
+            From
+          </div>
+          <div class="col-md-1 break-dots">
+          </div>
+          <div class="col-md-3 break-dots">
+            To
+          </div>
+        </nb-list-item>
+        <nb-list-item *ngFor="let tx of block.transactions">
+          <a class="col-md-3 break-dots mono" [routerLink]="'../../tx/'+tx.hash">
+            {{ tx.hash }}
+          </a>
+          <a class="col-md-3 break-dots mono" [routerLink]="'../../address/'+tx.from">
+            {{ tx.from }}
+          </a>
+          <div class="col-md-1" style="text-align: center;">
+            <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [18] }} ETP</div>
+            <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+          </div>
+          <a class="col-md-3 break-dots mono" [routerLink]="'../../address/'+tx.to">
+            {{ tx.to }}
+          </a>
+        </nb-list-item>
+      </nb-list>
 
-      </nb-list-item>
-    </nb-list>
+      <!--Display small screens-->
+      <nb-list class="d-md-none">
+        <nb-list-item *ngFor="let tx of block.transactions" class="row small-screen-item">
+          <a class="col-12 break-dots mono padding-bottom" [routerLink]="'../tx/'+tx.hash">
+            {{ tx.hash }}
+          </a>
+          <div class="col-12">From:</div>
+          <a class="col-12 break-dots mono" [routerLink]="'../address/'+tx.from">
+            {{ tx.from }}
+          </a>
+          <div class="col-12" style="text-align: center;">
+            <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+          </div>
+          <div class="col-12" style="text-align: right;">To:</div>
+          <a class="col-md-12 break-dots mono padding-bottom" style="text-align: right;"
+            [routerLink]="'../address/'+tx.to">
+            {{ tx.to }}
+          </a>
+        </nb-list-item>
+      </nb-list>
+    </div>
+
   </nb-card>
 </div>
 <ng-template #spinner>

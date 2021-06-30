@@ -1,5 +1,21 @@
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+@import 'src/app/@theme/styles/themes';
+
 .break-dots {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+@include media-breakpoint-down(md) {
+  .top-card-list {
+    .col-md-8 {
+      text-align: right;
+    }
+  }
+}
+
+.padding-bottom {
+  padding-bottom: 10px;
 }
