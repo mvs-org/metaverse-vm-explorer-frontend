@@ -14,23 +14,27 @@ import Web3 from 'web3'
 })
 export class AddressComponent implements OnInit {
 
+  TAB_IDS = {
+    LOGS: 'TAB_LOGS',
+    TRANSACTIONS: 'TAB_TXS',
+    MST_TRANSFERS: 'TAB_MST_TRANSFERS',
+  }
+
+  selectedTab = this.TAB_IDS.TRANSACTIONS
   price: any
   address: any
   lowercaseAddress: string = ''
-  transactions = []
   contract: Contract
-  mstTransfers = []
   initialLoading = true
-  loadingTxs = false
-  loadingMstTxs = false
   error: any
   info: any
-  selectedTab: string
-  tabsTitles = [
-    'Transactions',
-    'MST Transfers',
-  ]
   mstBalances: any[] = []
+  
+  transactions = []
+  loadingTxs = false
+  
+  mstTransfers = []
+  loadingMstTxs = false
 
   logs: any[]
   loadingLogs = false
@@ -52,7 +56,7 @@ export class AddressComponent implements OnInit {
     this.loadingTxs = false
     this.loadingLogs = false
     this.loadingMstTxs = false
-    this.selectedTab = undefined
+    this.selectedTab = this.TAB_IDS.TRANSACTIONS
     this.mstBalances = []
     this.logTopicFilter = null
   }
@@ -62,7 +66,7 @@ export class AddressComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.selectedTab = this.tabsTitles[0]
+    this.selectedTab = this.TAB_IDS.TRANSACTIONS
     this.activatedRoute.params
       .pipe(
         switchMap(params => {
@@ -146,7 +150,7 @@ export class AddressComponent implements OnInit {
           this.contract = {
             ...response.data?.address.contract,
             ...(response.data?.address.contract.abi && {
-              abi: JSON.parse(response.data?.address.contract.abi).sort((a, b) => {
+              abi: JSON.parse(response.data?.address.contract.abi).sort((a: AbiItem, b) => {
                 if (a.stateMutability == b.stateMutability) {
                   return a.name >= b.name
                 }
@@ -156,7 +160,9 @@ export class AddressComponent implements OnInit {
           }
         }
         this.mstBalances = await Promise.all(this.address.msts.map(async contract => {
-          const balance = new BN(await this.tokenService.getMSTBalance(contract.address, this.address.address)).shiftedBy(-contract.decimals)
+          const balance = new BN(
+            await this.tokenService.getMSTBalance(contract.address, this.address.address)
+          ).shiftedBy(-contract.decimals)
           return {
             ...contract,
             balance,
@@ -175,38 +181,33 @@ export class AddressComponent implements OnInit {
     this.loadMoreLogs()
   }
 
-  onChangeTab(event) {
-    this.selectedTab = event.tabTitle
+  onChangeTab(event: any) {
+    this.selectedTab = event.tabId
   }
 
-  scrollLogs() {
-    if (this.selectedTab == 'Log') {
-      this.loadMoreLogs()
+  scroll() {
+    switch (this.selectedTab) {
+      case this.TAB_IDS.TRANSACTIONS:
+        return this.loadMoreTransactions()
+      case this.TAB_IDS.LOGS:
+        return this.loadMoreLogs()
+      case this.TAB_IDS.MST_TRANSFERS:
+        return this.loadMoreMstTransfers()
     }
   }
 
-  scrollTx() {
-    if (this.selectedTab == 'Transactions') {
-      this.loadMoreTransactions()
-    }
-  }
-
-  scrollMst() {
-    if (this.selectedTab == 'MST Transfers') {
-      this.loadMoreMstTransfers()
-    }
-  }
-
-  loadMoreTransactions() {
+  async loadMoreTransactions() {
+    if (this.loadingTxs) return
     this.loadingTxs = true
-    this.apollo
-      .query<any>({
-        variables: {
-          address: this.address.address,
-          startBlock: this.transactions[0] ? this.transactions[0].blockNumber + 0 : 0,
-          offset: this.transactions.length
-        },
-        query: gql`
+    try {
+      const response = await this.apollo
+        .query<any>({
+          variables: {
+            address: this.address.address,
+            startBlock: this.transactions[0] ? this.transactions[0].blockNumber + 0 : 0,
+            offset: this.transactions.length,
+          },
+          query: gql`
       query($address: String, $startBlock: Int!, $offset: Int!)
       {
         txs(query:{address: $address, blockNumber_lte: $startBlock}, limit: 25, sort: "desc", offset: $offset) {
@@ -218,24 +219,28 @@ export class AddressComponent implements OnInit {
         }
       }
       `,
-      }).subscribe((response) => {
-        this.transactions = this.transactions.concat(response.data?.txs)
-        this.loadingTxs = response.loading
-        this.error = response.error
-      })
+        }).toPromise()
+      this.transactions = this.transactions.concat(response.data?.txs)
+      this.error = response.error
+    } catch (error) {
+      console.error(error)
+    }
+    this.loadingTxs = false
   }
 
-  loadMoreLogs() {
+  async loadMoreLogs() {
+    if (this.loadingLogs) return
     this.loadingLogs = true
-    this.apollo
-      .query<any>({
-        variables: {
-          address: this.address.address,
-          topic: this.logTopicFilter,
-          startBlock: this.logs[0] ? this.logs[0].blockNumber + 0 : 0,
-          offset: this.logs.length
-        },
-        query: gql`
+    try {
+      const { data } = await this.apollo
+        .query<any>({
+          variables: {
+            address: this.address.address,
+            topic: this.logTopicFilter,
+            startBlock: this.logs[0] ? this.logs[0].blockNumber + 0 : 0,
+            offset: this.logs.length,
+          },
+          query: gql`
       query($address: String, $topic: String, $startBlock: Int!, $offset: Int!)
       {
         logs(address: $address, topic: $topic, query:{blockNumber_lte: $startBlock }, limit: 25, offset: $offset) {
@@ -250,23 +255,26 @@ export class AddressComponent implements OnInit {
         }
       }
       `,
-      }).subscribe((response) => {
-        this.logs = this.logs.concat(response.data?.logs)
-        this.loadingLogs = response.loading
-        this.error = response.error
-      })
+        }).toPromise()
+      this.logs = this.logs.concat(data?.logs)
+    } catch (error) {
+      console.error(error)
+    }
+    this.loadingLogs = false
   }
 
-  loadMoreMstTransfers() {
+  async loadMoreMstTransfers() {
+    if (this.loadingMstTxs) return
     this.loadingMstTxs = true
-    this.apollo
-      .query<any>({
-        variables: {
-          address: this.address.address,
-          startBlock: this.mstTransfers[0] ? this.mstTransfers[0].blockNumber + 0 : 0,
-          offset: this.mstTransfers.length
-        },
-        query: gql`
+    try {
+      const { data } = await this.apollo
+        .query<any>({
+          variables: {
+            address: this.address.address,
+            startBlock: this.mstTransfers[0] ? this.mstTransfers[0].blockNumber + 0 : 0,
+            offset: this.mstTransfers.length
+          },
+          query: gql`
       query($address: String, $startBlock: Int!, $offset: Int!)
       {
         mstTransfers(query:{address: $address, blockNumber_lte: $startBlock}, limit: 25, sort: "desc", offset: $offset) {
@@ -283,11 +291,12 @@ export class AddressComponent implements OnInit {
         }
       }
       `,
-      }).subscribe((response) => {
-        this.mstTransfers = this.mstTransfers.concat(response.data?.mstTransfers)
-        this.loadingMstTxs = response.loading
-        this.error = response.error
-      })
+        }).toPromise()
+      this.mstTransfers = this.mstTransfers.concat(data?.mstTransfers)
+    } catch (error) {
+      console.error(error)
+    }
+    this.loadingMstTxs = false
   }
 
 }

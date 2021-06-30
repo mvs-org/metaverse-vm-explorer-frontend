@@ -112,7 +112,7 @@
     <div class="col-12">
       <nb-card>
         <nb-tabset (changeTab)="onChangeTab($event)">
-          <nb-tab class="noPadding" tabTitle="{{tabsTitles[0]}}">
+          <nb-tab class="noPadding" tabTitle="Transactions" [tabId]="TAB_IDS.TRANSACTIONS">
             <nb-list *ngIf="!(transactions && transactions.length > 0)">
               <nb-list-item>
                 No transactions for this address
@@ -120,7 +120,7 @@
             </nb-list>
             <!--Display large screens-->
             <nb-list *ngIf="transactions && transactions.length > 0" infiniteScroll [infiniteScrollDistance]="2"
-              [infiniteScrollThrottle]="0" (scrolled)="scrollTx()" class="d-none d-md-block">
+              [infiniteScrollThrottle]="80" (scrolled)="scroll()" class="d-none d-md-block">
               <nb-list-item>
                 <div class="col-md-4">
                   Transaction
@@ -205,9 +205,9 @@
               </nb-list-item>
             </nb-list>
           </nb-tab>
-          <nb-tab *ngIf="mstTransfers && mstTransfers.length > 0" class="noPadding" tabTitle="{{tabsTitles[1]}}">
+          <nb-tab *ngIf="mstTransfers && mstTransfers.length > 0" class="noPadding" tabTitle="MST Transfers">
             <!--Display large screens-->
-            <nb-list infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="scrollMst()"
+            <nb-list infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="scroll()"
               class="d-none d-md-block">
               <nb-list-item>
                 <div class="col-md-4 break-dots">
@@ -321,12 +321,13 @@
             </nb-list-item>
           </nb-tab>
 
-          <nb-tab *ngIf="contract && contract.abi" tabTitle="Log">
+          <nb-tab *ngIf="contract && contract.abi" tabTitle="Log" [tabId]="TAB_IDS.LOGS">
             <nb-select placeholder="Filter Event" style="width: 100%" (selectedChange)="logFilterSelected($event)">
-              <nb-option *ngFor="let event of contract.abi | filter : {type: 'event'}" [value]="event">{{event.name}}</nb-option>
+              <nb-option *ngFor="let event of contract.abi | filter : {type: 'event'}" [value]="event">{{event.name}}
+              </nb-option>
             </nb-select>
-            <nb-list *ngIf="logs && logs.length; else noLogs" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="scrollLogs()"
-              class="d-none d-md-block">
+            <nb-list *ngIf="logs && logs.length; else noLogs" infiniteScroll [infiniteScrollDistance]="2"
+              [infiniteScrollThrottle]="0" (scrolled)="scroll()" class="d-none d-md-block">
               <nb-list-item *ngFor="let log of logs" class="row">
                 <div class="col-md-6">
                   <div>
@@ -336,8 +337,7 @@
                   </div>
                   <div>
                     <div>Block</div>
-                    <a [routerLink]="'../../block/'+log.blockHash"
-                      class="break-dots mono">{{log.blockNumber}}</a>
+                    <a [routerLink]="'../../block/'+log.blockHash" class="break-dots mono">{{log.blockNumber}}</a>
                   </div>
                 </div>
 
@@ -379,7 +379,7 @@
       </nb-card>
     </div>
     <div
-      *ngIf="(selectedTab == tabsTitles[0] && loadingTxs) || (selectedTab == tabsTitles[1] && loadingMstTxs) || selectedTab === 'Log' && loadingLogs"
+      *ngIf="(selectedTab == TAB_IDS.TRANSACTIONS && loadingTxs) || (selectedTab == TAB_IDS.MST_TRANSFERS && loadingMstTxs) || selectedTab === TAB_IDS.LOGS && loadingLogs"
       class="loading-spinner"></div>
   </div>
 </div>

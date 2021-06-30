@@ -10,6 +10,7 @@ export interface AbiItem {
 	}[]
 	name: string
 	type: AbiItemType
+	stateMutability?: string
 }
 
 export interface Contract {
