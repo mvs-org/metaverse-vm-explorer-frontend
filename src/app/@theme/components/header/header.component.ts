@@ -47,7 +47,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     },
   ];
 
-  currentTheme = 'material-dark';
+  currentTheme = localStorage.getItem('theme') || 'material-dark'
 
   userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
 
@@ -62,6 +62,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private searchService: NbSearchService,
     private router: Router,
   ) {
+    
     this.materialTheme$ = this.themeService.onThemeChange()
       .pipe(map(theme => {
         const themeName: string = theme?.name || ''
@@ -96,8 +97,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       })
 
-
-    //this.currentTheme = this.themeService.currentTheme;
     this.changeTheme(this.currentTheme)
 
     this.themeService.onThemeChange()
@@ -122,8 +121,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
     return this.changeTheme('material-dark')
   }
-
+  
   changeTheme(themeName: string) {
+    localStorage.setItem('theme', themeName)
     this.themeService.changeTheme(themeName)
   }
 
