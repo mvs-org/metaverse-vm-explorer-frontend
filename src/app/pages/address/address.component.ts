@@ -153,7 +153,6 @@ export class AddressComponent implements OnInit {
               })
             })
           }
-          console.log(this.contract)
         }
         this.mstBalances = await Promise.all(this.address.msts.map(async contract => {
           const balance = new BN(await this.tokenService.getMSTBalance(contract.address, this.address.address)).shiftedBy(-contract.decimals)
