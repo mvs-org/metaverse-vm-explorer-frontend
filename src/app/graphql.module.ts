@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core'
 import { ApolloClientOptions, InMemoryCache, HttpLink as H } from '@apollo/client/core'
 import { APOLLO_NAMED_OPTIONS, APOLLO_OPTIONS } from 'apollo-angular'
 import { HttpLink } from 'apollo-angular/http'
+import { environment } from '../environments/environment'
 
-const uri = 'https://vm-explorer.mvs.org/ql/'
+const uri = environment.graphqlEndpoint
 const opennft_uri = 'https://datasource.mvs.org/subgraphs/name/opennft/marketplace'
 const genefinance_uri = 'https://datasource.mvs.org/subgraphs/name/genefinance/gene-finance'
 
