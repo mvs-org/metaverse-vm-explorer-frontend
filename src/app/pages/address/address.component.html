@@ -351,7 +351,7 @@
       </nb-card>
     </div>
     <div
-      *ngIf="(selectedTab == TAB_IDS.TRANSACTIONS && loadingTxs) || (selectedTab == TAB_IDS.MST_TRANSFERS && loadingMstTxs) || selectedTab === TAB_IDS.LOGS && loadingLogs"
+      *ngIf="(selectedTab == TAB_IDS.TRANSACTIONS && loadingTxs) || (selectedTab == TAB_IDS.MST_TRANSFERS && loadingMstTxs) || (selectedTab === TAB_IDS.LOGS && loadingLogs)"
       class="loading-spinner"></div>
   </div>
 </div>
