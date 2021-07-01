@@ -29,10 +29,10 @@ export class AddressComponent implements OnInit {
   error: any
   info: any
   mstBalances: any[] = []
-  
+
   transactions = []
   loadingTxs = false
-  
+
   mstTransfers = []
   loadingMstTxs = false
 

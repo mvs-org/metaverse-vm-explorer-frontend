@@ -131,8 +131,15 @@
                   </div>
                 </div>
                 <div class="col-md-1" style="text-align: center;">
-                  <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [18, 6]}} ETP</div>
-                  <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+                  <div *ngIf="tx.value && tx.value > 0">
+                    <div>{{ tx.value | decimals : [18, 6]}} ETP</div>
+                    <nb-icon [icon]="'arrow-back-outline'"
+                      *ngIf="tx.from !== address.address && tx.to == address.address"></nb-icon>
+                    <nb-icon [icon]="'arrow-forward-outline'"
+                      *ngIf="tx.from == address.address && tx.to !== address.address"></nb-icon>
+                    <nb-icon [icon]="'refresh-outline'"
+                      *ngIf="tx.from == address.address && tx.to == address.address"></nb-icon>
+                  </div>
                 </div>
                 <div class="col-md-4 break-dots mono">
                   <a *ngIf="tx.from === address.address && tx.to !== address.address" [routerLink]="'../'+tx.to">
@@ -201,8 +208,7 @@
                   {{ tx.transactionHash }}
                 </a>
                 <div class="col-md-1 badge-container">
-                  <nb-badge status="control" text="DEPLOY"></nb-badge>
-                  <!--div *ngIf="tx.value && tx.value > 0">
+                  <div *ngIf="tx.value && tx.value > 0">
                     <nb-badge text="IN" status="success"
                       *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
                     <nb-badge text="OUT" status="danger"
@@ -213,7 +219,7 @@
                   <div *ngIf="!(tx.value && tx.value > 0)">
                     <nb-badge *ngIf="tx.to" status="warning" text="CALL"></nb-badge>
                     <nb-badge *ngIf="!tx.to" status="control" text="DEPLOY"></nb-badge>
-                  </div-->
+                  </div>
                 </div>
                 <div class="col-md-1" style="text-align: center;">
                   <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [tx.tokenInfo.decimals, 6]}}
