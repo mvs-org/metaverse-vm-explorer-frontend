@@ -116,7 +116,7 @@
                 <a class="col-md-4 break-dots mono" [routerLink]="'../../tx/'+tx.hash">
                   {{ tx.hash }}
                 </a>
-                <div class="col-md-1">
+                <div class="col-md-1 badge-container">
                   <div *ngIf="tx.value && tx.value > 0">
                     <nb-badge text="IN" status="success"
                       *ngIf="tx.from !== address.address && tx.to == address.address"></nb-badge>
@@ -200,8 +200,9 @@
                 <a class="col-md-4 break-dots mono" [routerLink]="'../../tx/'+tx.transactionHash">
                   {{ tx.transactionHash }}
                 </a>
-                <div class="col-md-1">
-                  <div *ngIf="tx.value && tx.value > 0">
+                <div class="col-md-1 badge-container">
+                  <nb-badge status="control" text="DEPLOY"></nb-badge>
+                  <!--div *ngIf="tx.value && tx.value > 0">
                     <nb-badge text="IN" status="success"
                       *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
                     <nb-badge text="OUT" status="danger"
@@ -212,7 +213,7 @@
                   <div *ngIf="!(tx.value && tx.value > 0)">
                     <nb-badge *ngIf="tx.to" status="warning" text="CALL"></nb-badge>
                     <nb-badge *ngIf="!tx.to" status="control" text="DEPLOY"></nb-badge>
-                  </div>
+                  </div-->
                 </div>
                 <div class="col-md-1" style="text-align: center;">
                   <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [tx.tokenInfo.decimals, 6]}}

@@ -4,6 +4,10 @@
   overflow: hidden;
 }
 
+.badge-container {
+  height: 20px !important;
+}
+
 .noPadding {
   padding: 0 !important;
 }
@@ -41,7 +45,7 @@ div.qrcode{
 }
 
 nb-badge {
-  width: 40px;
+  width: 50px;
 }
 
 .decoded{
