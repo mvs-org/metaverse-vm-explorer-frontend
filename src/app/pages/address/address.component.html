@@ -222,10 +222,14 @@
                   </div>
                 </div>
                 <div class="col-md-1" style="text-align: center;">
-                  <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [tx.tokenInfo.decimals, 6]}}
-                    {{tx.tokenInfo.symbol}}</div>
-                  <div>
-                    <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+                  <div *ngIf="tx.value && tx.value > 0">
+                    <div>{{ tx.value | decimals : [tx.tokenInfo.decimals, 6]}} {{tx.tokenInfo.symbol}}</div>
+                    <nb-icon [icon]="'arrow-back-outline'"
+                      *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-icon>
+                    <nb-icon [icon]="'arrow-forward-outline'"
+                      *ngIf="tx.from == lowercaseAddress && tx.to !== lowercaseAddress"></nb-icon>
+                    <nb-icon [icon]="'refresh-outline'"
+                      *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress"></nb-icon>
                   </div>
                 </div>
                 <div class="col-md-4 break-dots mono">
