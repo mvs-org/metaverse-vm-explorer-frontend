@@ -42,6 +42,10 @@ div.qrcode{
   nb-list-item {
     padding: 40px 0;
   }
+
+  nb-badge {
+    right: auto !important;
+  }
 }
 
 nb-badge {
@@ -50,4 +54,9 @@ nb-badge {
 
 .decoded{
   margin: 10px 0px 10px;
+}
+
+.small-tx-item .counterparty {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
