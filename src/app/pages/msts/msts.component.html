@@ -1,7 +1,9 @@
 <div *ngIf="!loading; else spinner">
   <nb-card>
     <nb-card-header>Metaverse Smart Tokens (MST)</nb-card-header>
-    <nb-list>
+
+    <!--Display large screens-->
+    <nb-list class="d-none d-md-block">
       <nb-list-item>
         <div class="col-md-1">
         </div>
@@ -36,12 +38,40 @@
         </div>
       </nb-list-item>
     </nb-list>
+
+    <!--Display small screens-->
+    <nb-list class="small-screen-list d-md-none">
+      <nb-list-item *ngFor="let mst of msts">
+        <div class="col-2">
+          <img [src]="mst.logoURI" [alt]="mst.symbol" height=32 width=32>
+        </div>
+        <div class="col-10">
+          <div class="col-12">
+            {{ mst.name }}
+          </div>
+          <div class="col-12 mono break-dots">
+            <a [routerLink]="'../address/'+mst.address">
+              {{ mst.address }}
+            </a>
+          </div>
+          <div class="col-12">
+            Symbol: {{ mst.symbol }}
+          </div>
+          <div class="col-12">
+            Decimals: {{ mst.decimals }}
+          </div>
+        </div>
+      </nb-list-item>
+    </nb-list>
+
   </nb-card>
 </div>
 <div *ngIf="pairs">
   <nb-card>
     <nb-card-header>Pairs</nb-card-header>
-    <nb-list>
+
+    <!--Display large screens-->
+    <nb-list class="d-none d-md-block">
       <nb-list-item>
         <div class="col-md-2">
           Pair
@@ -74,6 +104,27 @@
         </div>
         <div class="col-md-3" style="text-align: right;">
           {{ pair.volumeUSD24h | currency : ' ' }}
+        </div>
+      </nb-list-item>
+    </nb-list>
+
+    <!--Display small screens-->
+    <nb-list class="d-md-none">
+      <nb-list-item *ngFor="let pair of pairs" class="row">
+        <div class="col-12">
+          <b>{{ pair.token0.symbol }}_{{ pair.token1.symbol }}</b>
+        </div>
+        <a class="col-12">
+          Liquidity (USD): {{ pair.reserveUSD | currency : ' ' }}
+        </a>
+        <div class="col-12">
+          Liquidity: {{ pair.reserve1 | currency : ' ' }} {{ pair.token1.symbol }}
+        </div>
+        <div class="col-12">
+          24h Tx Count: {{ pair.txs24h }}
+        </div>
+        <div class="col-12">
+          24h Trading Volume (USD): {{ pair.volumeUSD24h | currency : ' ' }}
         </div>
       </nb-list-item>
     </nb-list>
