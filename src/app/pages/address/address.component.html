@@ -199,8 +199,8 @@
                     *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-icon>
                   <nb-icon [icon]="'arrow-forward-outline'"
                     *ngIf="tx.from == lowercaseAddress && tx.to !== lowercaseAddress"></nb-icon>
-                  <nb-icon [icon]="'refresh-outline'"
-                    *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress"></nb-icon>
+                  <nb-icon [icon]="'refresh-outline'" *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress">
+                  </nb-icon>
                 </div>
                 <div class="col-md-4 break-dots mono">
                   <a *ngIf="tx.from === lowercaseAddress && tx.to !== lowercaseAddress" [routerLink]="'../'+tx.to">
@@ -243,10 +243,20 @@
           </nb-tab>
 
           <nb-tab *ngIf="contract && contract.abi" [tabTitle]="'ADDRESS.TABS.LOGS'|translate" [tabId]="TAB_IDS.LOGS">
-            <nb-select placeholder="Filter Event" style="width: 100%" (selectedChange)="logFilterSelected($event)">
-              <nb-option *ngFor="let event of contract.abi | filter : {type: 'event'}" [value]="event">{{event.name}}
-              </nb-option>
-            </nb-select>
+            <div class="row">
+              <div class="col-md-6">
+                <nb-select placeholder="Filter Event" style="width: 100%" (selectedChange)="logFilterSelected($event)">
+                  <nb-option *ngFor="let event of contract.abi | filter : {type: 'event'}" [value]="event">
+                    {{event.name}}
+                  </nb-option>
+                </nb-select>
+              </div>
+              <div class="col-md-6" style="text-align: right;">
+                <button nbButton ghost (click)="exportLogs()">
+                  <nb-icon icon="save-outline"></nb-icon> {{'ADDRESS.EXPORT_LOGS'|translate}}
+                </button>
+              </div>
+            </div>
             <nb-list *ngIf="logs && logs.length; else noLogs" infiniteScroll [infiniteScrollDistance]="2"
               [infiniteScrollThrottle]="0" (scrolled)="scroll()" class="d-none d-md-block">
               <nb-list-item *ngFor="let log of logs" class="row">
@@ -261,18 +271,12 @@
                     <a [routerLink]="'../../block/'+log.blockHash" class="break-dots mono">{{log.blockNumber}}</a>
                   </div>
                 </div>
-
                 <div class="row col-md-6">
                   <div *ngIf="log.decoded" class="col-md-12 decoded">
                     <div class="break-word mono">{{log.decoded.signature}}</div>
                     <div *ngFor="let value of log.decoded.values" class="break-word mono row">
-                      <div class="col-md-3">
-                        {{value.name}}
-                      </div>
-                      <div class="col-md-9">
-                        <span *ngIf="value.value?.hex">{{formatHexNumber(value.value.hex)}}</span>
-                        <span *ngIf="!value.value?.hex">{{value.value}}</span>
-                      </div>
+                      <div class="col-md-3" [innerText]="value.name"></div>
+                      <div class="col-md-9" [innerText]="formatLogValue(value)"></div>
                     </div>
                   </div>
                 </div>
@@ -390,8 +394,8 @@
                     *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-icon>
                   <nb-icon [icon]="'arrow-forward-outline'"
                     *ngIf="tx.from == lowercaseAddress && tx.to !== lowercaseAddress"></nb-icon>
-                  <nb-icon [icon]="'refresh-outline'"
-                    *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress"></nb-icon>
+                  <nb-icon [icon]="'refresh-outline'" *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress">
+                  </nb-icon>
                 </div>
                 <div class="col-6 break-dots mono counterparty">
                   <a *ngIf="tx.from === lowercaseAddress && tx.to !== lowercaseAddress" [routerLink]="'../'+tx.to">

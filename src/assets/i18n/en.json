@@ -17,6 +17,7 @@
 		"DATE": "Date",
 		"FROM": "From",
 		"OUTPUT_TYPE": "Output type",
+		"EXPORT_LOGS": "Export",
 		"TABS": {
 			"TRANSACTIONS": "Transactions",
 			"FUNCTIONS": "Functions",

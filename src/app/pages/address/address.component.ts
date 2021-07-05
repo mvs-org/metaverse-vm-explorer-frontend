@@ -6,11 +6,35 @@ import { TokenService } from '../../services/token.service'
 import BN from 'bignumber.js'
 import { AbiItem, Contract } from '../../interfaces/contract'
 import Web3 from 'web3'
+import { WorkBook, utils, WorkSheet, writeFile } from 'xlsx'
+
+// Bignumber config
+BN.config({ EXPONENTIAL_AT: 18 })
+
+export interface LogValue {
+  name: string
+  value: string | { hex: string }
+  type: string
+  indexed: boolean
+}
+
+export interface DecodedLog {
+  signature: string
+  name: string
+  values: LogValue[]
+}
+
+export interface Log {
+  blockNumber: number
+  blockHash: string
+  transactionHash: string
+  decoded?: DecodedLog
+}
 @Component({
   selector: 'ngx-address',
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AddressComponent implements OnInit {
 
@@ -36,7 +60,7 @@ export class AddressComponent implements OnInit {
   mstTransfers = []
   loadingMstTxs = false
 
-  logs: any[]
+  logs: Log[]
   loadingLogs = false
   logTopicFilter = null
 
@@ -61,8 +85,57 @@ export class AddressComponent implements OnInit {
     this.logTopicFilter = null
   }
 
+  formatLogValue(value: any) {
+    return value.value?.hex ? this.formatHexNumber(value.value.hex) : value.value
+  }
+
+  exportLogs() {
+    const logData: { [name: string]: { name: string, data: any[] } } = {}
+    for (const log of this.logs) {
+      if (!log.decoded) {
+        continue
+      }
+      if (logData[log.decoded.name] === undefined) {
+        logData[log.decoded.name] = {
+          name: log.decoded.name, data: [[
+            'Tx',
+            'Height',
+            'Event Signature',
+            ...log.decoded.values.map(value => value.name),
+          ]]
+        }
+      }
+      logData[log.decoded.name].data.push([
+        log.transactionHash,
+        log.blockNumber,
+        log.decoded.signature,
+        ...log.decoded.values.map(value => this.formatLogValue(value)),
+      ])
+    }
+    const wb: WorkBook = utils.book_new()
+    for (const logType of Object.values(logData)) {
+      const ws: WorkSheet = utils.aoa_to_sheet(logType.data)
+      this.autofitColumns(logType.data, ws)
+      utils.book_append_sheet(wb, ws, logType.name)
+    }
+    writeFile(wb, `logs-${this.address.address}.xlsx`, { bookType: 'xlsx', type: 'array' })
+  }
+
+  private autofitColumns(json: any[], worksheet: WorkSheet) {
+    const objectMaxLength: number[] = []
+    json.map(jsonData => {
+      Object.entries(jsonData)
+        .map(([, v], idx) => {
+          const columnValue = v as string
+          objectMaxLength[idx] = objectMaxLength[idx] >= columnValue.length ? objectMaxLength[idx] : columnValue.length
+        })
+    })
+    const wscols = objectMaxLength.map((w: number) => ({ width: w }))
+    worksheet['!cols'] = wscols
+  }
+
   formatHexNumber(hex: string) {
-    return new BN(hex).toString()
+    return new BN(hex).toString(10)
   }
 
   async ngOnInit() {
