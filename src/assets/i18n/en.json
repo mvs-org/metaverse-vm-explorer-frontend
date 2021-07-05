@@ -18,6 +18,7 @@
 		"FROM": "From",
 		"OUTPUT_TYPE": "Output type",
 		"EXPORT_LOGS": "Export",
+		"SELECT_LOGS_ALL": "All",
 		"TABS": {
 			"TRANSACTIONS": "Transactions",
 			"FUNCTIONS": "Functions",

@@ -62,7 +62,7 @@ export class AddressComponent implements OnInit {
 
   logs: Log[]
   loadingLogs = false
-  logTopicFilter = null
+  logTopicFilter: string = null
 
   callResults: { [name: string]: any[] } = {}
 
@@ -248,10 +248,16 @@ export class AddressComponent implements OnInit {
   }
 
   logFilterSelected(event: AbiItem) {
-    const signature = `${event.name}(${event.inputs.map(input => input.type).join(',')})`
-    this.logTopicFilter = Web3.utils.sha3(signature)
-    this.logs = []
-    this.loadMoreLogs()
+    if (event) {
+      const signature = `${event.name}(${event.inputs.map(input => input.type).join(',')})`
+      this.logTopicFilter = Web3.utils.sha3(signature)
+      this.logs = []
+      this.loadMoreLogs()
+    } else {
+      this.logTopicFilter = null
+      this.logs = []
+      this.loadMoreLogs()
+    }
   }
 
   onChangeTab(event: any) {
