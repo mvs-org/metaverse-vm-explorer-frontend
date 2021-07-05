@@ -19,7 +19,7 @@ export class PagesComponent implements OnInit {
 
   network$ = this.networkService.network$
 
-  constructor(private activatedRoute: ActivatedRoute, private networkService: NetworkService) {
+  constructor(activatedRoute: ActivatedRoute, private networkService: NetworkService) {
     activatedRoute.params.subscribe(({ network }: { network: string }) => {
       console.log('set network to', network)
       networkService.setNetwork(network)
@@ -29,9 +29,7 @@ export class PagesComponent implements OnInit {
     })
   }
 
-  ngOnInit(){
-
-  }
+  ngOnInit(){ }
 
   menu = MENU_ITEMS;
 
