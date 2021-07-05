@@ -158,7 +158,7 @@
             </nb-list>
           </nb-tab>
           <nb-tab *ngIf="mstTransfers && mstTransfers.length > 0" class="noPadding"
-            [tabTitle]="'ADDRESS.TABS.MST_TRANSFERS'|translate">
+            [tabTitle]="'ADDRESS.TABS.MST_TRANSFERS'|translate" [tabId]="TAB_IDS.MST_TRANSFERS">
             <!--Display large screens-->
             <nb-list infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="scroll()"
               class="d-none d-md-block">
@@ -288,14 +288,14 @@
             </ng-template>
           </nb-tab>
 
-          <nb-tab *ngIf="address.contract && address.contract.source" class="noPadding d-none d-md-block"
+          <nb-tab *ngIf="address.contract && address.contract.source" class="noPadding"
             [tabTitle]="'ADDRESS.TABS.SOURCE_CODE'|translate">
             <pre>
               {{'\n'+address.contract.source}}
             </pre>
           </nb-tab>
 
-          <nb-tab *ngIf="address.contract && address.contract.bytecode" class="noPadding d-none d-md-block"
+          <nb-tab *ngIf="address.contract && address.contract.bytecode" class="noPadding"
             [tabTitle]="'ADDRESS.TABS.BYTECODE'|translate">
             <pre class="break-word">
               {{'\n'+address.contract.bytecode}}
