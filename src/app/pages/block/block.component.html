@@ -6,7 +6,7 @@
           <a [routerLink]="'../'+(block.number-1)">
             <nb-icon [icon]="'arrow-back-outline'"></nb-icon>
           </a>
-          Block #{{ block.number }}
+          <span translate="BLOCK.NUMBER" [translateParams]="{number: block.number}"></span>
           <a [routerLink]="'../'+(block.number+1)">
             <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
           </a>
@@ -21,41 +21,31 @@
     </nb-card-header>
     <nb-list class="top-card-list">
       <nb-list-item>
-        <div class="col-md-4">
-          Age
-        </div>
+        <div class="col-md-4" translate="BLOCK.AGE"></div>
         <div class="col-md-8">
           <ngx-timer [time]="(currentTimestamp-block.timestamp)*1000"></ngx-timer>
         </div>
       </nb-list-item>
       <nb-list-item>
-        <div class="col-md-4">
-          Mined by
-        </div>
+        <div class="col-md-4" translate="BLOCK.MINED_BY"></div>
         <a class="col-md-8 mono break-dots" [routerLink]="'../../address/'+block.miner">
           {{ block.miner }}
         </a>
       </nb-list-item>
       <nb-list-item>
-        <div class="col-md-4">
-          Gas used
-        </div>
+        <div class="col-md-4" translate="BLOCK.GAS_USED"></div>
         <div class="col-md-8">
           {{ block.gasUsed }}
         </div>
       </nb-list-item>
       <nb-list-item>
-        <div class="col-md-4">
-          Parent hash
-        </div>
+        <div class="col-md-4" translate="BLOCK.PARENT_HASH"></div>
         <a class="col-md-8 mono break-dots" [routerLink]="['..',block.parentHash]">
           {{ block.parentHash }}
         </a>
       </nb-list-item>
       <nb-list-item>
-        <div class="col-md-4">
-          Size
-        </div>
+        <div class="col-md-4" translate="BLOCK.SIZE"></div>
         <div class="col-md-8">
           {{ block.size }} bytes
         </div>
@@ -63,27 +53,18 @@
     </nb-list>
   </nb-card>
   <nb-card>
-    <nb-card-header>Transactions</nb-card-header>
+    <nb-card-header translate="BLOCK.TRANSACTIONS.TITLE"></nb-card-header>
     <nb-list *ngIf="!(block.transactions && block.transactions.length>0)" class="col-12">
-      <nb-list-item>
-        No transactions in this block
-      </nb-list-item>
+      <nb-list-item translate="BLOCK.TRANSACTIONS.NO_TRANSACTIONS"></nb-list-item>
     </nb-list>
     <div *ngIf="block.transactions && block.transactions.length>0">
       <!--Display large screens-->
       <nb-list class="d-none d-md-block">
         <nb-list-item>
-          <div class="col-md-3">
-            Hash
-          </div>
-          <div class="col-md-3 break-dots">
-            From
-          </div>
-          <div class="col-md-1 break-dots">
-          </div>
-          <div class="col-md-3 break-dots">
-            To
-          </div>
+          <div class="col-md-3" translate="BLOCK.TRANSACTIONS.HASH"></div>
+          <div class="col-md-3 break-dots" translate="BLOCK.TRANSACTIONS.FROM"></div>
+          <div class="col-md-1 break-dots"></div>
+          <div class="col-md-3 break-dots" translate="BLOCK.TRANSACTIONS.TO"></div>
         </nb-list-item>
         <nb-list-item *ngFor="let tx of block.transactions">
           <a class="col-md-3 break-dots mono" [routerLink]="'../../tx/'+tx.hash">

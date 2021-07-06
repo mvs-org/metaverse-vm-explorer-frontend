@@ -27,5 +27,52 @@
 			"BYTECODE": "Bytecode",
 			"LOGS": "Logs"
 		}
-	}
+  },
+  "BLOCK": {
+    "NUMBER": "Block #{{ number }}",
+    "AGE": "Age",
+    "MINED_BY": "Mined by",
+    "GAS_USED": "Gas used",
+    "PARENT_HASH": "Parent hash",
+    "SIZE": "Size",
+    "TRANSACTIONS": {
+      "TITLE": "Transactions",
+      "NO_TRANSACTIONS": "No transactions in this block",
+      "HASH": "Hash",
+      "FROM": "From",
+      "TO": "To"
+    }
+  },
+  "BLOCKS": {
+    "HASH": "Hash",
+    "NUMBER": "Number",
+    "TRANSACTIONS": "Transactions",
+    "TIME": "Time",
+    "MOBILE": {
+      "BLOCK": "Block ",
+      "TRANSACTIONS": "Transactions: {{number}}"
+    }
+  },
+  "MITS": {
+    "TITLE": "Identifiable Tokens (MIT)",
+    "SUPPLY": "Supply: {{number}}",
+    "FOR_SALE": {
+      "OPENNFT": "For sale on OpenNFT.io"
+    }
+  },
+  "MSTS": {
+    "TITLE": "Metaverse Smart Tokens (MST)",
+    "NAME": "Name",
+    "SYMBOL": "Symbol",
+    "ADDRESS": "Address",
+    "DECIMALS": "Decimals",
+    "PAIRS": {
+      "TITLE": "Pairs",
+      "PAIR": "Pair",
+      "LIQUIDITY_USD": "Liquidity (USD)",
+      "LIQUIDITY": "Liquidity",
+      "TX_COUNT": "24h Tx Count",
+      "VOLUME": "24h Trading Volume (USD)"
+    }
+  }
 }
