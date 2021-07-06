@@ -1,9 +1,7 @@
 <div *ngIf="!initialLoading; else spinner" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0"
   (scrolled)="loadTxs()">
   <nb-card>
-    <nb-card-header>
-      Identifiable Tokens (MIT)
-    </nb-card-header>
+    <nb-card-header translate="MITS.TITLE"></nb-card-header>
     <nb-card-body>
       <div class="row">
         <mvs-mit class="col-md-3" *ngFor="let token of tokens" [token]="token">

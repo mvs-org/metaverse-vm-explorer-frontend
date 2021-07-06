@@ -4,6 +4,7 @@ import { MITsRoutingModule, routedComponents } from './mits-routing.module'
 import { NbCardModule, NbListModule, NbIconModule } from '@nebular/theme'
 import { InfiniteScrollModule } from 'ngx-infinite-scroll'
 import { MitModule } from './components/mit/mit.module'
+import { TranslateModule } from '@ngx-translate/core'
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { MitModule } from './components/mit/mit.module'
     NbListModule,
     NbIconModule,
     InfiniteScrollModule,
+    TranslateModule.forChild(),
   ],
   declarations: [
     ...routedComponents,
