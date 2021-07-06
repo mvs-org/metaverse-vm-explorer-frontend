@@ -1,24 +1,15 @@
 <div *ngIf="!loading; else spinner">
   <nb-card>
-    <nb-card-header>Metaverse Smart Tokens (MST)</nb-card-header>
+    <nb-card-header translate="MSTS.TITLE"></nb-card-header>
 
     <!--Display large screens-->
     <nb-list class="d-none d-md-block">
       <nb-list-item>
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-4">
-          Name
-        </div>
-        <div class="col-md-2">
-          Symbol
-        </div>
-        <div class="col-md-4">
-          Address
-        </div>
-        <div class="col-md-1" style="text-align: right;">
-          Decimals
-        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-4" translate="MSTS.NAME"></div>
+        <div class="col-md-2" translate="MSTS.SYMBOL"></div>
+        <div class="col-md-4" translate="MSTS.ADDRESS"></div>
+        <div class="col-md-1" translate="MSTS.DECIMALS" style="text-align: right;"></div>
       </nb-list-item>
       <nb-list-item *ngFor="let mst of msts">
         <div class="col-md-1">
@@ -55,10 +46,10 @@
             </a>
           </div>
           <div class="col-12">
-            Symbol: {{ mst.symbol }}
+            <span translate="MSTS.SYMBOL"></span>: {{ mst.symbol }}
           </div>
           <div class="col-12">
-            Decimals: {{ mst.decimals }}
+            <span translate="MSTS.DECIMALS"></span>: {{ mst.decimals }}
           </div>
         </div>
       </nb-list-item>
@@ -68,26 +59,16 @@
 </div>
 <div *ngIf="pairs">
   <nb-card>
-    <nb-card-header>Pairs</nb-card-header>
+    <nb-card-header translate="MSTS.PAIRS.TITLE"></nb-card-header>
 
     <!--Display large screens-->
     <nb-list class="d-none d-md-block">
       <nb-list-item>
-        <div class="col-md-2">
-          Pair
-        </div>
-        <div class="col-md-2" style="text-align: right;">
-          Liquidity (USD)
-        </div>
-        <div class="col-md-3" style="text-align: right;">
-          Liquidity
-        </div>
-        <div class="col-md-2" style="text-align: right;">
-          24h Tx Count
-        </div>
-        <div class="col-md-3" style="text-align: right;">
-          24h Trading Volume (USD)
-        </div>
+        <div class="col-md-2" translate="MSTS.PAIRS.PAIR"></div>
+        <div class="col-md-2" translate="MSTS.PAIRS.LIQUIDITY_USD" style="text-align: right;"></div>
+        <div class="col-md-3" translate="MSTS.PAIRS.LIQUIDITY" style="text-align: right;"></div>
+        <div class="col-md-2" translate="MSTS.PAIRS.TX_COUNT" style="text-align: right;"></div>
+        <div class="col-md-3" translate="MSTS.PAIRS.VOLUME" style="text-align: right;"></div>
       </nb-list-item>
       <nb-list-item *ngFor="let pair of pairs">
         <div class="col-md-2">
@@ -115,16 +96,16 @@
           <b>{{ pair.token0.symbol }}_{{ pair.token1.symbol }}</b>
         </div>
         <a class="col-12">
-          Liquidity (USD): {{ pair.reserveUSD | currency : ' ' }}
+          <span translate="MSTS.PAIRS.LIQUIDITY_USD"></span>: {{ pair.reserveUSD | currency : ' ' }}
         </a>
         <div class="col-12">
-          Liquidity: {{ pair.reserve1 | currency : ' ' }} {{ pair.token1.symbol }}
+          <span translate="MSTS.PAIRS.LIQUIDITY"></span>: {{ pair.reserve1 | currency : ' ' }} {{ pair.token1.symbol }}
         </div>
         <div class="col-12">
-          24h Tx Count: {{ pair.txs24h }}
+          <span translate="MSTS.PAIRS.TX_COUNT"></span>: {{ pair.txs24h }}
         </div>
         <div class="col-12">
-          24h Trading Volume (USD): {{ pair.volumeUSD24h | currency : ' ' }}
+          <span translate="MSTS.PAIRS.VOLUME"></span>: {{ pair.volumeUSD24h | currency : ' ' }}
         </div>
       </nb-list-item>
     </nb-list>
