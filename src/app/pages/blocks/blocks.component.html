@@ -5,18 +5,10 @@
     <!--Display large screens-->
     <nb-list class="col-12 d-none d-md-block">
       <nb-list-item class="row">
-        <div class="col-md-6">
-          Hash
-        </div>
-        <div class="col-md-2" style="text-align: right;">
-          Number
-        </div>
-        <div class="col-md-2" style="text-align: right;">
-          Transactions
-        </div>
-        <div class="col-md-2" style="text-align: right;">
-          Time
-        </div>
+        <div class="col-md-6" translate="BLOCKS.HASH"></div>
+        <div class="col-md-2" style="text-align: right;" translate="BLOCKS.NUMBER"></div>
+        <div class="col-md-2" style="text-align: right;" translate="BLOCKS.TRANSACTIONS"></div>
+        <div class="col-md-2" style="text-align: right;" translate="BLOCKS.TIME"></div>
       </nb-list-item>
       <nb-list-item *ngFor="let block of blocks" class="row">
         <a class="col-md-6 break-dots mono" [routerLink]="'../block/'+block.hash">
@@ -38,7 +30,7 @@
     <nb-list class="col-12 d-md-none">
       <nb-list-item *ngFor="let block of blocks" class="row">
         <div class="col-6">
-          Block
+          <span translate="BLOCKS.MOBILE.BLOCK"></span>
           <a [routerLink]="'../block/'+block.number">
             {{ block.number }}
           </a>
@@ -49,9 +41,7 @@
         <a class="col-12 break-dots mono" [routerLink]="'../block/'+block.hash">
           {{ block.hash }}
         </a>
-        <div class="col-12">
-          Transactions: {{ block.transactionCount }}
-        </div>
+        <div class="col-12" translate="BLOCKS.MOBILE.TRANSACTIONS" [translateParams]="{number: block.transactionCount}"></div>
       </nb-list-item>
     </nb-list>
   </nb-card>

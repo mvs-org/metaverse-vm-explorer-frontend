@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BlocksRoutingModule, routedComponents } from './blocks-routing.module'
 import { NbCardModule, NbListModule } from '@nebular/theme'
 import { InfiniteScrollModule } from 'ngx-infinite-scroll'
+import { TranslateModule } from '@ngx-translate/core'
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll'
     NbListModule,
     BlocksRoutingModule,
     InfiniteScrollModule,
+    TranslateModule.forChild(),
   ],
   declarations: [
     ...routedComponents,
