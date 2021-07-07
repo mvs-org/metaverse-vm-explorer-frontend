@@ -1,27 +1,25 @@
 <div *ngIf="!loading; else spinner">
   <nb-card>
-    <nb-card-header>Price</nb-card-header>
+    <nb-card-header translate="START.PRICE.TITLE"></nb-card-header>
     <nb-card-body class="row">
       <div class="col-sm-4 price-info" style="text-align: center;">
-        <b>current</b><br>
+        <b translate="START.PRICE.CURRENT"></b><br>
         {{price.current_USD | currency : ' ' :'symbol':'0.2-4'}} $
       </div>
       <div class="col-sm-4 price-info" style="text-align: center;">
-        <b>24h change</b><br>
+        <b translate="START.PRICE.24H_CHANGE"></b><br>
         {{price.change24h_USD | currency : ' ' :'symbol':'0.2-4'}} $
         ({{(price.current_USD/(price.current_USD-price.change24h_USD)-1)*100 | number}}%)
       </div>
       <div class="col-sm-4 price-info" style="text-align: center;">
-        <b>7d change</b><br>
+        <b translate="START.PRICE.7D_CHANGE"></b><br>
         {{price.change7d_USD | currency : ' ' :'symbol':'0.2-4' }} $
         ({{(price.current_USD/(price.current_USD-price.change7d_USD)-1)*100 | number}}%)
       </div>
     </nb-card-body>
   </nb-card>
   <nb-card>
-    <nb-card-header>
-      Trending dApps on the MetaverseVM
-    </nb-card-header>
+    <nb-card-header translate="START.DAPPS.TITLE"></nb-card-header>
     <div class="dapp-list">
       <a [href]="dapp.url" [ngStyle]="{'background-color': dapp.bg,  'background-image': dapp.gradient}" target="_blank"
         rel="noopener noreferrer" class="dapp-item" *ngFor="let dapp of dapps">
@@ -34,19 +32,13 @@
   <div class="row">
     <div class="col-md-12 col-lg-6">
       <nb-card>
-        <nb-card-header>Latest Blocks</nb-card-header>
+        <nb-card-header translate="START.BLOCKS.TITLE"></nb-card-header>
         <!--Display large screens-->
         <nb-list class="d-none d-md-block">
           <nb-list-item>
-            <div class="col-md-6">
-              Hash
-            </div>
-            <div class="col-md-2" style="text-align: right;">
-              Number
-            </div>
-            <div class="col-md-4" style="text-align: right;">
-              Time
-            </div>
+            <div class="col-md-6" translate="START.BLOCKS.HASH"></div>
+            <div class="col-md-2" translate="START.BLOCKS.NUMBER" style="text-align: right;"></div>
+            <div class="col-md-4" translate="START.BLOCKS.TIME" style="text-align: right;"></div>
           </nb-list-item>
           <nb-list-item *ngFor="let block of blocks">
             <a class="col-md-6 break-dots mono" [routerLink]="'../block/'+block.hash">
@@ -65,7 +57,7 @@
         <nb-list class="d-md-none">
           <nb-list-item *ngFor="let block of blocks" class="row">
             <div class="col-6">
-              Block
+              <span translate="START.BLOCKS.MOBILE.NUMBER"></span>
               <a [routerLink]="'../block/'+block.number">
                 {{ block.number }}
               </a>
@@ -82,20 +74,14 @@
     </div>
     <div class="col-md-12 col-lg-6">
       <nb-card>
-        <nb-card-header>Latest Transactions</nb-card-header>
+        <nb-card-header translate="START.TRANSACTIONS.TITLE"></nb-card-header>
 
         <!--Display large screens-->
         <nb-list class="d-none d-md-block">
           <nb-list-item>
-            <div class="col-md-5">
-              Hash
-            </div>
-            <div class="col-md-5">
-              From
-            </div>
-            <div class="col-md-2" style="text-align: right;">
-              Height
-            </div>
+            <div class="col-md-5" translate="START.TRANSACTIONS.HASH"></div>
+            <div class="col-md-5" translate="START.TRANSACTIONS.FROM"></div>
+            <div class="col-md-2" translate="START.TRANSACTIONS.HEIGHT" style="text-align: right;"></div>
           </nb-list-item>
           <nb-list-item *ngFor="let tx of txs">
             <a class="col-md-5 break-dots mono" [routerLink]="'../tx/'+tx.hash">
@@ -114,7 +100,7 @@
         <nb-list class="d-md-none">
           <nb-list-item *ngFor="let tx of txs" class="row small-screen-item">
             <div class="col-6">
-              Block
+              <span translate="START.TRANSACTIONS.MOBILE.BLOCK"></span>
               <a [routerLink]="'../block/'+tx.blockNumber">
                 {{ tx.blockNumber }}
               </a>
@@ -126,14 +112,14 @@
             <a class="col-12 break-dots mono padding-bottom" [routerLink]="'../tx/'+tx.hash">
               {{ tx.hash }}
             </a>
-            <div class="col-12">From:</div>
+            <div class="col-12" translate="START.TRANSACTIONS.MOBILE.FROM"></div>
             <a class="col-12 break-dots mono" [routerLink]="'../address/'+tx.from">
               {{ tx.from }}
             </a>
             <div class="col-12" style="text-align: center;">
               <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
             </div>
-            <div class="col-12" style="text-align: right;">To:</div>
+            <div class="col-12" translate="START.TRANSACTIONS.MOBILE.TO" style="text-align: right;"></div>
             <a class="col-md-12 break-dots mono padding-bottom" style="text-align: right;"
               [routerLink]="'../address/'+tx.to">
               {{ tx.to }}

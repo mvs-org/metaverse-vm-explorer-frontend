@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { StartRoutingModule, routedComponents } from './start-routing.module'
 import { NbCardModule, NbListModule, NbIconModule } from '@nebular/theme'
 import { TimerModule } from '../components/timer/timer.module'
+import { TranslateModule } from '@ngx-translate/core'
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { TimerModule } from '../components/timer/timer.module'
     NbIconModule,
     TimerModule,
     StartRoutingModule,
+    TranslateModule.forChild(),
   ],
   declarations: [
     ...routedComponents,

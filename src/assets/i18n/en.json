@@ -74,5 +74,36 @@
       "TX_COUNT": "24h Tx Count",
       "VOLUME": "24h Trading Volume (USD)"
     }
+  },
+  "START": {
+    "PRICE": {
+      "TITLE": "Price",
+      "CURRENT": "Current",
+      "24H_CHANGE": "24h change",
+      "7D_CHANGE": "7d change"
+    },
+    "DAPPS": {
+      "TITLE": "Trending dApps on the MetaverseVM"
+    },
+    "BLOCKS": {
+      "TITLE": "Latest blocks",
+      "HASH": "Hash",
+      "NUMBER": "Number",
+      "TIME": "Time",
+      "MOBILE": {
+        "NUMBER": "Number "
+      }
+    },
+    "TRANSACTIONS": {
+      "TITLE": "Latest Transactions",
+      "HASH": "Hash",
+      "FROM": "From",
+      "HEIGHT": "Height",
+      "MOBILE": {
+        "BLOCK": "Block ",
+        "FROM": "From:",
+        "TO": "To:"
+      }
+    }
   }
 }
