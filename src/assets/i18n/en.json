@@ -147,5 +147,9 @@
       "FROM": "From: ",
       "TO": "To: "
     }
+  },
+  "CONTRACT_CALL": {
+    "PARAMETERS": "Parameters",
+    "VIEW_ONLY": "Only view functions are currently supported for execution"
   }
 }

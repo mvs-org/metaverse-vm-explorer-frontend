@@ -1,7 +1,5 @@
 <form #f="ngForm" (ngSubmit)="call(f)">
-  <div *ngIf="inputs.length">
-    Parameters
-  </div>
+  <div *ngIf="inputs.length" translate="CONTRACT_CALL.PARAMETERS"></div>
   <div *ngFor="let input of inputs" class="row">
     <label class="col-md-3" [for]="input.name || '_'">{{input.name||''}}</label>
     <input class="col-md-9" [name]="input.name||'_'" type="text" [placeholder]="input.type" ngModel>
@@ -9,7 +7,7 @@
   <button nbButton size="small" color="primary" *ngIf="stateMutability==='view'; else notSupported" type="submit">Query</button>
   <ng-template #notSupported>
     <br>
-    <p>Only view functions are currently supported for execution</p>
+    <p translate="CONTRACT_CALL.VIEW_ONLY"></p>
   </ng-template>
   <div *ngFor="let result of results">
     {{result}}
