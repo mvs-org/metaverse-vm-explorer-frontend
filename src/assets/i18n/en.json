@@ -134,5 +134,18 @@
       "TOPICS": "Topics",
       "DATA": "Data"
     }
+  },
+  "TXS": {
+    "TITLE": "Transactions",
+    "HASH": "Hash",
+    "BLOCK" : "Block",
+    "FROM": "From",
+    "TO": "To",
+    "TIME": "Time",
+    "MOBILE": {
+      "BLOCK": "Block ",
+      "FROM": "From: ",
+      "TO": "To: "
+    }
   }
 }

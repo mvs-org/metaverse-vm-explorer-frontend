@@ -2,27 +2,16 @@
   (scrolled)="loadTxs()">
   <div class="col-md-12">
     <nb-card>
-      <nb-card-header>Transactions</nb-card-header>
+      <nb-card-header translate="TXS.TITLE"></nb-card-header>
       <!--Display large screens-->
       <nb-list class="col-12 d-none d-md-block">
         <nb-list-item class="row">
-          <div class="col-md-3">
-            Hash
-          </div>
-          <div class="col-md-2">
-            Block
-          </div>
-          <div class="col-md-2 break-dots">
-            From
-          </div>
-          <div class="col-md-1 break-dots">
-          </div>
-          <div class="col-md-2 break-dots">
-            To
-          </div>
-          <div class="col-md-2" style="text-align: right;">
-            Time
-          </div>
+          <div class="col-md-3" translate="TXS.HASH"></div>
+          <div class="col-md-2" translate="TXS.BLOCK"></div>
+          <div class="col-md-2 break-dots" translate="TXS.FROM"></div>
+          <div class="col-md-1 break-dots"></div>
+          <div class="col-md-2 break-dots" translate="TXS.TO"></div>
+          <div class="col-md-2" style="text-align: right;" translate="TXS.TIME"></div>
         </nb-list-item>
         <nb-list-item *ngFor="let tx of txs" class="row">
           <a class="col-md-3 break-dots mono" [routerLink]="'../tx/'+tx.hash">
@@ -50,7 +39,7 @@
       <nb-list class="col-12 d-md-none">
         <nb-list-item *ngFor="let tx of txs" class="row small-screen-item">
           <div class="col-6">
-            Block
+            <span translate="TXS.MOBILE.BLOCK"></span>
             <a [routerLink]="'../block/'+tx.blockNumber">
               {{ tx.blockNumber }}
             </a>
@@ -62,18 +51,17 @@
           <a class="col-12 break-dots mono padding-bottom" [routerLink]="'../tx/'+tx.hash">
             {{ tx.hash }}
           </a>
-          <div class="col-12">From:</div>
+          <div class="col-12" translate="TXS.MOBILE.FROM"></div>
           <a class="col-12 break-dots mono" [routerLink]="'../address/'+tx.from">
             {{ tx.from }}
           </a>
           <div class="col-12" style="text-align: center;">
             <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
           </div>
-          <div class="col-12" style="text-align: right;">To:</div>
+          <div class="col-12" style="text-align: right;" translate="TXS.MOBILE.TO"></div>
           <a class="col-md-12 break-dots mono padding-bottom" style="text-align: right;" [routerLink]="'../address/'+tx.to">
             {{ tx.to }}
           </a>
-
         </nb-list-item>
       </nb-list>
     </nb-card>
