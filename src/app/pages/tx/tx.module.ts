@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TxRoutingModule, routedComponents } from './tx-routing.module'
 import { NbCardModule, NbListModule, NbIconModule, NbTabsetModule } from '@nebular/theme'
 import { PipesModule } from '../../pipes/pipes.module'
+import { TranslateModule } from '@ngx-translate/core'
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { PipesModule } from '../../pipes/pipes.module'
     NbTabsetModule,
     PipesModule,
     TxRoutingModule,
+    TranslateModule.forChild(),
   ],
   declarations: [
     ...routedComponents,

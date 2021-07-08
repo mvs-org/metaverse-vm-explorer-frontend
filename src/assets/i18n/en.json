@@ -105,5 +105,34 @@
         "TO": "To:"
       }
     }
+  },
+  "TX": {
+    "HASH": "Transaction hash:",
+    "BLOCK": "Block {{number}}",
+    "FROM": "From:",
+    "CALL": "calls",
+    "DEPLOY": "deploys",
+    "TO": "To:",
+    "CONTRACT": "Contract:",
+    "SHOW_INPUT_DATA": "show input data",
+    "INPUT_DATA": "Input data: ",
+    "FEES": "Fees: ",
+    "TABS": {
+      "DETAILS": "Details",
+      "LOGS": "Logs"
+    },
+    "DETAILS": {
+      "STATUS": "Status",
+      "SUCCESS": "Success",
+      "FAILED": "Failed",
+      "GAS_PRICE": "Gas price",
+      "GAS_LIMIT": "Gas limit",
+      "GAS_USED": "Gas used"
+    },
+    "LOGS": {
+      "ADDRESS": "Address",
+      "TOPICS": "Topics",
+      "DATA": "Data"
+    }
   }
 }

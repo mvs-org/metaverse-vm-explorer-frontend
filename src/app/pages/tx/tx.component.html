@@ -3,19 +3,19 @@
     <nb-card-header>
       <div class="row">
         <div class="col-sm-8">
-          <div>Transaction hash:</div>
+          <div translate="TX.HASH"></div>
           <div class="mono break-dots">{{tx.hash}}</div>
         </div>
         <div class="col-sm-4" style="text-align: right;">
           <div>{{tx.confirmedAt * 1000 | date : 'short'}}</div>
-          <a [routerLink]="'../../block/'+tx.blockNumber">Block {{tx.blockNumber}}</a>
+          <a [routerLink]="'../../block/'+tx.blockNumber" translate="TX.BLOCK" [translateParams]="{number: tx.blockNumber}"></a>
         </div>
       </div>
     </nb-card-header>
     <nb-card-body>
       <div class="row">
         <div class="col-sm-5">
-          <div>From:</div>
+          <div translate="TX.FROM"></div>
           <a class="mono" [routerLink]="'../../address/'+tx.from">{{ tx.from }}</a>
         </div>
         <div class="col-md-2" style="text-align: center;">
@@ -24,17 +24,17 @@
             {{tx.value/1000000000000000000}} ETP
           </div>
           <nb-icon *ngIf="tx.input==='0x'" [icon]="'arrow-forward-outline'"></nb-icon>
-          <div *ngIf="tx.input!=='0x' && tx.to">calls</div>
-          <div *ngIf="tx.creates">deploys</div>
+          <div *ngIf="tx.input!=='0x' && tx.to" translate="TX.CALL"></div>
+          <div *ngIf="tx.creates" translate="TX.DEPLOY"></div>
         </div>
 
         <div class="col-sm-5" style="text-align: right;">
           <div *ngIf="tx.to">
-            <div>To:</div>
+            <div translate="TX.TO"></div>
             <a class="mono" [routerLink]="'../../address/'+tx.to">{{ tx.to }}</a>
           </div>
           <div *ngIf="tx.creates">
-            <div>Contract:</div>
+            <div translate="TX.CONTRACT"></div>
             <a class="mono" [routerLink]="'../../address/'+tx.creates">{{ tx.creates }}</a>
           </div>
         </div>
@@ -50,18 +50,18 @@
         </div>
         <div class="col-md-12">
           <a *ngIf="!showInputData" style="cursor: pointer; text-decoration:underline;"
-            (click)="showInputData=true">show input data</a>
+            (click)="showInputData=true"></a>
         </div>
         <div *ngIf="showInputData" class="col-md-12">
-          Input data:
-          <div class="break-word mono">{{tx.input}}</div>
+          <span translate="TX.INPUT_DATA"></span>>
+          <div class="break-word mono" translate="TX.SHOW_INPUT_DATA">{{tx.input}}</div>
         </div>
       </div>
     </nb-card-body>
     <nb-card-footer>
       <div style="text-align: right;">
-        Fees: {{ tx.gasPrice*tx.receipt.gasUsed | decimals: [18, 6] }} ETP (~{{tx.gasPrice*tx.gas*price.current_USD | decimals: [18,
-        6]}} USD)
+        <span translate="TX.FEES"></span>
+        {{ tx.gasPrice*tx.receipt.gasUsed | decimals: [18, 6] }} ETP (~{{tx.gasPrice*tx.gas*price.current_USD | decimals: [18,6]}} USD)
       </div>
     </nb-card-footer>
   </nb-card>
@@ -69,47 +69,39 @@
 
   <nb-card>
     <nb-tabset>
-      <nb-tab class="noPadding" tabTitle="Details">
+      <nb-tab class="noPadding" [tabTitle]="'TX.TABS.DETAILS'|translate">
         <nb-list>
           <nb-list-item>
-            <div class="col-md-6">
-              Status
-            </div>
+            <div class="col-md-6" translate="TX.DETAILS.STATUS"></div>
             <div class="col-md-6" style="text-align: right;">
-              <div *ngIf="tx.receipt.status" class="text-success">Success</div>
-              <div *ngIf="!tx.receipt.status" class="text-danger">Failed</div>
+              <div *ngIf="tx.receipt.status" translate="TX.DETAILS.SUCCESS" class="text-success"></div>
+              <div *ngIf="!tx.receipt.status" translate="TX.DETAILS.FAILED" class="text-danger"></div>
             </div>
           </nb-list-item>
           <nb-list-item>
-            <div class="col-md-6">
-              Gas price
-            </div>
+            <div class="col-md-6" translate="TX.DETAILS.GAS_PRICE"></div>
             <div class="col-md-6" style="text-align: right;">
               {{ tx.gasPrice / 1000000000 }}
             </div>
           </nb-list-item>
           <nb-list-item>
-            <div class="col-md-6">
-              Gas limit
-            </div>
+            <div class="col-md-6" translate="TX.DETAILS.GAS_LIMIT"></div>
             <div class="col-md-6" style="text-align: right;">
               {{ tx.gas }}
             </div>
           </nb-list-item>
           <nb-list-item>
-            <div class="col-md-6">
-              Gas used
-            </div>
+            <div class="col-md-6" translate="TX.DETAILS.GAS_USED"></div>
             <div class="col-md-6" style="text-align: right;">
               {{ tx.receipt.gasUsed }}
             </div>
           </nb-list-item>
         </nb-list>
       </nb-tab>
-      <nb-tab *ngIf="tx.receipt.logs.length" class="noPadding" tabTitle="Logs">
+      <nb-tab *ngIf="tx.receipt.logs.length" class="noPadding" [tabTitle]="'TX.TABS.LOGS'|translate">
         <div class="log" *ngFor="let log of tx.receipt.logs">
           <div class="row">
-            <div class="col-md-3">Address</div>
+            <div class="col-md-3" translate="TX.LOGS.ADDRESS"></div>
             <a [routerLink]="'../../address/'+log.address" class="col-md-9 break-word mono">{{log.address}}</a>
           </div>
           <div class="row">
@@ -117,7 +109,7 @@
               <div class="break-word mono">{{log.decoded.signature}}</div>
               <div *ngFor="let value of log.decoded.values" class="break-word mono row">
                 <div class="col-md-3">
-                {{value.name}}
+                  {{value.name}}
                 </div>
                 <div class="col-md-9">
                   <span *ngIf="value.value?.hex">{{value.value.hex}}</span>
@@ -128,13 +120,13 @@
           </div>
           <div *ngIf="!log.decoded">
             <div class="row">
-              <div class="col-md-3">Topics</div>
+              <div class="col-md-3" translate="TX.LOGS.TOPICS"></div>
               <div class="col-md-9">
                 <div class="break-word mono" *ngFor="let topic of log.topics">{{topic}}</div>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-3">Data</div>
+              <div class="col-md-3" translate="TX.LOGS.DATA"></div>
               <div class="col-md-9 break-word mono">{{log.data}}</div>
             </div>
           </div>
