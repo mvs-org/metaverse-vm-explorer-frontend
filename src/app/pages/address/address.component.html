@@ -4,6 +4,9 @@
       <nb-card>
         <nb-card-header class="break-dots">
           {{address.address}}
+          <button nbButton ghost (click)="copyAddress(address.address)">
+            <nb-icon icon="copy-outline"></nb-icon>
+          </button>
         </nb-card-header>
         <nb-list>
           <nb-list-item>
