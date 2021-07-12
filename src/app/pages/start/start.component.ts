@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
-import { Subscription } from 'rxjs'
+import { Component, OnInit } from '@angular/core'
 import { ExplorerService } from '../../services/explorer.service'
+
 const DappList = require('../../../assets/dapps/dapp-list.json')
 @Component({
   selector: 'ngx-start',
