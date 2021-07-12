@@ -37,9 +37,7 @@ export function createTranslateLoader(http: HttpClient) {
     AppRoutingModule,
     NbSidebarModule.forRoot(),
     NbMenuModule.forRoot(),
-    NbDatepickerModule.forRoot(),
     NbDialogModule.forRoot(),
-    NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
@@ -47,9 +45,6 @@ export function createTranslateLoader(http: HttpClient) {
         useFactory: (createTranslateLoader),
         deps: [HttpClient],
       }
-    }),
-    NbChatModule.forRoot({
-      messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
