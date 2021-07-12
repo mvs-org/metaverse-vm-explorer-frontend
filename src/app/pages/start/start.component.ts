@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { Apollo, gql } from 'apollo-angular'
 import { Subscription } from 'rxjs'
+import { ExplorerService } from '../../services/explorer.service'
 const DappList = require('../../../assets/dapps/dapp-list.json')
 @Component({
   selector: 'ngx-start',
@@ -21,7 +21,9 @@ export class StartComponent implements OnInit, OnDestroy {
 
   dapps = DappList
 
-  constructor(private apollo: Apollo) { }
+  constructor(
+    private explorer: ExplorerService,
+  ) { }
 
   ngOnDestroy(): void {
     if (this.dataSubscription) {
@@ -32,33 +34,7 @@ export class StartComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.currentTimestamp = Math.floor(Date.now() / 1000)
 
-    this.dataSubscription = this.apollo
-      .watchQuery<any>({
-        pollInterval: 10000,
-        query: gql`
-        {
-          price{
-            current_USD
-            change7d_USD
-            change24h_USD
-            low24h_USD
-            high_USD
-          }
-          blocks(query:{}, limit: 10, sort: "desc") {
-            hash
-            number
-            timestamp
-          }
-          txs(query:{}, limit: 10, sort: "desc") {
-            hash
-            blockNumber
-            from
-            to
-            confirmedAt
-          }
-        }
-      `,
-      }).valueChanges.subscribe((response) => {
+    this.dataSubscription = this.explorer.info().subscribe((response) => {
         this.currentTimestamp = Math.floor(Date.now() / 1000)
         this.price = response.data?.price
         this.blocks = response.data?.blocks
