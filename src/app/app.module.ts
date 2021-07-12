@@ -25,8 +25,10 @@ import { GraphQLModule } from './graphql.module'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 
+const version = require('../../package.json').version
+
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json')
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json?v=' + version)
 }
 @NgModule({
   declarations: [AppComponent],
