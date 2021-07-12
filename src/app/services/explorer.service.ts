@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Apollo, gql } from 'apollo-angular'
+import { of } from 'rxjs'
 
+const dappList = require('../../assets/dapps/dapp-list.json')
 export interface InfoData {
   price: {
     current_USD: number
@@ -60,5 +62,9 @@ export class ExplorerService {
       }
     `,
       }).valueChanges
+  }
+
+  dapps(){
+    return of(dappList)
   }
 }
