@@ -7,41 +7,20 @@ const DappList = require('../../../assets/dapps/dapp-list.json')
   templateUrl: './start.component.html',
   styleUrls: ['./start.component.scss']
 })
-export class StartComponent implements OnInit, OnDestroy {
+export class StartComponent implements OnInit {
 
-  price: any
-  blocks: any[]
-  loading = true
-  error: any
-
-  txs: any[]
-
-  dataSubscription: Subscription
-  currentTimestamp
+  currentTimestamp: number
 
   dapps = DappList
+
+  infoData$ = this.explorer.info()
 
   constructor(
     private explorer: ExplorerService,
   ) { }
 
-  ngOnDestroy(): void {
-    if (this.dataSubscription) {
-      this.dataSubscription.unsubscribe()
-    }
-  }
-
   async ngOnInit() {
     this.currentTimestamp = Math.floor(Date.now() / 1000)
-
-    this.dataSubscription = this.explorer.info().subscribe((response) => {
-        this.currentTimestamp = Math.floor(Date.now() / 1000)
-        this.price = response.data?.price
-        this.blocks = response.data?.blocks
-        this.txs = response.data?.txs
-        this.loading = response.loading
-        this.error = response.error
-      })
   }
 
 }

@@ -1,5 +1,5 @@
-<div *ngIf="!loading; else spinner">
-  <nb-card>
+<div *ngIf="(infoData$|async)?.data as data; else spinner">
+  <nb-card *ngIf="data?.price as price">
     <nb-card-header translate="START.PRICE.TITLE"></nb-card-header>
     <nb-card-body class="row">
       <div class="col-sm-4 price-info" style="text-align: center;">
@@ -40,7 +40,7 @@
             <div class="col-md-2" translate="START.BLOCKS.NUMBER" style="text-align: right;"></div>
             <div class="col-md-4" translate="START.BLOCKS.TIME" style="text-align: right;"></div>
           </nb-list-item>
-          <nb-list-item *ngFor="let block of blocks">
+          <nb-list-item *ngFor="let block of data.blocks">
             <a class="col-md-6 break-dots mono" [routerLink]="'../block/'+block.hash">
               {{ block.hash }}
             </a>
@@ -55,7 +55,7 @@
 
         <!--Display small screens-->
         <nb-list class="d-md-none">
-          <nb-list-item *ngFor="let block of blocks" class="row">
+          <nb-list-item *ngFor="let block of data.blocks" class="row">
             <div class="col-6">
               <span translate="START.BLOCKS.MOBILE.NUMBER"></span>
               <a [routerLink]="'../block/'+block.number">
@@ -83,7 +83,7 @@
             <div class="col-md-5" translate="START.TRANSACTIONS.FROM"></div>
             <div class="col-md-2" translate="START.TRANSACTIONS.HEIGHT" style="text-align: right;"></div>
           </nb-list-item>
-          <nb-list-item *ngFor="let tx of txs">
+          <nb-list-item *ngFor="let tx of data.txs">
             <a class="col-md-5 break-dots mono" [routerLink]="'../tx/'+tx.hash">
               {{ tx.hash }}
             </a>
@@ -98,7 +98,7 @@
 
         <!--Display small screens-->
         <nb-list class="d-md-none">
-          <nb-list-item *ngFor="let tx of txs" class="row small-screen-item">
+          <nb-list-item *ngFor="let tx of data.txs" class="row small-screen-item">
             <div class="col-6">
               <span translate="START.TRANSACTIONS.MOBILE.BLOCK"></span>
               <a [routerLink]="'../block/'+tx.blockNumber">
