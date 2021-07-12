@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Apollo, gql } from 'apollo-angular'
 import { Subscription } from 'rxjs'
-
+const DappList = require('../../../assets/dapps/dapp-list.json')
 @Component({
   selector: 'ngx-start',
   templateUrl: './start.component.html',
@@ -19,29 +19,7 @@ export class StartComponent implements OnInit, OnDestroy {
   dataSubscription: Subscription
   currentTimestamp
 
-  dapps = [
-    {
-      name: 'Gene.finance',
-      image: '/assets/dapps/genefinance.png',
-      url: 'https://gene.finance',
-      gradient: 'linear-gradient(120deg, #E81E78 , #270E42)',
-      description: 'Gene Finance is a multi-chain Defi ecosystem that is currently on the Metaverse, Ethereum and Heco Blockchain'
-    },
-    {
-      name: 'Stickers.art',
-      image: '/assets/dapps/stickers.png',
-      url: 'https://stickers.art',
-      bg: '#022780',
-      description: 'Stickers is an NFT platform powered by the Gene Finance ecosystem and a cross-chain Defi project'
-    },
-    {
-      name: 'OpenNFT.io',
-      image: '/assets/dapps/opennft.png',
-      url: 'https://opennft.io',
-      bg: '#2d2c2f',
-      description: 'Multichain NFT Marketplace for the Metaverse and Heco Blockchain'
-    },
-  ]
+  dapps = DappList
 
   constructor(private apollo: Apollo) { }
 
@@ -52,7 +30,7 @@ export class StartComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    this.currentTimestamp = Math.floor(Date.now()/1000);
+    this.currentTimestamp = Math.floor(Date.now() / 1000)
 
     this.dataSubscription = this.apollo
       .watchQuery<any>({
@@ -81,7 +59,7 @@ export class StartComponent implements OnInit, OnDestroy {
         }
       `,
       }).valueChanges.subscribe((response) => {
-        this.currentTimestamp = Math.floor(Date.now()/1000);
+        this.currentTimestamp = Math.floor(Date.now() / 1000)
         this.price = response.data?.price
         this.blocks = response.data?.blocks
         this.txs = response.data?.txs
