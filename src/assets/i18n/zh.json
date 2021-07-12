@@ -1,0 +1,155 @@
+{
+	"ADDRESS": {
+		"BALANCE": "Balance",
+		"VALUE": "Value",
+		"MST_BALANCES": "MST Balances",
+		"SMART_CONTRACT": "Smart Contract",
+		"NAME": "Name",
+		"CREATION_TRANSACTION": "Creation Transaction",
+		"CREATOR": "Creator",
+		"CREATED_AT": "Created at",
+		"QR_CODE": "QR Code",
+		"NO_TRANSACTIONS": "No transactions for this address",
+		"NO_LOGS": "No logs found",
+		"TRANSACTION": "Transaction",
+		"BLOCK": "Block",
+		"COUNTERPARTY": "Counterparty",
+		"DATE": "Date",
+		"FROM": "From",
+		"OUTPUT_TYPE": "Output type",
+		"EXPORT_LOGS": "Export",
+		"SELECT_LOGS_ALL": "All",
+		"TABS": {
+			"TRANSACTIONS": "Transactions",
+			"FUNCTIONS": "Functions",
+			"MST_TRANSFERS": "MST Transfers",
+			"SOURCE_CODE": "Source Code",
+			"BYTECODE": "Bytecode",
+			"LOGS": "Logs"
+		}
+  },
+  "BLOCK": {
+    "NUMBER": "Block #{{ number }}",
+    "AGE": "Age",
+    "MINED_BY": "Mined by",
+    "GAS_USED": "Gas used",
+    "PARENT_HASH": "Parent hash",
+    "SIZE": "Size",
+    "TRANSACTIONS": {
+      "TITLE": "Transactions",
+      "NO_TRANSACTIONS": "No transactions in this block",
+      "HASH": "Hash",
+      "FROM": "From",
+      "TO": "To"
+    }
+  },
+  "BLOCKS": {
+    "HASH": "Hash",
+    "NUMBER": "Number",
+    "TRANSACTIONS": "Transactions",
+    "TIME": "Time",
+    "MOBILE": {
+      "BLOCK": "Block ",
+      "TRANSACTIONS": "Transactions: {{number}}"
+    }
+  },
+  "MITS": {
+    "TITLE": "Identifiable Tokens (MIT)",
+    "SUPPLY": "Supply: {{number}}",
+    "FOR_SALE": {
+      "OPENNFT": "For sale on OpenNFT.io"
+    }
+  },
+  "MSTS": {
+    "TITLE": "ZH (MST)",
+    "NAME": "Name",
+    "SYMBOL": "Symbol",
+    "ADDRESS": "Address",
+    "DECIMALS": "Decimals",
+    "PAIRS": {
+      "TITLE": "Pairs",
+      "PAIR": "Pair",
+      "LIQUIDITY_USD": "Liquidity (USD)",
+      "LIQUIDITY": "Liquidity",
+      "TX_COUNT": "24h Tx Count",
+      "VOLUME": "24h Trading Volume (USD)"
+    }
+  },
+  "START": {
+    "PRICE": {
+      "TITLE": "Price",
+      "CURRENT": "Current",
+      "24H_CHANGE": "24h change",
+      "7D_CHANGE": "7d change"
+    },
+    "DAPPS": {
+      "TITLE": "Trending dApps on the MetaverseVM"
+    },
+    "BLOCKS": {
+      "TITLE": "Latest blocks",
+      "HASH": "Hash",
+      "NUMBER": "Number",
+      "TIME": "Time",
+      "MOBILE": {
+        "NUMBER": "Number "
+      }
+    },
+    "TRANSACTIONS": {
+      "TITLE": "Latest Transactions",
+      "HASH": "Hash",
+      "FROM": "From",
+      "HEIGHT": "Height",
+      "MOBILE": {
+        "BLOCK": "Block ",
+        "FROM": "From:",
+        "TO": "To:"
+      }
+    }
+  },
+  "TX": {
+    "HASH": "Transaction hash:",
+    "BLOCK": "Block {{number}}",
+    "FROM": "From:",
+    "CALL": "calls",
+    "DEPLOY": "deploys",
+    "TO": "To:",
+    "CONTRACT": "Contract:",
+    "SHOW_INPUT_DATA": "show input data",
+    "INPUT_DATA": "Input data: ",
+    "FEES": "Fees: ",
+    "TABS": {
+      "DETAILS": "Details",
+      "LOGS": "Logs"
+    },
+    "DETAILS": {
+      "STATUS": "Status",
+      "SUCCESS": "Success",
+      "FAILED": "Failed",
+      "GAS_PRICE": "Gas price",
+      "GAS_LIMIT": "Gas limit",
+      "GAS_USED": "Gas used"
+    },
+    "LOGS": {
+      "ADDRESS": "Address",
+      "TOPICS": "Topics",
+      "DATA": "Data"
+    }
+  },
+  "TXS": {
+    "TITLE": "Transactions",
+    "HASH": "Hash",
+    "BLOCK" : "Block",
+    "FROM": "From",
+    "TO": "To",
+    "TIME": "Time",
+    "MOBILE": {
+      "BLOCK": "Block ",
+      "FROM": "From: ",
+      "TO": "To: "
+    }
+  },
+  "CONTRACT_CALL": {
+    "PARAMETERS": "Parameters",
+    "VIEW_ONLY": "Only view functions are currently supported for execution"
+  }
+}

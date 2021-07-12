@@ -1,6 +1,8 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import {
   NbActionsModule,
   NbLayoutModule,
@@ -68,7 +70,7 @@ const PIPES = [
 ];
 
 @NgModule({
-  imports: [CommonModule, MatRippleModule, ...NB_MODULES],
+  imports: [CommonModule, MatRippleModule, MatFormFieldModule, MatSelectModule, ...NB_MODULES],
   exports: [CommonModule, MatRippleModule, ...PIPES, ...COMPONENTS],
   declarations: [...COMPONENTS, ...PIPES],
 })

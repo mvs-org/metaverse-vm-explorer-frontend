@@ -4,9 +4,7 @@
 
 @include nb-install-component() {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-align: center;
 
   .socials {
     font-size: 2rem;
@@ -22,9 +20,12 @@
     }
   }
 
-  @include media-breakpoint-down(is) {
-    .socials {
-      font-size: 1.5rem;
-    }
+  div.row div {
+    padding-bottom: 10px;
   }
+
+  .created-by {
+    line-height: 42px;
+  }
+
 }
