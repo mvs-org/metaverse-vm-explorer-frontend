@@ -7,7 +7,7 @@ import BN from 'bignumber.js'
 import { AbiItem, Contract } from '../../interfaces/contract'
 import Web3 from 'web3'
 import { WorkBook, utils, WorkSheet, writeFile } from 'xlsx'
-import { ExplorerService } from '../../services/explorer.service'
+import { UtilityService } from '../../services/utility.service'
 
 // Bignumber config
 BN.config({ EXPONENTIAL_AT: 18 })
@@ -71,7 +71,7 @@ export class AddressComponent implements OnInit {
     private apollo: Apollo,
     private activatedRoute: ActivatedRoute,
     private tokenService: TokenService,
-    private explorerService: ExplorerService,
+    private utilityService: UtilityService,
   ) {
   }
 
@@ -381,7 +381,7 @@ export class AddressComponent implements OnInit {
   }
 
   async copyAddress(address) {
-    await this.explorerService.copy(address, 'address')
+    await this.utilityService.copy(address, 'address')
   }
 
 }

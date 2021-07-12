@@ -4,12 +4,12 @@ import {
   NbComponentStatus,
   NbGlobalPhysicalPosition,
   NbToastrService,
-} from '@nebular/theme';
+} from '@nebular/theme'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class ExplorerService {
+export class UtilityService {
 
   constructor(
     private clipboardService: ClipboardService,
@@ -27,7 +27,7 @@ export class ExplorerService {
           this.showToast('success', 'Copied!', '')
       }
     } catch (error) {
-      console.log('Error while copying')
+      console.error('Error while copying')
     }
   }
 
@@ -39,12 +39,12 @@ export class ExplorerService {
       icon: 'clipboard-outline',
       position: NbGlobalPhysicalPosition.TOP_RIGHT,
       preventDuplicates: false,
-    };
+    }
     return this.toastrService.show(
       body,
       title,
       config,
-      );
+    )
   }
 
 
