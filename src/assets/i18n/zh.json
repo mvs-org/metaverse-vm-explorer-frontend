@@ -1,155 +1,155 @@
 {
 	"ADDRESS": {
-		"BALANCE": "Balance",
-		"VALUE": "Value",
-		"MST_BALANCES": "MST Balances",
-		"SMART_CONTRACT": "Smart Contract",
-		"NAME": "Name",
-		"CREATION_TRANSACTION": "Creation Transaction",
-		"CREATOR": "Creator",
-		"CREATED_AT": "Created at",
-		"QR_CODE": "QR Code",
-		"NO_TRANSACTIONS": "No transactions for this address",
-		"NO_LOGS": "No logs found",
-		"TRANSACTION": "Transaction",
-		"BLOCK": "Block",
-		"COUNTERPARTY": "Counterparty",
-		"DATE": "Date",
-		"FROM": "From",
-		"OUTPUT_TYPE": "Output type",
-		"EXPORT_LOGS": "Export",
-		"SELECT_LOGS_ALL": "All",
+		"BALANCE": "总资产",
+		"VALUE": "估值",
+		"MST_BALANCES": "MST 总资产",
+		"SMART_CONTRACT": "智能合约",
+		"NAME": "名称",
+		"CREATION_TRANSACTION": "原始交易",
+		"CREATOR": "创建者",
+		"CREATED_AT": "创建于",
+		"QR_CODE": "二维码",
+		"NO_TRANSACTIONS": "此地址没有交易",
+		"NO_LOGS": "未找到数据",
+		"TRANSACTION": "交易",
+		"BLOCK": "区块",
+		"COUNTERPARTY": "交易对手方",
+		"DATE": "日期",
+		"FROM": "从",
+		"OUTPUT_TYPE": "输出类型",
+		"EXPORT_LOGS": "下载数据",
+		"SELECT_LOGS_ALL": "全部",
 		"TABS": {
-			"TRANSACTIONS": "Transactions",
-			"FUNCTIONS": "Functions",
-			"MST_TRANSFERS": "MST Transfers",
-			"SOURCE_CODE": "Source Code",
-			"BYTECODE": "Bytecode",
-			"LOGS": "Logs"
+			"TRANSACTIONS": "交易",
+			"FUNCTIONS": "功能",
+			"MST_TRANSFERS": "MST 交易",
+			"SOURCE_CODE": "源代码",
+			"BYTECODE": "字节码",
+			"LOGS": "日志"
 		}
   },
   "BLOCK": {
-    "NUMBER": "Block #{{ number }}",
-    "AGE": "Age",
-    "MINED_BY": "Mined by",
-    "GAS_USED": "Gas used",
-    "PARENT_HASH": "Parent hash",
-    "SIZE": "Size",
+    "NUMBER": "区块 #{{ number }}",
+    "AGE": "年龄",
+    "MINED_BY": "矿工",
+    "GAS_USED": "交易燃料费用",
+    "PARENT_HASH": "父区块哈希值",
+    "SIZE": "价值",
     "TRANSACTIONS": {
-      "TITLE": "Transactions",
-      "NO_TRANSACTIONS": "No transactions in this block",
-      "HASH": "Hash",
-      "FROM": "From",
-      "TO": "To"
+      "TITLE": "交易",
+      "NO_TRANSACTIONS": "此区块中没有交易",
+      "HASH": "交易哈希",
+      "FROM": "发送方",
+      "TO": "接收方"
     }
   },
   "BLOCKS": {
-    "HASH": "Hash",
-    "NUMBER": "Number",
-    "TRANSACTIONS": "Transactions",
-    "TIME": "Time",
+    "HASH": "哈希",
+    "NUMBER": "数据",
+    "TRANSACTIONS": "交易",
+    "TIME": "时间戳",
     "MOBILE": {
-      "BLOCK": "Block ",
-      "TRANSACTIONS": "Transactions: {{number}}"
+      "BLOCK": "区块 ",
+      "TRANSACTIONS": "交易: {{number}}"
     }
   },
   "MITS": {
-    "TITLE": "Identifiable Tokens (MIT)",
-    "SUPPLY": "Supply: {{number}}",
+    "TITLE": "Metaverse Identifiable Tokens (MIT)",
+    "SUPPLY": "供应量: {{number}}",
     "FOR_SALE": {
-      "OPENNFT": "For sale on OpenNFT.io"
+      "OPENNFT": "在 OpenNFT.io 上出售"
     }
   },
   "MSTS": {
-    "TITLE": "ZH (MST)",
-    "NAME": "Name",
-    "SYMBOL": "Symbol",
-    "ADDRESS": "Address",
-    "DECIMALS": "Decimals",
+    "TITLE": "Metaverse Smart Tokens (MST)",
+    "NAME": "名称",
+    "SYMBOL": "标记",
+    "ADDRESS": "地址",
+    "DECIMALS": "小数点",
     "PAIRS": {
-      "TITLE": "Pairs",
-      "PAIR": "Pair",
-      "LIQUIDITY_USD": "Liquidity (USD)",
-      "LIQUIDITY": "Liquidity",
-      "TX_COUNT": "24h Tx Count",
-      "VOLUME": "24h Trading Volume (USD)"
+      "TITLE": "交易对",
+      "PAIR": "交易对",
+      "LIQUIDITY_USD": "流动性（美元",
+      "LIQUIDITY": "流动性",
+      "TX_COUNT": "24小时 Tx数据",
+      "VOLUME": "24 小时交易量（美元"
     }
   },
   "START": {
     "PRICE": {
-      "TITLE": "Price",
-      "CURRENT": "Current",
-      "24H_CHANGE": "24h change",
-      "7D_CHANGE": "7d change"
+      "TITLE": "价格",
+      "CURRENT": "当前的",
+      "24H_CHANGE": "24小时变化",
+      "7D_CHANGE": "7天变化"
     },
     "DAPPS": {
-      "TITLE": "Trending dApps on the MetaverseVM"
+      "TITLE": "元界VM上的热搜dApp"
     },
     "BLOCKS": {
-      "TITLE": "Latest blocks",
-      "HASH": "Hash",
-      "NUMBER": "Number",
-      "TIME": "Time",
+      "TITLE": "最新区块",
+      "HASH": "哈希",
+      "NUMBER": "数据",
+      "TIME": "时间戳",
       "MOBILE": {
-        "NUMBER": "Number "
+        "NUMBER": "数据 "
       }
     },
     "TRANSACTIONS": {
-      "TITLE": "Latest Transactions",
-      "HASH": "Hash",
-      "FROM": "From",
-      "HEIGHT": "Height",
+      "TITLE": "最新交易",
+      "HASH": "哈希",
+      "FROM": "发送方",
+      "HEIGHT": "区块高度",
       "MOBILE": {
-        "BLOCK": "Block ",
-        "FROM": "From:",
-        "TO": "To:"
+        "BLOCK": "区块 ",
+        "FROM": "发送方:",
+        "TO": "接收方:"
       }
     }
   },
   "TX": {
-    "HASH": "Transaction hash:",
-    "BLOCK": "Block {{number}}",
-    "FROM": "From:",
-    "CALL": "calls",
-    "DEPLOY": "deploys",
-    "TO": "To:",
-    "CONTRACT": "Contract:",
-    "SHOW_INPUT_DATA": "show input data",
-    "INPUT_DATA": "Input data: ",
-    "FEES": "Fees: ",
+    "HASH": "交易哈希:",
+    "BLOCK": "区块 {{number}}",
+    "FROM": "发送方:",
+    "CALL": "调用",
+    "DEPLOY": "部署",
+    "TO": "接收方:",
+    "CONTRACT": "合约:",
+    "SHOW_INPUT_DATA": "显示输入数据",
+    "INPUT_DATA": "输入数据: ",
+    "FEES": "交易费用: ",
     "TABS": {
-      "DETAILS": "Details",
-      "LOGS": "Logs"
+      "DETAILS": "详情",
+      "LOGS": "日志"
     },
     "DETAILS": {
-      "STATUS": "Status",
-      "SUCCESS": "Success",
-      "FAILED": "Failed",
-      "GAS_PRICE": "Gas price",
-      "GAS_LIMIT": "Gas limit",
-      "GAS_USED": "Gas used"
+      "STATUS": "状态",
+      "SUCCESS": "成功",
+      "FAILED": "失败",
+      "GAS_PRICE": "燃料价格",
+      "GAS_LIMIT": "燃料限制",
+      "GAS_USED": "交易燃料费用"
     },
     "LOGS": {
-      "ADDRESS": "Address",
-      "TOPICS": "Topics",
-      "DATA": "Data"
+      "ADDRESS": "地址",
+      "TOPICS": "题目",
+      "DATA": "数据"
     }
   },
   "TXS": {
-    "TITLE": "Transactions",
-    "HASH": "Hash",
-    "BLOCK" : "Block",
-    "FROM": "From",
-    "TO": "To",
-    "TIME": "Time",
+    "TITLE": "交易",
+    "HASH": "哈希",
+    "BLOCK" : "区块",
+    "FROM": "发送方",
+    "TO": "接收方",
+    "TIME": "时间戳",
     "MOBILE": {
-      "BLOCK": "Block ",
-      "FROM": "From: ",
-      "TO": "To: "
+      "BLOCK": "区块 ",
+      "FROM": "发送方: ",
+      "TO": "接收方: "
     }
   },
   "CONTRACT_CALL": {
-    "PARAMETERS": "Parameters",
-    "VIEW_ONLY": "Only view functions are currently supported for execution"
+    "PARAMETERS": "参数",
+    "VIEW_ONLY": "目前仅支持视图函数执行"
   }
 }
