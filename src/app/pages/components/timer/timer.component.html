@@ -1,11 +1,14 @@
 <div *ngIf="time >= 0">
   <span *ngIf="time >= 3600000">
-    {{time | date: 'hh': 'UTC'}} h
+    {{time | date: 'hh': 'UTC'}}
+    <span translate="START.TIMER.HOUR"></span>
   </span>
   <span *ngIf="time >= 60000">
-    {{time | date: 'mm': 'UTC'}} min
+    {{time | date: 'mm': 'UTC'}}
+    <span translate="START.TIMER.MINUTE"></span>
   </span>
   <span>
-    {{time | date: 'ss': 'UTC'}} sec ago
+    {{time | date: 'ss': 'UTC'}}
+    <span translate="START.TIMER.SECOND"></span>
   </span>
 </div>

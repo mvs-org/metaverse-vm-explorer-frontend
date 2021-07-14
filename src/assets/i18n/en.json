@@ -104,6 +104,11 @@
         "FROM": "From:",
         "TO": "To:"
       }
+    },
+    "TIMER": {
+      "HOUR": " h",
+      "MINUTE": " m",
+      "SECOND": " sec ago"
     }
   },
   "TX": {
