@@ -55,11 +55,11 @@
         </div>
         <div class="col-md-12">
           <a *ngIf="!showInputData" style="cursor: pointer; text-decoration:underline;"
-            (click)="showInputData=true"></a>
+            (click)="showInputData=true" translate="TX.SHOW_INPUT_DATA"></a>
         </div>
         <div *ngIf="showInputData" class="col-md-12">
-          <span translate="TX.INPUT_DATA"></span>>
-          <div class="break-word mono" translate="TX.SHOW_INPUT_DATA">{{tx.input}}</div>
+          <span translate="TX.INPUT_DATA"></span>
+          <div class="break-word mono">{{tx.input}}</div>
         </div>
       </div>
     </nb-card-body>
