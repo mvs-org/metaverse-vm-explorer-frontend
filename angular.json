@@ -48,8 +48,12 @@
             ],
             "allowedCommonJsDependencies": [
               "lodash",
-              "zrender/lib/svg/svg",
-              "zrender/lib/vml/vml"
+              "web3",
+              "zen-observable",
+              "bignumber.js",
+              "xlsx",
+              "hash.js",
+              "qrcode"
             ]
           },
           "configurations": {
@@ -57,7 +61,7 @@
               "budgets": [
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
+                  "maximumWarning": "10kb"
                 }
               ],
               "optimization": true,
