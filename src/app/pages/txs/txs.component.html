@@ -56,10 +56,10 @@
             {{ tx.from }}
           </a>
           <div class="col-12" style="text-align: center;">
-            <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+            <nb-icon [icon]="'arrow-downward-outline'"></nb-icon>
           </div>
-          <div class="col-12" style="text-align: right;" translate="TXS.MOBILE.TO"></div>
-          <a class="col-md-12 break-dots mono padding-bottom" style="text-align: right;" [routerLink]="'../address/'+tx.to">
+          <div class="col-12" translate="TXS.MOBILE.TO"></div>
+          <a class="col-md-12 break-dots mono padding-bottom" [routerLink]="'../address/'+tx.to">
             {{ tx.to }}
           </a>
         </nb-list-item>
