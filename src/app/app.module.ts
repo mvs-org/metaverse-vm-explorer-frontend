@@ -13,13 +13,9 @@ import { ThemeModule } from './@theme/theme.module'
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
 import {
-  NbChatModule,
-  NbDatepickerModule,
-  NbDialogModule,
   NbMenuModule,
   NbSidebarModule,
   NbToastrModule,
-  NbWindowModule,
 } from '@nebular/theme'
 import { GraphQLModule } from './graphql.module'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
@@ -39,7 +35,6 @@ export function createTranslateLoader(http: HttpClient) {
     AppRoutingModule,
     NbSidebarModule.forRoot(),
     NbMenuModule.forRoot(),
-    NbDialogModule.forRoot(),
     NbToastrModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
