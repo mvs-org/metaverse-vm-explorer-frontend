@@ -20,7 +20,7 @@
     "docs:serve": "compodoc -p src/tsconfig.app.json -d docs -s",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
     "postinstall": "node scripts/patch-webpack.js && ngcc --properties es2015 es5 browser module main --first-only --create-ivy-entry-points --tsconfig \"./src/tsconfig.app.json\"",
-    "apollo-typegen": "npx apollo codegen:generate --localSchemaFile=src/app/graphql/graphql-schema.json --target=typescript --tagName=graphql",
+    "apollo-typegen": "npx apollo codegen:generate --localSchemaFile=src/app/graphql/graphql-schema.json --target=typescript --tagName=graphql --globalTypesFile=src/app/graphql/globalTypes.ts --outputFlat src/app/graphql/__generated__",
     "apollo-schema": "npx apollo service:download --endpoint=https://vm-explorer.mvs.org/ql/ src/app/graphql/graphql-schema.json"
   },
   "dependencies": {
