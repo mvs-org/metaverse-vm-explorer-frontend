@@ -3,10 +3,10 @@ import { Apollo } from 'apollo-angular'
 import { of } from 'rxjs'
 
 import txQuery from '../graphql/getTx.graphql'
-import { getTx } from '../../graphql/__generated__/getTx'
+import { getTx } from '../graphql/__generated__/getTx'
 
-import startpageQuery from '../graphql/startpageQuery.graphql'
-import { StartpageInfo } from '../../graphql/__generated__/StartpageInfo'
+import startpageQuery from '../graphql/startpageInfo.graphql'
+import { StartpageInfo } from '../graphql/__generated__/StartpageInfo'
 
 const dappList = require('../../assets/dapps/dapp-list.json')
 @Injectable({
