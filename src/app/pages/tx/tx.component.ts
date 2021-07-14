@@ -16,9 +16,6 @@ export class TxComponent {
   resolver$ = this.activatedRoute.params
     .pipe(
       switchMap(params => this.explorerService.tx(params['hash'])),
-      map(response=>{
-        return response
-      })
     )
 
   constructor(
