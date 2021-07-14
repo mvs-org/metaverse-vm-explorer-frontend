@@ -1,23 +1,25 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { switchMap } from 'rxjs/operators'
+import { switchMap, map } from 'rxjs/operators'
 import { ExplorerService } from '../../services/explorer.service'
 import { UtilityService } from '../../services/utility.service'
 
 @Component({
   selector: 'ngx-tx',
   templateUrl: './tx.component.html',
-  styleUrls: ['./tx.component.scss']
+  styleUrls: ['./tx.component.scss'],
 })
-export class TxComponent implements OnInit {
-
-  price: any
-  tx: any
-  loading = true
-  error: any
-  hash: String
+export class TxComponent {
 
   showInputData = false
+
+  resolver$ = this.activatedRoute.params
+    .pipe(
+      switchMap(params => this.explorerService.tx(params['hash'])),
+      map(response=>{
+        return response
+      })
+    )
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -26,19 +28,15 @@ export class TxComponent implements OnInit {
   ) {
   }
 
-  async ngOnInit() {
-    this.activatedRoute.params
-      .pipe(
-        switchMap(params => this.explorerService.tx(params['hash'])),
-      ).subscribe(response => {
-        this.price = response.data?.price
-        this.tx = response.data?.tx
-        this.loading = response.loading
-        this.error = response.error
-      })
+  toNumber(input: string) {
+    if (!input) return NaN
+    if (input.trim().length === 0) {
+      return NaN
+    }
+    return Number(input)
   }
 
-  async copyHash(hash) {
+  async copyHash(hash: string) {
     await this.utilityService.copy(hash, 'hash')
   }
 

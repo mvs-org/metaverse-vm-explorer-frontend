@@ -1,4 +1,6 @@
-<div *ngIf="!loading; else spinner">
+<div *ngIf="resolver$|async as resolver">
+<div *ngIf="!resolver.loading; else spinner">
+  <div *ngIf="resolver.data.tx as tx">
   <nb-card>
     <nb-card-header>
       <div class="row">
@@ -24,9 +26,9 @@
           <a class="mono" [routerLink]="'../../address/'+tx.from">{{ tx.from }}</a>
         </div>
         <div class="col-md-2" style="text-align: center;">
-          <br *ngIf="!tx.value || tx.value == 0">
-          <div *ngIf="tx.value && tx.value > 0">
-            {{tx.value/1000000000000000000}} ETP
+          <br *ngIf="!tx.value || toNumber(tx.value) == 0">
+          <div *ngIf="tx.value && toNumber(tx.value) > 0">
+            {{toNumber(tx.value)/1000000000000000000}} ETP
           </div>
           <nb-icon *ngIf="tx.input==='0x'" [icon]="'arrow-forward-outline'"></nb-icon>
           <div *ngIf="tx.input!=='0x' && tx.to" translate="TX.CALL"></div>
@@ -66,7 +68,7 @@
     <nb-card-footer>
       <div style="text-align: right;">
         <span translate="TX.FEES"></span>
-        {{ tx.gasPrice*tx.receipt.gasUsed | decimals: [18, 6] }} ETP (~{{tx.gasPrice*tx.gas*price.current_USD | decimals: [18,6]}} USD)
+        {{ toNumber(tx.gasPrice)*toNumber(tx.receipt.gasUsed) | decimals: [18, 6] }} ETP (~{{toNumber(tx.gasPrice)*toNumber(tx.gas)*resolver.data.price.current_USD | decimals: [18,6]}} USD)
       </div>
     </nb-card-footer>
   </nb-card>
@@ -86,7 +88,7 @@
           <nb-list-item>
             <div class="col-md-6" translate="TX.DETAILS.GAS_PRICE"></div>
             <div class="col-md-6" style="text-align: right;">
-              {{ tx.gasPrice / 1000000000 }}
+              {{ toNumber(tx.gasPrice) / 1000000000 }}
             </div>
           </nb-list-item>
           <nb-list-item>
@@ -142,6 +144,9 @@
   </nb-card>
 
 </div>
+  </div>
 <ng-template #spinner>
   <div class="loading-spinner page-spinner"></div>
 </ng-template>
+
+</div>
