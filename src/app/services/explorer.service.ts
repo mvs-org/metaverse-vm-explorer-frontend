@@ -1,32 +1,14 @@
 import { Injectable } from '@angular/core'
-import { Apollo, gql } from 'apollo-angular'
+import { Apollo } from 'apollo-angular'
 import { of } from 'rxjs'
-import txQuery from '../graphql/tx.gql'
+
+import txQuery from '../graphql/getTx.graphql'
 import { getTx } from '../../graphql/__generated__/getTx'
 
-const dappList = require('../../assets/dapps/dapp-list.json')
-export interface InfoData {
-  price: {
-    current_USD: number
-    change7d_USD: number
-    change24h_USD: number
-    low24h_USD: number
-    high_USD: number,
-  }
-  blocks: {
-    hash: string
-    number: number
-    timestamp: number,
-  }[]
-  txs: {
-    hash: string
-    blockNumber: number
-    from: string
-    to: string
-    confirmedAt: number,
-  }[]
-}
+import startpageQuery from '../graphql/startpageQuery.graphql'
+import { StartpageInfo } from '../../graphql/__generated__/StartpageInfo'
 
+const dappList = require('../../assets/dapps/dapp-list.json')
 @Injectable({
   providedIn: 'root',
 })
@@ -38,45 +20,24 @@ export class ExplorerService {
 
   info() {
     return this.apollo
-      .watchQuery<InfoData>({
+      .watchQuery<StartpageInfo>({
         pollInterval: 10000,
-        query: gql`
-      {
-        price{
-          current_USD
-          change7d_USD
-          change24h_USD
-          low24h_USD
-          high_USD
-        }
-        blocks(query:{}, limit: 10, sort: "desc") {
-          hash
-          number
-          timestamp
-        }
-        txs(query:{}, limit: 10, sort: "desc") {
-          hash
-          blockNumber
-          from
-          to
-          confirmedAt
-        }
-      }
-    `,
+        query: startpageQuery,
       }).valueChanges
   }
 
   tx(hash: string) {
     return this.apollo
-          .query<getTx>({
-            variables: {
-              hash,
-            },
-            query: txQuery,
-          })
+      .query<getTx>({
+        variables: {
+          hash,
+        },
+        query: txQuery,
+      })
   }
 
   dapps() {
     return of(dappList)
   }
+
 }
