@@ -7,9 +7,9 @@ import { LanguageService } from '../../../services/language.service';
   template: `
   <div class="row" style="width: 100%">
     <div class="col-md-4 order-2 order-md-0 order-lg-0">
-      <span class="created-by">
+      <div class="created-by">
         Copyright <b><a href="https://mvs.org" target="_blank">Metaverse Foundation</a></b> 2021
-      </span>
+      </div>
     </div>
     <div class="col-md-4">
       <div class="socials">
