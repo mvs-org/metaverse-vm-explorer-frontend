@@ -1,0 +1,38 @@
+query getTx($hash: ID!) {
+ price{
+   current_USD
+ }
+ tx(id: $hash) {
+   hash
+   blockNumber
+   blockHash
+   from
+   to
+   input
+   confirmedAt
+   creates
+   value
+   raw
+   receipt{
+     status
+     gasUsed
+     logs{
+       address
+       data
+       topics
+       decoded{
+         name
+         signature
+         values
+       }
+     }
+   }
+   gasPrice
+   gas
+   decoded{
+     name
+     arguments
+     signature
+   }
+ }
+}

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { Apollo, gql } from 'apollo-angular'
 import { switchMap } from 'rxjs/operators'
+import { ExplorerService } from '../../services/explorer.service'
 import { UtilityService } from '../../services/utility.service'
 
 @Component({
@@ -20,62 +20,16 @@ export class TxComponent implements OnInit {
   showInputData = false
 
   constructor(
-    private apollo: Apollo,
     private activatedRoute: ActivatedRoute,
     private utilityService: UtilityService,
+    private explorerService: ExplorerService,
   ) {
   }
 
   async ngOnInit() {
     this.activatedRoute.params
       .pipe(
-        switchMap(params => this.apollo
-          .query<any>({
-            variables: {
-              hash: params['hash'],
-            },
-            query: gql`
-          query($hash: ID!)
-            {
-              price{
-                current_USD
-              }
-              tx(id: $hash) {
-                hash
-                blockNumber
-                blockHash
-                from
-                to
-                input
-                confirmedAt
-                creates
-                value
-                raw
-                receipt{
-                  status
-                  gasUsed
-                  logs{
-                    address
-                    data
-                    topics
-                    decoded{
-                      name
-                      signature
-                      values
-                    }
-                  }
-                }
-                gasPrice
-                gas
-                decoded{
-                  name
-                  arguments
-                  signature
-                }
-              }
-            }
-          `,
-          }))
+        switchMap(params => this.explorerService.tx(params['hash'])),
       ).subscribe(response => {
         this.price = response.data?.price
         this.tx = response.data?.tx

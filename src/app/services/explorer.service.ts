@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Apollo, gql } from 'apollo-angular'
 import { of } from 'rxjs'
+import txQuery from '../graphql/tx.gql'
+import { getTx } from '../../graphql/__generated__/getTx'
 
 const dappList = require('../../assets/dapps/dapp-list.json')
 export interface InfoData {
@@ -9,19 +11,19 @@ export interface InfoData {
     change7d_USD: number
     change24h_USD: number
     low24h_USD: number
-    high_USD: number
+    high_USD: number,
   }
   blocks: {
     hash: string
     number: number
-    timestamp: number
+    timestamp: number,
   }[]
   txs: {
     hash: string
     blockNumber: number
     from: string
     to: string
-    confirmedAt: number
+    confirmedAt: number,
   }[]
 }
 
@@ -64,7 +66,17 @@ export class ExplorerService {
       }).valueChanges
   }
 
-  dapps(){
+  tx(hash: string) {
+    return this.apollo
+          .query<getTx>({
+            variables: {
+              hash,
+            },
+            query: txQuery,
+          })
+  }
+
+  dapps() {
     return of(dappList)
   }
 }

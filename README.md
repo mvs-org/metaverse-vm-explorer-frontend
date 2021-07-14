@@ -1,5 +1,11 @@
 # Metaverse VM Blockchain Explorer
 
+## Generate graphql types
+
+``` bash
+npm run apollo-schema
+npm run apollo-typegen
+```
 ## Build
 
 ``` bash
