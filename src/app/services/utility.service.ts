@@ -24,7 +24,7 @@ export class UtilityService {
           this.showToast('success', 'Address copied to clipboard', textToCopy)
           break
         case 'hash':
-          this.showToast('success', 'Hash copied to clipboard', textToCopy)
+          this.showToast('success', 'Hash copied to clipboard', '')
           break
         default:
           this.showToast('success', 'Copied!', '')
