@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { map } from 'rxjs/operators'
 import { ExplorerService } from '../../services/explorer.service'
 

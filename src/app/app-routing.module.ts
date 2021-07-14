@@ -1,12 +1,11 @@
-import { ActivatedRoute, ExtraOptions, Router, RouterModule, RouterStateSnapshot, Routes } from '@angular/router'
+import { ActivatedRoute, ExtraOptions, Router, RouterModule, Routes } from '@angular/router'
 import { Component, NgModule } from '@angular/core'
-
 
 @Component({
   template: '',
 })
 export class RedirectComponent {
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(activatedRoute: ActivatedRoute, router: Router) {
     router.navigate(['/mainnet', ...activatedRoute.snapshot.url.map(e => e.path)])
   }
 }

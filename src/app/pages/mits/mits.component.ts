@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
-import { HttpLink, InMemoryCache } from '@apollo/client/core'
+import { Component, OnInit } from '@angular/core'
 import { Apollo, gql } from 'apollo-angular'
 import { switchMap } from 'rxjs/operators'
 import { Metadata, TokenService } from '../../services/token.service'
