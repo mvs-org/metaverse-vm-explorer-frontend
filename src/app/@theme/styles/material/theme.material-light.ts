@@ -1,4 +1,4 @@
-import { NbJSThemeOptions } from '@nebular/theme';
+import { NbJSThemeOptions } from '@nebular/theme'
 
 const palette = {
   primary: '#6200ee',
@@ -6,7 +6,7 @@ const palette = {
   info: '#0495ee',
   warning: '#ff9f05',
   danger: '#b00020',
-};
+}
 
 export const baseTheme: NbJSThemeOptions = {
   name: 'material-light',
@@ -45,9 +45,9 @@ export const baseTheme: NbJSThemeOptions = {
     warningLight: '#ffbe43',
     dangerLight: '#cf3341',
   },
-};
+}
 
-const baseThemeVariables = baseTheme.variables;
+const baseThemeVariables = baseTheme.variables
 
 export const MATERIAL_LIGHT_THEME = {
   name: 'material-light',
@@ -358,4 +358,4 @@ export const MATERIAL_LIGHT_THEME = {
       tooltipExtraCss: 'border-radius: 10px; padding: 4px 16px;',
     },
   },
-} as NbJSThemeOptions;
+} as NbJSThemeOptions

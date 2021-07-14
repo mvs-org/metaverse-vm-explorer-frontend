@@ -4,7 +4,7 @@ import { Apollo, gql } from 'apollo-angular'
 @Component({
   selector: 'ngx-txs',
   templateUrl: './txs.component.html',
-  styleUrls: ['./txs.component.scss']
+  styleUrls: ['./txs.component.scss'],
 })
 export class TxsComponent implements OnInit {
 
@@ -28,7 +28,7 @@ export class TxsComponent implements OnInit {
     .query<any>({
       variables: {
         startBlock: this.txs[0] ? this.txs[0].blockNumber : 0,
-        offset: this.txs.length
+        offset: this.txs.length,
       },
       query: gql`
       query($startBlock: Int!, $offset: Int!)
@@ -42,8 +42,8 @@ export class TxsComponent implements OnInit {
           }
         }
       `,
-    }).subscribe((response)=>{
-      this.currentTimestamp = Math.floor(Date.now()/1000);
+    }).subscribe((response) => {
+      this.currentTimestamp = Math.floor(Date.now() / 1000)
       this.txs = this.txs.concat(response.data?.txs)
       this.loading = response.loading
       this.initialLoading = false

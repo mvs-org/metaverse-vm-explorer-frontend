@@ -46,7 +46,7 @@ export function createTranslateLoader(http: HttpClient) {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
         deps: [HttpClient],
-      }
+      },
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),

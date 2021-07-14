@@ -3,7 +3,7 @@ import Web3 from 'web3'
 import { environment } from '../../environments/environment'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BlockchainService {
 

@@ -15,9 +15,9 @@ import { Router } from '@angular/router'
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  private destroy$: Subject<void> = new Subject<void>();
+  private destroy$: Subject<void> = new Subject<void>()
   public readonly materialTheme$: Observable<boolean>
-  userPictureOnly: boolean = false;
+  userPictureOnly: boolean = false
   user: any
 
   themes = [
@@ -45,11 +45,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       value: 'material-dark',
       name: 'Material Dark',
     },
-  ];
+  ]
 
   currentTheme = localStorage.getItem('theme') || 'material-dark'
 
-  userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
+  userMenu = [{ title: 'Profile' }, { title: 'Log out' }]
 
   public constructor(
     private sidebarService: NbSidebarService,
@@ -62,7 +62,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private searchService: NbSearchService,
     private router: Router,
   ) {
-    
+
     this.materialTheme$ = this.themeService.onThemeChange()
       .pipe(map(theme => {
         const themeName: string = theme?.name || ''
@@ -121,7 +121,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
     return this.changeTheme('material-dark')
   }
-  
+
   changeTheme(themeName: string) {
     localStorage.setItem('theme', themeName)
     this.themeService.changeTheme(themeName)

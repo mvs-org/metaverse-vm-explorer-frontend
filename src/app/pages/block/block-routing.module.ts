@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core'
+import { Routes, RouterModule } from '@angular/router'
 
 import { BlockComponent } from './block.component'
 
 const routes: Routes = [{
   path: ':id',
   component: BlockComponent,
-}];
+}]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
@@ -15,5 +15,5 @@ const routes: Routes = [{
 export class BlockRoutingModule { }
 
 export const routedComponents = [
-  BlockComponent
-];
+  BlockComponent,
+]

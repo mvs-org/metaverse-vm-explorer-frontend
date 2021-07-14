@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { LanguageService } from '../../../services/language.service';
+import { Component } from '@angular/core'
+import { LanguageService } from '../../../services/language.service'
 
 @Component({
   selector: 'ngx-footer',
@@ -32,9 +32,9 @@ import { LanguageService } from '../../../services/language.service';
 })
 export class FooterComponent {
 
-  constructor(public languageService: LanguageService){}
+  constructor(public languageService: LanguageService) {}
 
-  setLanguage(e: any){
+  setLanguage(e: any) {
     this.languageService.set(e.value)
   }
 

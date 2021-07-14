@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 @Component({
   selector: 'ngx-contracts',
   templateUrl: './msts.component.html',
-  styleUrls: ['./msts.component.scss']
+  styleUrls: ['./msts.component.scss'],
 })
 export class MSTsComponent implements OnInit {
 
@@ -65,7 +65,7 @@ export class MSTsComponent implements OnInit {
     }
   }
 }
-      `
+      `,
       }).toPromise()
     const yesterdayTimestamp = new Date().getTime() / 1000 - 86400
     this.pairs = data?.pairs.map((pair: any) => ({

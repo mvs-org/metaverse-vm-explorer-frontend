@@ -1,4 +1,4 @@
-import { NbMenuItem } from '@nebular/theme';
+import { NbMenuItem } from '@nebular/theme'
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
@@ -27,4 +27,4 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'image-outline',
     link: '/mits',
   },
-];
+]

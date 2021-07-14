@@ -4,7 +4,7 @@ import { Apollo, gql } from 'apollo-angular'
 @Component({
   selector: 'ngx-blocks',
   templateUrl: './blocks.component.html',
-  styleUrls: ['./blocks.component.scss']
+  styleUrls: ['./blocks.component.scss'],
 })
 export class BlocksComponent implements OnInit {
 
@@ -25,7 +25,7 @@ export class BlocksComponent implements OnInit {
     .query<any>({
       variables: {
         startBlock: this.blocks[0] ? this.blocks[0].number : 0,
-        offset: this.blocks.length
+        offset: this.blocks.length,
       },
       query: gql`
       query($startBlock: Int!, $offset: Int!)
@@ -38,7 +38,7 @@ export class BlocksComponent implements OnInit {
         }
       }
       `,
-    }).subscribe((response)=>{
+    }).subscribe((response) => {
       this.blocks = this.blocks.concat(response.data?.blocks)
       this.loading = response.loading
       this.initialLoading = false

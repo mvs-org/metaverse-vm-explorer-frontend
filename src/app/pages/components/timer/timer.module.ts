@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TimerComponent } from './timer.component';
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { TimerComponent } from './timer.component'
 
 @NgModule({
   imports: [
@@ -11,6 +11,6 @@ import { TimerComponent } from './timer.component';
   ],
   exports: [
     TimerComponent,
-  ]
+  ],
 })
 export class TimerModule { }

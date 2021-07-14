@@ -22,7 +22,7 @@ export interface Metadata {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TokenService {
 
@@ -35,26 +35,26 @@ export class TokenService {
     return this.http.get<Metadata>(uri)
       .pipe(
         catchError(err => of({})),
-        map(data => ({ ...more, ...data, }))
+        map(data => ({ ...more, ...data })),
       )
   }
 
   async getMSTBalance(contractAddress: string, address: string) {
     const response = await this.blockchainService.call([{
-      "inputs": [{
-        "internalType": "address",
-        "name": "account",
-        "type": "address"
+      'inputs': [{
+        'internalType': 'address',
+        'name': 'account',
+        'type': 'address',
       }],
-      "name": "balanceOf",
-      "outputs": [{
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
+      'name': 'balanceOf',
+      'outputs': [{
+        'internalType': 'uint256',
+        'name': '',
+        'type': 'uint256',
       }],
-      "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      'stateMutability': 'view',
+      'type': 'function',
+      'constant': true,
     }], contractAddress, 'balanceOf', [address])
     return response
   }

@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core'
+import { Routes, RouterModule } from '@angular/router'
 
 import { AddressComponent } from './address.component'
 
 const routes: Routes = [{
   path: ':address',
   component: AddressComponent,
-}];
+}]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
@@ -15,5 +15,5 @@ const routes: Routes = [{
 export class AddressRoutingModule { }
 
 export const routedComponents = [
-  AddressComponent
-];
+  AddressComponent,
+]

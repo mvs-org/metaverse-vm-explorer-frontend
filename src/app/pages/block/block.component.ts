@@ -6,7 +6,7 @@ import { switchMap } from 'rxjs/operators'
 @Component({
   selector: 'ngx-block',
   templateUrl: './block.component.html',
-  styleUrls: ['./block.component.scss']
+  styleUrls: ['./block.component.scss'],
 })
 export class BlockComponent implements OnInit {
 
@@ -23,7 +23,7 @@ export class BlockComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.currentTimestamp = Math.floor(Date.now()/1000);
+    this.currentTimestamp = Math.floor(Date.now() / 1000)
     this.activatedRoute.params
       .pipe(
         switchMap(params => this.apollo.query<any>(
@@ -32,7 +32,7 @@ export class BlockComponent implements OnInit {
               id: params['id'].length > 60 ? params['id'] : parseInt(params['id']),
             },
             query: params['id'].length > 60 ? this.blockByHashQuery : this.blockByNumberQuery,
-          }))
+          })),
       ).subscribe(response => {
         this.block = response.data?.block || response.data?.blockByNumber
         this.loading = response.loading

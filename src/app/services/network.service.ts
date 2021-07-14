@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 import { BehaviorSubject } from 'rxjs'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NetworkService {
 
@@ -14,15 +14,15 @@ export class NetworkService {
 
   constructor() { }
 
-  setNetwork(network: string){
-    if(this.allowedNetworks.indexOf(network)!==-1){
+  setNetwork(network: string) {
+    if (this.allowedNetworks.indexOf(network) !== -1) {
       this.network$.next(network)
       this.network = network
     }
   }
 
-  switchNetwork(){
-    if(this.network == 'mainnet'){
+  switchNetwork() {
+    if (this.network == 'mainnet') {
       this.setNetwork('testnet')
     } else {
       this.setNetwork('mainnet')

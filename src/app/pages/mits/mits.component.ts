@@ -7,7 +7,7 @@ import { Metadata, TokenService } from '../../services/token.service'
 @Component({
   selector: 'ngx-mits',
   templateUrl: './mits.component.html',
-  styleUrls: ['./mits.component.scss']
+  styleUrls: ['./mits.component.scss'],
 })
 export class MITsComponent implements OnInit {
 
@@ -15,7 +15,7 @@ export class MITsComponent implements OnInit {
   initialLoading = true
   loading = true
 
-  skip=0
+  skip = 0
 
   constructor(private apollo: Apollo, private tokenService: TokenService) { }
 
@@ -28,7 +28,7 @@ export class MITsComponent implements OnInit {
     this.apollo.use('opennft')
       .query<any>({
         variables: {
-          offset: this.skip || 0
+          offset: this.skip || 0,
         },
         query: gql`
       query($offset: Int!)
@@ -53,11 +53,11 @@ export class MITsComponent implements OnInit {
       .pipe(
         switchMap((result: any) => {
           return Promise.all(result.data.fungibleTokens.map(token => this.tokenService.getMetadata(token.tokenUri, token).toPromise()))
-        })
+        }),
       )
       .subscribe((tokens) => {
-        if(tokens && tokens.length){
-          this.skip+=tokens.length
+        if (tokens && tokens.length) {
+          this.skip += tokens.length
         }
         this.tokens = this.tokens.concat(tokens.filter((t: Metadata) => t.image))
         this.initialLoading = false

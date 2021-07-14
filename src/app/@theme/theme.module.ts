@@ -1,8 +1,8 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatRippleModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
+import { ModuleWithProviders, NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { MatRippleModule } from '@angular/material/core'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatSelectModule } from '@angular/material/select'
 import {
   NbActionsModule,
   NbLayoutModule,
@@ -15,27 +15,27 @@ import {
   NbSelectModule,
   NbIconModule,
   NbThemeModule,
-} from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { NbSecurityModule } from '@nebular/security';
+} from '@nebular/theme'
+import { NbEvaIconsModule } from '@nebular/eva-icons'
+import { NbSecurityModule } from '@nebular/security'
 
 import {
   FooterComponent,
   HeaderComponent,
   SearchInputComponent,
-} from './components';
+} from './components'
 import {
   CapitalizePipe,
   PluralPipe,
   RoundPipe,
   TimingPipe,
   NumberWithCommasPipe,
-} from './pipes';
+} from './pipes'
 import {
   OneColumnLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
-} from './layouts';
+} from './layouts'
 
 import { MATERIAL_LIGHT_THEME } from './styles/material/theme.material-light'
 
@@ -52,7 +52,7 @@ const NB_MODULES = [
   NbSelectModule,
   NbIconModule,
   NbEvaIconsModule,
-];
+]
 const COMPONENTS = [
   HeaderComponent,
   FooterComponent,
@@ -60,14 +60,14 @@ const COMPONENTS = [
   OneColumnLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
-];
+]
 const PIPES = [
   CapitalizePipe,
   PluralPipe,
   RoundPipe,
   TimingPipe,
   NumberWithCommasPipe,
-];
+]
 
 @NgModule({
   imports: [CommonModule, MatRippleModule, MatFormFieldModule, MatSelectModule, ...NB_MODULES],
@@ -86,6 +86,6 @@ export class ThemeModule {
           [ MATERIAL_LIGHT_THEME ],
         ).providers,
       ],
-    };
+    }
   }
 }

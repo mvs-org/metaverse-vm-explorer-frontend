@@ -6,7 +6,7 @@ export interface AbiItem {
 		indexed: boolean
 		internalType: string
 		name: string
-		type: string
+		type: string,
 	}[]
 	name: string
 	type: AbiItemType

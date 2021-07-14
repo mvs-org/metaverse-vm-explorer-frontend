@@ -7,7 +7,7 @@ export interface Language {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LanguageService {
 
@@ -35,8 +35,8 @@ export class LanguageService {
   }
 
   async set(languageKey: string) {
-    for(const lang of this.languages){
-      if(lang.id===languageKey){
+    for (const lang of this.languages) {
+      if (lang.id === languageKey) {
         await this.translate.use(languageKey).toPromise()
         localStorage.setItem('language', languageKey)
         return
@@ -45,7 +45,7 @@ export class LanguageService {
     console.log(`language ${languageKey} not available`)
   }
 
-  currentLanguage(){
+  currentLanguage() {
     return this.translate.currentLang
   }
 

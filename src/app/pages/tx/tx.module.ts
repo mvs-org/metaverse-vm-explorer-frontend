@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
 import { TxRoutingModule, routedComponents } from './tx-routing.module'
 import { NbCardModule, NbListModule, NbIconModule, NbTabsetModule, NbButtonModule } from '@nebular/theme'
 import { PipesModule } from '../../pipes/pipes.module'

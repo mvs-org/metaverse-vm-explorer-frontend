@@ -15,7 +15,7 @@ import { MENU_ITEMS } from './pages-menu'
     </ngx-one-column-layout>
   `,
 })
-export class PagesComponent implements OnInit {
+export class PagesComponent {
 
   network$ = this.networkService.network$
 
@@ -24,18 +24,16 @@ export class PagesComponent implements OnInit {
       console.log('set network to', network)
       networkService.setNetwork(network)
     })
-    this.networkService.network$.subscribe(network=>{
+    this.networkService.network$.subscribe(network => {
       console.log('network updated to ', network)
     })
   }
 
-  ngOnInit(){ }
-
-  menu = MENU_ITEMS;
+  menu = MENU_ITEMS
 
   menu$ = this.networkService.network$
     .pipe(map(network => this.menu.map(item => ({
       ...item,
-      link: '/' + network + item.link
+      link: '/' + network + item.link,
     }))))
 }

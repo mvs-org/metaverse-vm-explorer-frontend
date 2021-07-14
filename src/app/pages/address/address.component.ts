@@ -104,7 +104,7 @@ export class AddressComponent implements OnInit {
             'Height',
             'Event Signature',
             ...log.decoded.values.map(value => value.name),
-          ]]
+          ]],
         }
       }
       logData[log.decoded.name].data.push([
@@ -213,7 +213,7 @@ export class AddressComponent implements OnInit {
           }
           `,
             })
-        })
+        }),
       ).subscribe(async response => {
         this.price = response.data?.price
         this.address = response.data?.address
@@ -230,13 +230,13 @@ export class AddressComponent implements OnInit {
                   return a.name >= b.name
                 }
                 return a.stateMutability < b.stateMutability
-              })
-            })
+              }),
+            }),
           }
         }
         this.mstBalances = await Promise.all(this.address.msts.map(async contract => {
           const balance = new BN(
-            await this.tokenService.getMSTBalance(contract.address, this.address.address)
+            await this.tokenService.getMSTBalance(contract.address, this.address.address),
           ).shiftedBy(-contract.decimals)
           return {
             ...contract,
@@ -353,7 +353,7 @@ export class AddressComponent implements OnInit {
           variables: {
             address: this.address.address,
             startBlock: this.mstTransfers[0] ? this.mstTransfers[0].blockNumber + 0 : 0,
-            offset: this.mstTransfers.length
+            offset: this.mstTransfers.length,
           },
           query: gql`
       query($address: String, $startBlock: Int!, $offset: Int!)

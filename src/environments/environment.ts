@@ -12,4 +12,4 @@ export const environment = {
   production: false,
   graphqlEndpoint: 'https://vm-explorer.mvs.org/ql/',
   rpc_url: 'https://vm.mvs.org/mainnet/9434aa75-4d76-43fc-92cf-ff45d4cabcda',
-};
+}

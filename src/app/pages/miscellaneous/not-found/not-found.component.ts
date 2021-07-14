@@ -1,5 +1,5 @@
-import { NbMenuService } from '@nebular/theme';
-import { Component } from '@angular/core';
+import { NbMenuService } from '@nebular/theme'
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'ngx-not-found',
@@ -12,6 +12,6 @@ export class NotFoundComponent {
   }
 
   goToHome() {
-    this.menuService.navigateHome();
+    this.menuService.navigateHome()
   }
 }

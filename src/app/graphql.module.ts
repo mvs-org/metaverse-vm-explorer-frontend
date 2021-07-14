@@ -20,12 +20,12 @@ export function createNamedApollo(httpLink: HttpLink): Record<string, ApolloClie
     opennft: {
       name: 'opennft',
       link: httpLink.create({ uri: opennft_uri }),
-      cache: new InMemoryCache()
+      cache: new InMemoryCache(),
     },
     genefinance: {
       name: 'genefinance',
       link: httpLink.create({ uri: genefinance_uri }),
-      cache: new InMemoryCache()
+      cache: new InMemoryCache(),
     },
   }
 }

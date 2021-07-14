@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { MitComponent } from './mit.component';
+import { MitComponent } from './mit.component'
 
 describe('MitComponent', () => {
-  let component: MitComponent;
-  let fixture: ComponentFixture<MitComponent>;
+  let component: MitComponent
+  let fixture: ComponentFixture<MitComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MitComponent ]
+      declarations: [ MitComponent ],
     })
-    .compileComponents();
-  });
+    .compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MitComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(MitComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

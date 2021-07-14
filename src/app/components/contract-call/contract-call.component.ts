@@ -5,9 +5,9 @@ import { BlockchainService } from '../../services/blockchain.service'
 @Component({
   selector: 'mvs-contract-call',
   templateUrl: './contract-call.component.html',
-  styleUrls: ['./contract-call.component.scss']
+  styleUrls: ['./contract-call.component.scss'],
 })
-export class ContractCallComponent implements OnInit {
+export class ContractCallComponent {
 
   @Input()
   method: string
@@ -30,9 +30,6 @@ export class ContractCallComponent implements OnInit {
     private blockchainService: BlockchainService,
   ) { }
 
-  ngOnInit(): void {
-  }
-
   async call(e: NgForm) {
     const params = Object.values(e.value)
     let result
@@ -41,7 +38,7 @@ export class ContractCallComponent implements OnInit {
     } catch (error) {
       result = error.message
     }
-    if(typeof result !== 'string'){
+    if (typeof result !== 'string') {
       result = JSON.stringify(result)
     }
     this.results = [result, ...this.results]

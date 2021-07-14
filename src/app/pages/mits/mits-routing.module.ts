@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core'
+import { Routes, RouterModule } from '@angular/router'
 
 import { MITsComponent } from './mits.component'
 
 const routes: Routes = [{
   path: '',
   component: MITsComponent,
-}];
+}]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
@@ -15,5 +15,5 @@ const routes: Routes = [{
 export class MITsRoutingModule { }
 
 export const routedComponents = [
-  MITsComponent
-];
+  MITsComponent,
+]
