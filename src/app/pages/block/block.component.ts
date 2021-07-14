@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Apollo, gql } from 'apollo-angular'
 import { switchMap } from 'rxjs/operators'
+import { UtilityService } from '../../services/utility.service'
 
 @Component({
   selector: 'ngx-block',
@@ -19,6 +20,7 @@ export class BlockComponent implements OnInit {
   constructor(
     private apollo: Apollo,
     private activatedRoute: ActivatedRoute,
+    private utilityService: UtilityService,
   ) {
   }
 
@@ -80,5 +82,8 @@ export class BlockComponent implements OnInit {
               }
             }
 `
+  async copyHash(hash: string) {
+    await this.utilityService.copy(hash, 'hash')
+  }
 
 }

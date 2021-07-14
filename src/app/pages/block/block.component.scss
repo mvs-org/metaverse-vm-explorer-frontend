@@ -8,6 +8,11 @@
   overflow: hidden;
 }
 
+.break-word {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
 @include media-breakpoint-down(md) {
   .top-card-list {
     .col-md-8 {

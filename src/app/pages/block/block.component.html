@@ -10,8 +10,11 @@
           <a [routerLink]="'../'+(block.number+1)">
             <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
           </a>
-          <div class="break-dots">
+          <div class="break-word">
             {{block.hash}}
+            <button nbButton ghost (click)="copyHash(block.hash)">
+              <nb-icon icon="copy-outline"></nb-icon>
+            </button>
           </div>
         </div>
         <div class="col-md-6" style="text-align: right;">
