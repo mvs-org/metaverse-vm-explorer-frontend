@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { switchMap, map } from 'rxjs/operators'
+import { switchMap } from 'rxjs/operators'
 import { ExplorerService } from '../../services/explorer.service'
 import { UtilityService } from '../../services/utility.service'
 
