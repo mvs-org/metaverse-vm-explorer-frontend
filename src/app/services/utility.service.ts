@@ -16,12 +16,15 @@ export class UtilityService {
     private toastrService: NbToastrService,
   ) { }
 
-  async copy(textToCopy: string, type: 'address' | undefined) {
+  async copy(textToCopy: string, type: 'address' | 'hash' | undefined) {
     try {
       this.clipboardService.copyFromContent(textToCopy)
       switch (type) {
         case 'address':
           this.showToast('success', 'Address copied to clipboard', textToCopy)
+          break
+        case 'hash':
+          this.showToast('success', 'Hash copied to clipboard', textToCopy)
           break
         default:
           this.showToast('success', 'Copied!', '')

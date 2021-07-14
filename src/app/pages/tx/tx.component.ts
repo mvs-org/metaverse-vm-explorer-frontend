@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Apollo, gql } from 'apollo-angular'
 import { switchMap } from 'rxjs/operators'
+import { UtilityService } from '../../services/utility.service'
 
 @Component({
   selector: 'ngx-tx',
@@ -21,6 +22,7 @@ export class TxComponent implements OnInit {
   constructor(
     private apollo: Apollo,
     private activatedRoute: ActivatedRoute,
+    private utilityService: UtilityService,
   ) {
   }
 
@@ -80,6 +82,10 @@ export class TxComponent implements OnInit {
         this.loading = response.loading
         this.error = response.error
       })
+  }
+
+  async copyHash(hash) {
+    await this.utilityService.copy(hash, 'hash')
   }
 
 }

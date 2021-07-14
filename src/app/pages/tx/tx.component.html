@@ -4,7 +4,12 @@
       <div class="row">
         <div class="col-sm-8">
           <div translate="TX.HASH"></div>
-          <div class="mono break-dots">{{tx.hash}}</div>
+          <div class="mono break-dots">
+            {{tx.hash}}
+            <button nbButton ghost (click)="copyHash(tx.hash)">
+              <nb-icon icon="copy-outline"></nb-icon>
+            </button>
+          </div>
         </div>
         <div class="col-sm-4" style="text-align: right;">
           <div>{{tx.confirmedAt * 1000 | date : 'short'}}</div>
