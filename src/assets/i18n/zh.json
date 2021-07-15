@@ -26,7 +26,14 @@
 			"SOURCE_CODE": "源代码",
 			"BYTECODE": "字节码",
 			"LOGS": "日志"
-		}
+		},
+    "BADGE": {
+      "IN": "IN",
+      "OUT": "OUT",
+      "SELF": "SELF",
+      "CALL": "调用",
+      "DEPLOY": "部署"
+    }
   },
   "BLOCK": {
     "NUMBER": "区块 #{{ number }}",

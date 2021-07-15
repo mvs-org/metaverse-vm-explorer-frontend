@@ -120,16 +120,16 @@
                 </a>
                 <div class="col-md-1 badge-container">
                   <div *ngIf="tx.value && tx.value > 0">
-                    <nb-badge text="IN" status="success"
+                    <nb-badge [text]="'ADDRESS.BADGE.IN' | translate" status="success"
                       *ngIf="tx.from !== address.address && tx.to == address.address"></nb-badge>
-                    <nb-badge text="OUT" status="danger"
+                    <nb-badge [text]="'ADDRESS.BADGE.OUT' | translate" status="danger"
                       *ngIf="tx.from == address.address && tx.to !== address.address"></nb-badge>
-                    <nb-badge text="SELF" status="info" *ngIf="tx.from == address.address && tx.to == address.address">
+                    <nb-badge [text]="'ADDRESS.BADGE.SELF' | translate" status="info" *ngIf="tx.from == address.address && tx.to == address.address">
                     </nb-badge>
                   </div>
                   <div *ngIf="!(tx.value && tx.value > 0)">
-                    <nb-badge *ngIf="tx.to" status="warning" text="CALL"></nb-badge>
-                    <nb-badge *ngIf="!tx.to" status="control" text="DEPLOY"></nb-badge>
+                    <nb-badge *ngIf="tx.to" status="warning" [text]="'ADDRESS.BADGE.CALL' | translate"></nb-badge>
+                    <nb-badge *ngIf="!tx.to" status="control" [text]="'ADDRESS.BADGE.DEPLOY' | translate"></nb-badge>
                   </div>
                 </div>
                 <div class="col-md-1" style="text-align: center;">
@@ -181,15 +181,15 @@
                 </a>
                 <div class="col-md-1 badge-container">
                   <div *ngIf="tx.value && tx.value > 0">
-                    <nb-badge text="IN" status="success"
+                    <nb-badge [text]="'ADDRESS.BADGE.IN' | translate" status="success"
                       *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
-                    <nb-badge text="OUT" status="danger"
+                    <nb-badge [text]="'ADDRESS.BADGE.OUT' | translate" status="danger"
                       *ngIf="tx.from == lowercaseAddress && tx.to !== lowercaseAddress"></nb-badge>
-                    <nb-badge text="SELF" status="info"
+                    <nb-badge [text]="'ADDRESS.BADGE.SELF' | translate" status="info"
                       *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
                   </div>
                   <div *ngIf="!(tx.value && tx.value > 0)">
-                    <nb-badge *ngIf="tx.to" status="warning" text="CALL"></nb-badge>
+                    <nb-badge *ngIf="tx.to" status="warning" [text]="'ADDRESS.BADGE.CALL' | translate"></nb-badge>
                     <nb-badge *ngIf="!tx.to" status="control" text="DEPLOY"></nb-badge>
                   </div>
                 </div>
@@ -322,15 +322,15 @@
                 </a>
                 <div class="col-3 badge-container">
                   <div *ngIf="tx.value && tx.value > 0">
-                    <nb-badge text="IN" status="success"
+                    <nb-badge [text]="'ADDRESS.BADGE.IN' | translate" status="success"
                       *ngIf="tx.from !== address.address && tx.to == address.address"></nb-badge>
-                    <nb-badge text="OUT" status="danger"
+                    <nb-badge [text]="'ADDRESS.BADGE.OUT' | translate" status="danger"
                       *ngIf="tx.from == address.address && tx.to !== address.address"></nb-badge>
-                    <nb-badge text="SELF" status="info" *ngIf="tx.from == address.address && tx.to == address.address">
+                    <nb-badge [text]="'ADDRESS.BADGE.SELF' | translate" status="info" *ngIf="tx.from == address.address && tx.to == address.address">
                     </nb-badge>
                   </div>
                   <div *ngIf="!(tx.value && tx.value > 0)">
-                    <nb-badge *ngIf="tx.to" status="warning" text="CALL"></nb-badge>
+                    <nb-badge *ngIf="tx.to" status="warning" [text]="'ADDRESS.BADGE.CALL' | translate"></nb-badge>
                     <nb-badge *ngIf="!tx.to" status="control" text="DEPLOY"></nb-badge>
                   </div>
                 </div>
@@ -377,15 +377,15 @@
                 </a>
                 <div class="col-3 badge-container">
                   <div *ngIf="tx.value && tx.value > 0">
-                    <nb-badge text="IN" status="success"
+                    <nb-badge [text]="'ADDRESS.BADGE.IN' | translate" status="success"
                       *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
-                    <nb-badge text="OUT" status="danger"
+                    <nb-badge [text]="'ADDRESS.BADGE.OUT' | translate" status="danger"
                       *ngIf="tx.from == lowercaseAddress && tx.to !== lowercaseAddress"></nb-badge>
-                    <nb-badge text="SELF" status="info"
+                    <nb-badge [text]="'ADDRESS.BADGE.SELF' | translate" status="info"
                       *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
                   </div>
                   <div *ngIf="!(tx.value && tx.value > 0)">
-                    <nb-badge *ngIf="tx.to" status="warning" text="CALL"></nb-badge>
+                    <nb-badge *ngIf="tx.to" status="warning" [text]="'ADDRESS.BADGE.CALL' | translate"></nb-badge>
                     <nb-badge *ngIf="!tx.to" status="control" text="DEPLOY"></nb-badge>
                   </div>
                 </div>

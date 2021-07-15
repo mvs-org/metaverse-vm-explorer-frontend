@@ -26,7 +26,14 @@
 			"SOURCE_CODE": "Source Code",
 			"BYTECODE": "Bytecode",
 			"LOGS": "Logs"
-		}
+    },
+    "BADGE": {
+      "IN": "IN",
+      "OUT": "OUT",
+      "SELF": "SELF",
+      "CALL": "CALL",
+      "DEPLOY": "DEPLOY"
+    }
   },
   "BLOCK": {
     "NUMBER": "Block #{{ number }}",
