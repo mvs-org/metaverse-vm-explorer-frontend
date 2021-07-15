@@ -35,6 +35,7 @@
     "GAS_USED": "Gas used",
     "PARENT_HASH": "Parent hash",
     "SIZE": "Size",
+    "SIZE_VALUE": "{{value}} bytes",
     "TRANSACTIONS": {
       "TITLE": "Transactions",
       "NO_TRANSACTIONS": "No transactions in this block",

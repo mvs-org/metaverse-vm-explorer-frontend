@@ -35,6 +35,7 @@
     "GAS_USED": "交易燃料费用",
     "PARENT_HASH": "父区块哈希值",
     "SIZE": "价值",
+    "SIZE_VALUE": "{{value}} bytes",
     "TRANSACTIONS": {
       "TITLE": "交易",
       "NO_TRANSACTIONS": "此区块中没有交易",

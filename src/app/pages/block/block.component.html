@@ -49,9 +49,7 @@
       </nb-list-item>
       <nb-list-item>
         <div class="col-md-4" translate="BLOCK.SIZE"></div>
-        <div class="col-md-8">
-          {{ block.size }} bytes
-        </div>
+        <div class="col-md-8" translate="BLOCK.SIZE_VALUE" [translateParams]="{value: block.size}"></div>
       </nb-list-item>
     </nb-list>
   </nb-card>
