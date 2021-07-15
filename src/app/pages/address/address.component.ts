@@ -8,6 +8,7 @@ import { AbiItem, Contract } from '../../interfaces/contract'
 import Web3 from 'web3'
 import { WorkBook, utils, WorkSheet, writeFile } from 'xlsx'
 import { UtilityService } from '../../services/utility.service'
+import { TranslateService } from '@ngx-translate/core'
 
 // Bignumber config
 BN.config({ EXPONENTIAL_AT: 18 })
@@ -72,6 +73,7 @@ export class AddressComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private tokenService: TokenService,
     private utilityService: UtilityService,
+    private translate: TranslateService,
   ) {
   }
 
@@ -380,8 +382,10 @@ export class AddressComponent implements OnInit {
     this.loadingMstTxs = false
   }
 
-  async copyAddress(address) {
-    await this.utilityService.copy(address, 'address')
+  async copyAddress(address: string) {
+    this.translate.get(['TOAST.COPY.ADDRESS']).subscribe(async (translations: any) => {
+      await this.utilityService.copy(address, translations['TOAST.COPY.ADDRESS'], true)
+    })
   }
 
 }

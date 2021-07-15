@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 import { Apollo, gql } from 'apollo-angular'
 import { switchMap } from 'rxjs/operators'
 import { UtilityService } from '../../services/utility.service'
+import { TranslateService } from '@ngx-translate/core'
 
 @Component({
   selector: 'ngx-block',
@@ -21,6 +22,7 @@ export class BlockComponent implements OnInit {
     private apollo: Apollo,
     private activatedRoute: ActivatedRoute,
     private utilityService: UtilityService,
+    private translate: TranslateService,
   ) {
   }
 
@@ -82,8 +84,11 @@ export class BlockComponent implements OnInit {
               }
             }
 `
+
   async copyHash(hash: string) {
-    await this.utilityService.copy(hash, 'hash')
+    this.translate.get(['TOAST.COPY.HASH']).subscribe(async (translations: any) => {
+      await this.utilityService.copy(hash, translations['TOAST.COPY.HASH'], false)
+    })
   }
 
 }

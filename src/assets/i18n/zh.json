@@ -69,10 +69,10 @@
     "PAIRS": {
       "TITLE": "交易对",
       "PAIR": "交易对",
-      "LIQUIDITY_USD": "流动性（美元",
+      "LIQUIDITY_USD": "流动性(美元)",
       "LIQUIDITY": "流动性",
       "TX_COUNT": "24小时 Tx数据",
-      "VOLUME": "24 小时交易量（美元"
+      "VOLUME": "24 小时交易量(美元)"
     }
   },
   "START": {
@@ -155,6 +155,13 @@
   },
   "CONTRACT_CALL": {
     "PARAMETERS": "参数",
-    "VIEW_ONLY": "目前仅支持视图函数执行"
+    "VIEW_ONLY": "目前仅支持视图函数执行",
+    "QUERY_BUTTON": "Query"
+  },
+  "TOAST": {
+    "COPY": {
+      "ADDRESS": "Address copied to clipboard",
+      "HASH": "Hash copied to clipboard"
+    }
   }
 }

@@ -109,13 +109,9 @@
               [infiniteScrollThrottle]="80" (scrolled)="scroll()">
               <nb-list-item>
                 <div class="col-md-4" translate="ADDRESS.TRANSACTION"></div>
-                <div class="col-md-1 break-dots">
-                </div>
-                <div class="col-md-1 break-dots">
-                </div>
-                <div class="col-md-4 break-dots">
-                  Counterparty
-                </div>
+                <div class="col-md-1 break-dots"></div>
+                <div class="col-md-1 break-dots"></div>
+                <div class="col-md-4 break-dots" translate="ADDRESS.COUNTERPARTY"></div>
                 <div class="col-md-2" style="text-align: right;" translate="ADDRESS.DATE"></div>
               </nb-list-item>
               <nb-list-item *ngFor="let tx of transactions">

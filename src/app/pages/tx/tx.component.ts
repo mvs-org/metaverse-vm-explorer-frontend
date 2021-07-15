@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 import { switchMap } from 'rxjs/operators'
 import { ExplorerService } from '../../services/explorer.service'
 import { UtilityService } from '../../services/utility.service'
+import { TranslateService } from '@ngx-translate/core'
 
 @Component({
   selector: 'ngx-tx',
@@ -22,6 +23,7 @@ export class TxComponent {
     private activatedRoute: ActivatedRoute,
     private utilityService: UtilityService,
     private explorerService: ExplorerService,
+    private translate: TranslateService,
   ) {
   }
 
@@ -34,7 +36,9 @@ export class TxComponent {
   }
 
   async copyHash(hash: string) {
-    await this.utilityService.copy(hash, 'hash')
+    this.translate.get(['TOAST.COPY.HASH']).subscribe(async (translations: any) => {
+      await this.utilityService.copy(hash, translations['TOAST.COPY.HASH'], false)
+    })
   }
 
 }
