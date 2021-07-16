@@ -11,7 +11,7 @@ export class StartComponent {
 
   currentTimestamp: number
 
-  dapps$ = this.explorer.dapps()
+  dapps$ = this.explorer.dapps$
 
   infoData$ = this.explorer.info()
     .pipe(
