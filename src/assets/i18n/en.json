@@ -48,7 +48,11 @@
       "NO_TRANSACTIONS": "No transactions in this block",
       "HASH": "Hash",
       "FROM": "From",
-      "TO": "To"
+      "TO": "To",
+      "MOBILE": {
+        "FROM": "From:",
+        "TO": "To:"
+      }
     }
   },
   "BLOCKS": {

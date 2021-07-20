@@ -4,20 +4,20 @@
 		"image": "/assets/dapps/genefinance.png",
 		"url": "https://gene.finance",
 		"gradient": "linear-gradient(120deg, #E81E78 , #270E42)",
-		"description": "Gene Finance is a multi-chain Defi ecosystem that is currently on the Metaverse, Ethereum and Heco Blockchain"
+		"description": "Gene Finance是一个多链 Defi 生态系统，目前在元界、以太坊和火币区块链上"
 	},
 	{
 		"name": "Stickers.art",
 		"image": "/assets/dapps/stickers.png",
 		"url": "https://stickers.art",
 		"bg": "#022780",
-		"description": "Stickers is an NFT platform powered by the Gene Finance ecosystem and a cross-chain Defi project"
+		"description": "Stickers是一个由Gene Finance生态系统和跨链 DeFi 项目组成的综合NFT平台"
 	},
 	{
 		"name": "OpenNFT.io",
 		"image": "/assets/dapps/opennft.png",
 		"url": "https://opennft.io",
 		"bg": "#2d2c2f",
-		"description": "Multichain NFT Marketplace for the Metaverse and Heco Blockchain"
+		"description": "元界和火币区块链上的多链 NFT 市场"
 	}
 ]

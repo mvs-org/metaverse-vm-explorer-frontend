@@ -28,9 +28,9 @@
 			"LOGS": "日志"
 		},
     "BADGE": {
-      "IN": "IN",
-      "OUT": "OUT",
-      "SELF": "SELF",
+      "IN": "进",
+      "OUT": "出",
+      "SELF": "自己",
       "CALL": "调用",
       "DEPLOY": "部署"
     }
@@ -48,7 +48,11 @@
       "NO_TRANSACTIONS": "此区块中没有交易",
       "HASH": "交易哈希",
       "FROM": "发送方",
-      "TO": "接收方"
+      "TO": "接收方",
+      "MOBILE": {
+        "FROM": "发送方:",
+        "TO": "接收方:"
+      }
     }
   },
   "BLOCKS": {
@@ -164,12 +168,12 @@
   "CONTRACT_CALL": {
     "PARAMETERS": "参数",
     "VIEW_ONLY": "目前仅支持视图函数执行",
-    "QUERY_BUTTON": "Query"
+    "QUERY_BUTTON": "查询"
   },
   "TOAST": {
     "COPY": {
-      "ADDRESS": "Address copied to clipboard",
-      "HASH": "Hash copied to clipboard"
+      "ADDRESS": "地址已复制",
+      "HASH": "哈希已复制"
     }
   }
 }
