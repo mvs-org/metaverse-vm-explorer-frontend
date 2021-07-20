@@ -87,19 +87,18 @@
       <!--Display small screens-->
       <nb-list class="d-md-none">
         <nb-list-item *ngFor="let tx of block.transactions" class="row small-screen-item">
-          <a class="col-12 break-dots mono padding-bottom" [routerLink]="'../tx/'+tx.hash">
+          <a class="col-12 break-dots mono padding-bottom" [routerLink]="'../../tx/'+tx.hash">
             {{ tx.hash }}
           </a>
-          <div class="col-12">From:</div>
-          <a class="col-12 break-dots mono" [routerLink]="'../address/'+tx.from">
+          <div class="col-12" translate="BLOCK.TRANSACTIONS.MOBILE.FROM"></div>
+          <a class="col-12 break-dots mono" [routerLink]="'../../address/'+tx.from">
             {{ tx.from }}
           </a>
           <div class="col-12" style="text-align: center;">
-            <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
+            <nb-icon [icon]="'arrow-downward-outline'"></nb-icon>
           </div>
-          <div class="col-12" style="text-align: right;">To:</div>
-          <a class="col-md-12 break-dots mono padding-bottom" style="text-align: right;"
-            [routerLink]="'../address/'+tx.to">
+          <div class="col-12" translate="BLOCK.TRANSACTIONS.MOBILE.TO"></div>
+          <a class="col-md-12 break-dots mono padding-bottom" [routerLink]="'../../address/'+tx.to">
             {{ tx.to }}
           </a>
         </nb-list-item>
