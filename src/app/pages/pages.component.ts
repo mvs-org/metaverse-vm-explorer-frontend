@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { map } from 'rxjs/operators'
+import { map, startWith } from 'rxjs/operators'
 import { NetworkService } from '../services/network.service'
+import { TranslateService } from '@ngx-translate/core'
 
-import { MENU_ITEMS } from './pages-menu'
+import { combineLatest } from 'rxjs'
+import { MENU_ITEMS_EN } from './pages-menu'
+import { MENU_ITEMS_ZH } from './pages-menu'
 
 @Component({
   selector: 'ngx-pages',
@@ -19,7 +22,11 @@ export class PagesComponent {
 
   network$ = this.networkService.network$
 
-  constructor(activatedRoute: ActivatedRoute, private networkService: NetworkService) {
+  constructor(
+    activatedRoute: ActivatedRoute,
+    private networkService: NetworkService,
+    private translateService: TranslateService,
+  ) {
     activatedRoute.params.subscribe(({ network }: { network: string }) => {
       console.log('set network to', network)
       networkService.setNetwork(network)
@@ -29,11 +36,18 @@ export class PagesComponent {
     })
   }
 
-  menu = MENU_ITEMS
-
-  menu$ = this.networkService.network$
-    .pipe(map(network => this.menu.map(item => ({
+  menu$ = combineLatest(
+    this.translateService.onLangChange,
+    this.networkService.network$,
+  )
+    .pipe(
+      startWith([{lang: this.translateService.defaultLang}, this.networkService.defaultNetwork]),
+      map(([langChange, network]: [{lang: string}, string]) => {
+        const menu = langChange?.lang === 'zh' ? MENU_ITEMS_ZH : MENU_ITEMS_EN
+      return menu.map(item => ({
       ...item,
       link: '/' + network + item.link,
-    }))))
+    })
+    )
+  }))
 }
