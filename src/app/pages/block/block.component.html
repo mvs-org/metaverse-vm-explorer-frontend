@@ -78,8 +78,8 @@
             <div *ngIf="tx.value && tx.value > 0">{{ tx.value | decimals : [18] }} ETP</div>
             <nb-icon [icon]="'arrow-forward-outline'"></nb-icon>
           </div>
-          <a class="col-md-3 break-dots mono" [routerLink]="'../../address/'+tx.to">
-            {{ tx.to }}
+          <a class="col-md-3 break-dots mono" [routerLink]="'../../address/' + (tx.to || tx.creates)">
+            {{ tx.to || tx.creates}}
           </a>
         </nb-list-item>
       </nb-list>
@@ -98,8 +98,8 @@
             <nb-icon [icon]="'arrow-downward-outline'"></nb-icon>
           </div>
           <div class="col-12" translate="BLOCK.TRANSACTIONS.MOBILE.TO"></div>
-          <a class="col-md-12 break-dots mono padding-bottom" [routerLink]="'../../address/'+tx.to">
-            {{ tx.to }}
+          <a class="col-md-12 break-dots mono padding-bottom" [routerLink]="'../../address/' + (tx.to || tx.creates)">
+            {{ tx.to || tx.creates}}
           </a>
         </nb-list-item>
       </nb-list>

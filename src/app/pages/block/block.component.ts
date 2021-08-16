@@ -59,6 +59,7 @@ export class BlockComponent implements OnInit {
       hash
       from
       to
+      creates
       value
     }
         }
@@ -79,6 +80,7 @@ export class BlockComponent implements OnInit {
       hash
       from
       to
+      creates
       value
     }
               }
