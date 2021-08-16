@@ -120,7 +120,9 @@
     "TIMER": {
       "HOUR": "小时",
       "MINUTE": "分",
-      "SECOND": "秒前"
+      "SECOND": "秒前",
+      "DAY": " day ago",
+      "DAYS": " days ago"
     }
   },
   "TX": {

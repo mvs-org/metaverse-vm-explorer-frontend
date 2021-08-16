@@ -1,6 +1,6 @@
-<div *ngIf="time >= 0">
+<div *ngIf="time >= 0 && time < 86400000">
   <span *ngIf="time >= 3600000">
-    {{time | date: 'hh': 'UTC'}}
+    {{time | date: 'HH': 'UTC'}}
     <span translate="START.TIMER.HOUR"></span>
   </span>
   <span *ngIf="time >= 60000">
@@ -11,4 +11,9 @@
     {{time | date: 'ss': 'UTC'}}
     <span translate="START.TIMER.SECOND"></span>
   </span>
+</div>
+<div *ngIf="time >= 86400000">
+  {{getDays(time)}}
+  <span *ngIf="time < 172800000" translate="START.TIMER.DAY"></span>
+  <span *ngIf="time >= 172800000" translate="START.TIMER.DAYS"></span>
 </div>

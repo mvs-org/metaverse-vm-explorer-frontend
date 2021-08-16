@@ -12,4 +12,8 @@ export class TimerComponent {
 
   public constructor() {}
 
+  getDays(time) {
+    return Math.floor(time/86400000)
+  }
+
 }
