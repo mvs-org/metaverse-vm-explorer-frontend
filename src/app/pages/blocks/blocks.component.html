@@ -1,7 +1,7 @@
 <div *ngIf="!initialLoading; else spinner" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0"
   (scrolled)="loadBlocks()">
   <nb-card>
-    <nb-card-header>Blocks</nb-card-header>
+    <nb-card-header translate="BLOCKS.TITLE"></nb-card-header>
     <!--Display large screens-->
     <nb-list class="col-12 d-none d-md-block">
       <nb-list-item class="row">

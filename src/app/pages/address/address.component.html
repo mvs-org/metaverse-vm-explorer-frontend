@@ -1,434 +1,457 @@
 <div *ngIf="!initialLoading; else spinner">
-  <div class="row">
-    <div class="col-12 col-md-6">
-      <nb-card>
-        <nb-card-header>
-          <div class="row">
-            <div class="col-12 break-word">
-              {{address.address}}
-              <button nbButton ghost (click)="copyAddress(address.address)">
-                <nb-icon icon="copy-outline"></nb-icon>
-              </button>
-            </div>
-          </div>
-        </nb-card-header>
-        <nb-list>
-          <nb-list-item>
-            <div class="col-md-4" translate="ADDRESS.BALANCE"></div>
-            <div class="col-md-8">
-              {{address.etpBalance | decimals : [18,18]}} ETP
-            </div>
-          </nb-list-item>
-          <nb-list-item>
-            <div class="col-md-4" translate="ADDRESS.VALUE"></div>
-            <a class="col-md-8">
-              {{ address.etpBalance*price.current_USD | decimals : [18,2] }} USD
-            </a>
-          </nb-list-item>
-        </nb-list>
-      </nb-card>
-      <nb-card *ngIf="mstBalances.length">
-        <nb-card-header translate="ADDRESS.MST_BALANCES"></nb-card-header>
-        <nb-list>
-          <nb-list-item *ngFor="let mst of mstBalances">
-            <div class="col-md-4">
-              <a [routerLink]="'../'+mst.address">
-                {{mst.name}}
-              </a>
-            </div>
-            <a class="col-md-7" style="text-align: right;">
-              {{mst.balance}}
-            </a>
-            <a class="col-md-1">
-              {{mst.symbol}}
-            </a>
-          </nb-list-item>
-        </nb-list>
-      </nb-card>
-    </div>
-    <div *ngIf="address.contract" class="col-12 col-md-6">
-      <nb-card>
-        <nb-card-header translate="ADDRESS.SMART_CONTRACT"></nb-card-header>
-        <nb-list>
-          <nb-list-item *ngIf="address.contract.contractName">
-            <div class="col-md-4" translate="ADDRESS.NAME"></div>
-            <div class="col-md-8 break-dots">
-              {{ address.contract.contractName }}
-            </div>
-          </nb-list-item>
-          <nb-list-item *ngIf="address.contract.logoURI">
-            <div class="col-md-4">
-              Icon
-            </div>
-            <div class="col-md-8 break-dots">
-              <img [src]="address.contract.logoURI" [alt]="'icon '+address.contract.contractName" class="contract-icon">
-            </div>
-          </nb-list-item>
-          <nb-list-item>
-            <div class="col-md-4" translate="ADDRESS.CREATION_TRANSACTION"></div>
-            <a class="col-md-8 break-dots mono" [routerLink]="'../../tx/'+address.contract.creationTransaction.hash">
-              {{ address.contract.creationTransaction.hash }}
-            </a>
-          </nb-list-item>
-          <nb-list-item>
-            <div class="col-md-4" translate="ADDRESS.CREATOR"></div>
-            <a class="col-md-8 break-dots mono"
-              [routerLink]="'../../address/'+address.contract.creationTransaction.from">
-              {{ address.contract.creationTransaction.from }}
-            </a>
-          </nb-list-item>
-          <nb-list-item>
-            <div class="col-md-4" translate="ADDRESS.CREATED_AT"></div>
-            <div class="col-md-8 break-dots">
-              {{ address.contract.creationTransaction.confirmedAt * 1000 | date : 'medium' }}
-            </div>
-          </nb-list-item>
-        </nb-list>
-      </nb-card>
-    </div>
-    <div *ngIf="!address.contract" class="col-12 col-md-6">
-      <nb-card>
-        <nb-card-header translate="ADDRESS.QR_CODE"></nb-card-header>
-        <nb-card-body>
-          <ngx-qrcode [value]="address.address" cssClass="qrcode"></ngx-qrcode>
-        </nb-card-body>
-      </nb-card>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      <!--Display large screens-->
-      <nb-card class="d-none d-md-block">
-        <nb-tabset (changeTab)="onChangeTab($event)">
-          <nb-tab class="noPadding" [tabTitle]="'ADDRESS.TABS.TRANSACTIONS'|translate" [tabId]="TAB_IDS.TRANSACTIONS">
-            <nb-list *ngIf="!(transactions && transactions.length > 0)">
-              <nb-list-item translate="ADDRESS.NO_TRANSACTIONS"></nb-list-item>
-            </nb-list>
-            <nb-list *ngIf="transactions && transactions.length > 0" infiniteScroll [infiniteScrollDistance]="2"
-              [infiniteScrollThrottle]="80" (scrolled)="scroll()">
-              <nb-list-item>
-                <div class="col-md-4" translate="ADDRESS.TRANSACTION"></div>
-                <div class="col-md-1 break-dots"></div>
-                <div class="col-md-1 break-dots"></div>
-                <div class="col-md-4 break-dots" translate="ADDRESS.COUNTERPARTY"></div>
-                <div class="col-md-2" style="text-align: right;" translate="ADDRESS.DATE"></div>
-              </nb-list-item>
-              <nb-list-item *ngFor="let tx of transactions">
-                <a class="col-md-4 break-dots mono" [routerLink]="'../../tx/'+tx.hash">
-                  {{ tx.hash }}
-                </a>
-                <div class="col-md-1 badge-container">
-                  <div *ngIf="tx.value && tx.value > 0">
-                    <nb-badge [text]="'ADDRESS.BADGE.IN' | translate" status="success"
-                      *ngIf="tx.from !== address.address && tx.to == address.address"></nb-badge>
-                    <nb-badge [text]="'ADDRESS.BADGE.OUT' | translate" status="danger"
-                      *ngIf="tx.from == address.address && tx.to !== address.address"></nb-badge>
-                    <nb-badge [text]="'ADDRESS.BADGE.SELF' | translate" status="info" *ngIf="tx.from == address.address && tx.to == address.address">
-                    </nb-badge>
-                  </div>
-                  <div *ngIf="!(tx.value && tx.value > 0)">
-                    <nb-badge *ngIf="tx.to" status="warning" [text]="'ADDRESS.BADGE.CALL' | translate"></nb-badge>
-                    <nb-badge *ngIf="!tx.to" status="control" [text]="'ADDRESS.BADGE.DEPLOY' | translate"></nb-badge>
-                  </div>
-                </div>
-                <div class="col-md-1" style="text-align: center;">
-                  <div *ngIf="tx.value && tx.value > 0">
-                    <div>{{ tx.value | decimals : [18, 6]}} ETP</div>
-                  </div>
-                  <nb-icon [icon]="'arrow-back-outline'"
-                    *ngIf="tx.from !== address.address && tx.to == address.address"></nb-icon>
-                  <nb-icon [icon]="'arrow-forward-outline'"
-                    *ngIf="tx.from == address.address && tx.to !== address.address"></nb-icon>
-                  <nb-icon [icon]="'refresh-outline'" *ngIf="tx.from == address.address && tx.to == address.address">
-                  </nb-icon>
-                </div>
-                <div class="col-md-4 break-dots mono">
-                  <a *ngIf="tx.from === address.address && tx.to !== address.address" [routerLink]="'../'+tx.to">
-                    {{tx.to}}
-                  </a>
-                  <a *ngIf="tx.from !== address.address && tx.to == address.address" [routerLink]="'../'+tx.from">
-                    {{tx.from}}</a>
-                  <a *ngIf="tx.from === address.address && tx.to == address.address" [routerLink]="'../'+tx.to">
-                    {{tx.to}}
-                  </a>
-                </div>
-                <div class="col-md-2" style="text-align: right;">
-                  {{ tx.confirmedAt * 1000 | date : 'short'}}
-                </div>
-              </nb-list-item>
-            </nb-list>
-          </nb-tab>
-          <nb-tab *ngIf="mstTransfers && mstTransfers.length > 0" class="noPadding"
-            [tabTitle]="'ADDRESS.TABS.MST_TRANSFERS'|translate" [tabId]="TAB_IDS.MST_TRANSFERS">
-            <!--Display large screens-->
-            <nb-list infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="scroll()"
-              class="d-none d-md-block">
-              <nb-list-item>
-                <div class="col-md-4 break-dots">
-                  {{'ADDRESS.TRANSACTION'|translate}}
-                </div>
-                <div class="col-md-1 break-dots">
-                </div>
-                <div class="col-md-1 break-dots">
-                </div>
-                <div class="col-md-4 break-dots" translate="ADDRESS.COUNTERPARTY"></div>
-                <div class="col-md-2" style="text-align: right;" translate="ADDRESS.DATE"></div>
-              </nb-list-item>
-              <nb-list-item *ngFor="let tx of mstTransfers">
-                <a class="col-md-4 break-dots mono" [routerLink]="'../../tx/'+tx.transactionHash">
-                  {{ tx.transactionHash }}
-                </a>
-                <div class="col-md-1 badge-container">
-                  <div *ngIf="tx.value && tx.value > 0">
-                    <nb-badge [text]="'ADDRESS.BADGE.IN' | translate" status="success"
-                      *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
-                    <nb-badge [text]="'ADDRESS.BADGE.OUT' | translate" status="danger"
-                      *ngIf="tx.from == lowercaseAddress && tx.to !== lowercaseAddress"></nb-badge>
-                    <nb-badge [text]="'ADDRESS.BADGE.SELF' | translate" status="info"
-                      *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
-                  </div>
-                  <div *ngIf="!(tx.value && tx.value > 0)">
-                    <nb-badge *ngIf="tx.to" status="warning" [text]="'ADDRESS.BADGE.CALL' | translate"></nb-badge>
-                    <nb-badge *ngIf="!tx.to" status="control" text="DEPLOY"></nb-badge>
-                  </div>
-                </div>
-                <div class="col-md-1" style="text-align: center;">
-                  <div *ngIf="tx.value && tx.value > 0">
-                    {{ tx.value | decimals : [tx.tokenInfo.decimals, 6]}} {{tx.tokenInfo.symbol}}
-                  </div>
-                  <nb-icon [icon]="'arrow-back-outline'"
-                    *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-icon>
-                  <nb-icon [icon]="'arrow-forward-outline'"
-                    *ngIf="tx.from == lowercaseAddress && tx.to !== lowercaseAddress"></nb-icon>
-                  <nb-icon [icon]="'refresh-outline'" *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress">
-                  </nb-icon>
-                </div>
-                <div class="col-md-4 break-dots mono">
-                  <a *ngIf="tx.from === lowercaseAddress && tx.to !== lowercaseAddress" [routerLink]="'../'+tx.to">
-                    {{tx.to}}
-                  </a>
-                  <a *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress" [routerLink]="'../'+tx.from">
-                    {{tx.from}}</a>
-                  <a *ngIf="tx.from === lowercaseAddress && tx.to == lowercaseAddress" [routerLink]="'../'+tx.to">
-                    {{tx.to}}
-                  </a>
-                </div>
-                <a class="col-md-2" style="text-align: right;" [routerLink]="'../../block/'+tx.blockNumber">
-                  {{ tx.confirmedAt * 1000 | date : 'short'}}
-                </a>
-              </nb-list-item>
-            </nb-list>
-          </nb-tab>
-
-          <!--   Contract related tabs   -->
-          <nb-tab *ngIf="contract && contract.abi" class="noPadding" [tabTitle]="'ADDRESS.TABS.FUNCTIONS'|translate">
-            <nb-list-item *ngFor="let func of contract.abi | filter: {type: 'function'} " class="row">
-              <div class="col-md-4">
-                <b>{{func.name}}</b>
-                <div>{{ func.constant ? 'Constant' : 'Function'}}</div>
-                <div>{{func.stateMutability}}</div>
-              </div>
-              <div class="col-md-5">
-                <mvs-contract-call [address]="address.address" [stateMutability]="func.stateMutability"
-                  [abi]="contract.abi" [method]="func.name" [inputs]="func.inputs"></mvs-contract-call>
-              </div>
-              <div class="col-md-3" style="text-align: right;">
-                <div>
-                  {{'ADDRESS.OUTPUT_TYPE'|translate}}
-                  <div>
-                    <span *ngFor="let output of func.outputs">{{output.type}} </span>
-                  </div>
-                </div>
-              </div>
-            </nb-list-item>
-          </nb-tab>
-
-          <nb-tab *ngIf="contract && contract.abi" [tabTitle]="'ADDRESS.TABS.LOGS'|translate" [tabId]="TAB_IDS.LOGS">
+  <div *ngIf="!fatalError; else fatalErrorDiv">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <nb-card>
+          <nb-card-header>
             <div class="row">
-              <div class="col-md-6">
-                <nb-select placeholder="Filter Event" style="width: 100%" (selectedChange)="logFilterSelected($event)">
-                  <nb-option *ngIf="logTopicFilter" [value]="null" translate="ADDRESS.SELECT_LOGS_ALL"></nb-option>
-                  <nb-option *ngFor="let event of contract.abi | filter : {type: 'event'}" [value]="event">
-                    {{event.name}}
-                  </nb-option>
-                </nb-select>
-              </div>
-              <div class="col-md-6" style="text-align: right;">
-                <button nbButton ghost (click)="exportLogs()">
-                  <nb-icon icon="save-outline"></nb-icon> {{'ADDRESS.EXPORT_LOGS'|translate}}
+              <div class="col-12 break-word">
+                {{address.address}}
+                <button nbButton ghost (click)="copyAddress(address.address)">
+                  <nb-icon icon="copy-outline"></nb-icon>
                 </button>
               </div>
             </div>
-            <nb-list *ngIf="logs && logs.length; else noLogs" infiniteScroll [infiniteScrollDistance]="2"
-              [infiniteScrollThrottle]="0" (scrolled)="scroll()" class="d-none d-md-block">
-              <nb-list-item *ngFor="let log of logs" class="row">
-                <div class="col-md-6">
-                  <div>
-                    <div translate="ADDRESS.TRANSACTION"></div>
-                    <a [routerLink]="'../../tx/'+log.transactionHash"
-                      class="break-dots mono">{{log.transactionHash}}</a>
+          </nb-card-header>
+          <nb-list>
+            <nb-list-item>
+              <div class="col-md-4" translate="ADDRESS.BALANCE"></div>
+              <div class="col-md-8">
+                {{address.etpBalance | decimals : [18,18]}} ETP
+              </div>
+            </nb-list-item>
+            <nb-list-item>
+              <div class="col-md-4" translate="ADDRESS.VALUE"></div>
+              <a class="col-md-8">
+                {{ address.etpBalance*price.current_USD | decimals : [18,2] }} USD
+              </a>
+            </nb-list-item>
+          </nb-list>
+        </nb-card>
+        <nb-card *ngIf="mstBalances.length">
+          <nb-card-header translate="ADDRESS.MST_BALANCES"></nb-card-header>
+          <nb-list>
+            <nb-list-item *ngFor="let mst of mstBalances">
+              <div class="col-md-4">
+                <a [routerLink]="'../'+mst.address">
+                  {{mst.name}}
+                </a>
+              </div>
+              <a class="col-md-7" style="text-align: right;">
+                {{mst.balance}}
+              </a>
+              <a class="col-md-1">
+                {{mst.symbol}}
+              </a>
+            </nb-list-item>
+          </nb-list>
+        </nb-card>
+      </div>
+      <div *ngIf="address.contract" class="col-12 col-md-6">
+        <nb-card>
+          <nb-card-header translate="ADDRESS.SMART_CONTRACT"></nb-card-header>
+          <nb-list>
+            <nb-list-item *ngIf="address.contract.contractName">
+              <div class="col-md-4" translate="ADDRESS.NAME"></div>
+              <div class="col-md-8 break-dots">
+                {{ address.contract.contractName }}
+              </div>
+            </nb-list-item>
+            <nb-list-item *ngIf="address.contract.logoURI">
+              <div class="col-md-4">
+                Icon
+              </div>
+              <div class="col-md-8 break-dots">
+                <img [src]="address.contract.logoURI" [alt]="'icon '+address.contract.contractName"
+                  class="contract-icon">
+              </div>
+            </nb-list-item>
+            <nb-list-item>
+              <div class="col-md-4" translate="ADDRESS.CREATION_TRANSACTION"></div>
+              <a class="col-md-8 break-dots mono" [routerLink]="'../../tx/'+address.contract.creationTransaction.hash">
+                {{ address.contract.creationTransaction.hash }}
+              </a>
+            </nb-list-item>
+            <nb-list-item>
+              <div class="col-md-4" translate="ADDRESS.CREATOR"></div>
+              <a class="col-md-8 break-dots mono"
+                [routerLink]="'../../address/'+address.contract.creationTransaction.from">
+                {{ address.contract.creationTransaction.from }}
+              </a>
+            </nb-list-item>
+            <nb-list-item>
+              <div class="col-md-4" translate="ADDRESS.CREATED_AT"></div>
+              <div class="col-md-8 break-dots">
+                {{ address.contract.creationTransaction.confirmedAt * 1000 | date : 'medium' }}
+              </div>
+            </nb-list-item>
+          </nb-list>
+        </nb-card>
+      </div>
+      <div *ngIf="!address.contract" class="col-12 col-md-6">
+        <nb-card>
+          <nb-card-header translate="ADDRESS.QR_CODE"></nb-card-header>
+          <nb-card-body>
+            <ngx-qrcode [value]="address.address" cssClass="qrcode"></ngx-qrcode>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <!--Display large screens-->
+        <nb-card class="d-none d-md-block">
+          <nb-tabset (changeTab)="onChangeTab($event)">
+            <nb-tab class="noPadding" [tabTitle]="'ADDRESS.TABS.TRANSACTIONS'|translate" [tabId]="TAB_IDS.TRANSACTIONS">
+              <nb-list *ngIf="!(transactions && transactions.length > 0)">
+                <nb-list-item translate="ADDRESS.NO_TRANSACTIONS"></nb-list-item>
+              </nb-list>
+              <nb-list *ngIf="transactions && transactions.length > 0" infiniteScroll [infiniteScrollDistance]="2"
+                [infiniteScrollThrottle]="80" (scrolled)="scroll()">
+                <nb-list-item>
+                  <div class="col-md-4" translate="ADDRESS.TRANSACTION"></div>
+                  <div class="col-md-1 break-dots"></div>
+                  <div class="col-md-1 break-dots"></div>
+                  <div class="col-md-4 break-dots" translate="ADDRESS.COUNTERPARTY"></div>
+                  <div class="col-md-2" style="text-align: right;" translate="ADDRESS.DATE"></div>
+                </nb-list-item>
+                <nb-list-item *ngFor="let tx of transactions">
+                  <a class="col-md-4 break-dots mono" [routerLink]="'../../tx/'+tx.hash">
+                    {{ tx.hash }}
+                  </a>
+                  <div class="col-md-1 badge-container">
+                    <div *ngIf="tx.value && tx.value > 0">
+                      <nb-badge [text]="'ADDRESS.BADGE.IN' | translate" status="success"
+                        *ngIf="tx.from !== address.address && tx.to == address.address"></nb-badge>
+                      <nb-badge [text]="'ADDRESS.BADGE.OUT' | translate" status="danger"
+                        *ngIf="tx.from == address.address && tx.to !== address.address"></nb-badge>
+                      <nb-badge [text]="'ADDRESS.BADGE.SELF' | translate" status="info"
+                        *ngIf="tx.from == address.address && tx.to == address.address">
+                      </nb-badge>
+                    </div>
+                    <div *ngIf="!(tx.value && tx.value > 0)">
+                      <nb-badge *ngIf="tx.to" status="warning" [text]="'ADDRESS.BADGE.CALL' | translate"></nb-badge>
+                      <nb-badge *ngIf="!tx.to" status="control" [text]="'ADDRESS.BADGE.DEPLOY' | translate"></nb-badge>
+                    </div>
                   </div>
-                  <div>
-                    <div translate="ADDRESS.BLOCK"></div>
-                    <a [routerLink]="'../../block/'+log.blockHash" class="break-dots mono">{{log.blockNumber}}</a>
+                  <div class="col-md-1" style="text-align: center;">
+                    <div *ngIf="tx.value && tx.value > 0">
+                      <div>{{ tx.value | decimals : [18, 6]}} ETP</div>
+                    </div>
+                    <nb-icon [icon]="'arrow-back-outline'"
+                      *ngIf="tx.from !== address.address && tx.to == address.address"></nb-icon>
+                    <nb-icon [icon]="'arrow-forward-outline'"
+                      *ngIf="tx.from == address.address && tx.to !== address.address"></nb-icon>
+                    <nb-icon [icon]="'refresh-outline'" *ngIf="tx.from == address.address && tx.to == address.address">
+                    </nb-icon>
                   </div>
+                  <div class="col-md-4 break-dots mono">
+                    <a *ngIf="tx.from === address.address && tx.to !== address.address" [routerLink]="'../'+tx.to">
+                      {{tx.to}}
+                    </a>
+                    <a *ngIf="tx.from !== address.address && tx.to == address.address" [routerLink]="'../'+tx.from">
+                      {{tx.from}}</a>
+                    <a *ngIf="tx.from === address.address && tx.to == address.address" [routerLink]="'../'+tx.to">
+                      {{tx.to}}
+                    </a>
+                  </div>
+                  <div class="col-md-2" style="text-align: right;">
+                    {{ tx.confirmedAt * 1000 | date : 'short'}}
+                  </div>
+                </nb-list-item>
+              </nb-list>
+            </nb-tab>
+            <nb-tab *ngIf="mstTransfers && mstTransfers.length > 0" class="noPadding"
+              [tabTitle]="'ADDRESS.TABS.MST_TRANSFERS'|translate" [tabId]="TAB_IDS.MST_TRANSFERS">
+              <!--Display large screens-->
+              <nb-list infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="scroll()"
+                class="d-none d-md-block">
+                <nb-list-item>
+                  <div class="col-md-4 break-dots">
+                    {{'ADDRESS.TRANSACTION'|translate}}
+                  </div>
+                  <div class="col-md-1 break-dots">
+                  </div>
+                  <div class="col-md-1 break-dots">
+                  </div>
+                  <div class="col-md-4 break-dots" translate="ADDRESS.COUNTERPARTY"></div>
+                  <div class="col-md-2" style="text-align: right;" translate="ADDRESS.DATE"></div>
+                </nb-list-item>
+                <nb-list-item *ngFor="let tx of mstTransfers">
+                  <a class="col-md-4 break-dots mono" [routerLink]="'../../tx/'+tx.transactionHash">
+                    {{ tx.transactionHash }}
+                  </a>
+                  <div class="col-md-1 badge-container">
+                    <div *ngIf="tx.value && tx.value > 0">
+                      <nb-badge [text]="'ADDRESS.BADGE.IN' | translate" status="success"
+                        *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
+                      <nb-badge [text]="'ADDRESS.BADGE.OUT' | translate" status="danger"
+                        *ngIf="tx.from == lowercaseAddress && tx.to !== lowercaseAddress"></nb-badge>
+                      <nb-badge [text]="'ADDRESS.BADGE.SELF' | translate" status="info"
+                        *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
+                    </div>
+                    <div *ngIf="!(tx.value && tx.value > 0)">
+                      <nb-badge *ngIf="tx.to" status="warning" [text]="'ADDRESS.BADGE.CALL' | translate"></nb-badge>
+                      <nb-badge *ngIf="!tx.to" status="control" text="DEPLOY"></nb-badge>
+                    </div>
+                  </div>
+                  <div class="col-md-1" style="text-align: center;">
+                    <div *ngIf="tx.value && tx.value > 0">
+                      {{ tx.value | decimals : [tx.tokenInfo.decimals, 6]}} {{tx.tokenInfo.symbol}}
+                    </div>
+                    <nb-icon [icon]="'arrow-back-outline'"
+                      *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-icon>
+                    <nb-icon [icon]="'arrow-forward-outline'"
+                      *ngIf="tx.from == lowercaseAddress && tx.to !== lowercaseAddress"></nb-icon>
+                    <nb-icon [icon]="'refresh-outline'"
+                      *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress">
+                    </nb-icon>
+                  </div>
+                  <div class="col-md-4 break-dots mono">
+                    <a *ngIf="tx.from === lowercaseAddress && tx.to !== lowercaseAddress" [routerLink]="'../'+tx.to">
+                      {{tx.to}}
+                    </a>
+                    <a *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress" [routerLink]="'../'+tx.from">
+                      {{tx.from}}</a>
+                    <a *ngIf="tx.from === lowercaseAddress && tx.to == lowercaseAddress" [routerLink]="'../'+tx.to">
+                      {{tx.to}}
+                    </a>
+                  </div>
+                  <a class="col-md-2" style="text-align: right;" [routerLink]="'../../block/'+tx.blockNumber">
+                    {{ tx.confirmedAt * 1000 | date : 'short'}}
+                  </a>
+                </nb-list-item>
+              </nb-list>
+            </nb-tab>
+
+            <!--   Contract related tabs   -->
+            <nb-tab *ngIf="contract && contract.abi" class="noPadding" [tabTitle]="'ADDRESS.TABS.FUNCTIONS'|translate">
+              <nb-list-item *ngFor="let func of contract.abi | filter: {type: 'function'} " class="row">
+                <div class="col-md-4">
+                  <b>{{func.name}}</b>
+                  <div>{{ func.constant ? 'Constant' : 'Function'}}</div>
+                  <div>{{func.stateMutability}}</div>
                 </div>
-                <div class="row col-md-6">
-                  <div *ngIf="log.decoded" class="col-md-12 decoded">
-                    <div class="break-word mono">{{log.decoded.signature}}</div>
-                    <div *ngFor="let value of log.decoded.values" class="break-word mono row">
-                      <div class="col-md-3" [innerText]="value.name"></div>
-                      <div class="col-md-9" [innerText]="formatLogValue(value)"></div>
+                <div class="col-md-5">
+                  <mvs-contract-call [address]="address.address" [stateMutability]="func.stateMutability"
+                    [abi]="contract.abi" [method]="func.name" [inputs]="func.inputs"></mvs-contract-call>
+                </div>
+                <div class="col-md-3" style="text-align: right;">
+                  <div>
+                    {{'ADDRESS.OUTPUT_TYPE'|translate}}
+                    <div>
+                      <span *ngFor="let output of func.outputs">{{output.type}} </span>
                     </div>
                   </div>
                 </div>
               </nb-list-item>
-            </nb-list>
-            <ng-template #noLogs>
-              <div translate="ADDRESS.NO_LOGS"></div>
-            </ng-template>
-          </nb-tab>
+            </nb-tab>
 
-          <nb-tab *ngIf="address.contract && address.contract.source" class="noPadding"
-            [tabTitle]="'ADDRESS.TABS.SOURCE_CODE'|translate">
-            <pre>
+            <nb-tab *ngIf="contract && contract.abi" [tabTitle]="'ADDRESS.TABS.LOGS'|translate" [tabId]="TAB_IDS.LOGS">
+              <div class="row">
+                <div class="col-md-6">
+                  <nb-select placeholder="Filter Event" style="width: 100%"
+                    (selectedChange)="logFilterSelected($event)">
+                    <nb-option *ngIf="logTopicFilter" [value]="null" translate="ADDRESS.SELECT_LOGS_ALL"></nb-option>
+                    <nb-option *ngFor="let event of contract.abi | filter : {type: 'event'}" [value]="event">
+                      {{event.name}}
+                    </nb-option>
+                  </nb-select>
+                </div>
+                <div class="col-md-6" style="text-align: right;">
+                  <button nbButton ghost (click)="exportLogs()">
+                    <nb-icon icon="save-outline"></nb-icon> {{'ADDRESS.EXPORT_LOGS'|translate}}
+                  </button>
+                </div>
+              </div>
+              <nb-list *ngIf="logs && logs.length; else noLogs" infiniteScroll [infiniteScrollDistance]="2"
+                [infiniteScrollThrottle]="0" (scrolled)="scroll()" class="d-none d-md-block">
+                <nb-list-item *ngFor="let log of logs" class="row">
+                  <div class="col-md-6">
+                    <div>
+                      <div translate="ADDRESS.TRANSACTION"></div>
+                      <a [routerLink]="'../../tx/'+log.transactionHash"
+                        class="break-dots mono">{{log.transactionHash}}</a>
+                    </div>
+                    <div>
+                      <div translate="ADDRESS.BLOCK"></div>
+                      <a [routerLink]="'../../block/'+log.blockHash" class="break-dots mono">{{log.blockNumber}}</a>
+                    </div>
+                  </div>
+                  <div class="row col-md-6">
+                    <div *ngIf="log.decoded" class="col-md-12 decoded">
+                      <div class="break-word mono">{{log.decoded.signature}}</div>
+                      <div *ngFor="let value of log.decoded.values" class="break-word mono row">
+                        <div class="col-md-3" [innerText]="value.name"></div>
+                        <div class="col-md-9" [innerText]="formatLogValue(value)"></div>
+                      </div>
+                    </div>
+                  </div>
+                </nb-list-item>
+              </nb-list>
+              <ng-template #noLogs>
+                <div translate="ADDRESS.NO_LOGS"></div>
+              </ng-template>
+            </nb-tab>
+
+            <nb-tab *ngIf="address.contract && address.contract.source" class="noPadding"
+              [tabTitle]="'ADDRESS.TABS.SOURCE_CODE'|translate">
+              <pre>
               {{'\n'+address.contract.source}}
             </pre>
-          </nb-tab>
+            </nb-tab>
 
-          <nb-tab *ngIf="address.contract && address.contract.bytecode" class="noPadding"
-            [tabTitle]="'ADDRESS.TABS.BYTECODE'|translate">
-            <pre class="break-word">
+            <nb-tab *ngIf="address.contract && address.contract.bytecode" class="noPadding"
+              [tabTitle]="'ADDRESS.TABS.BYTECODE'|translate">
+              <pre class="break-word">
               {{'\n'+address.contract.bytecode}}
             </pre>
-          </nb-tab>
+            </nb-tab>
 
-        </nb-tabset>
-      </nb-card>
+          </nb-tabset>
+        </nb-card>
 
-      <!--Display small screens-->
-      <nb-card class="d-md-none">
-        <nb-tabset (changeTab)="onChangeTab($event)">
-          <nb-tab class="noPadding" [tabTitle]="'ADDRESS.TABS.TRANSACTIONS'|translate" [tabId]="TAB_IDS.TRANSACTIONS">
-            <nb-list *ngIf="!(transactions && transactions.length > 0)">
-              <nb-list-item translate="ADDRESS.NO_TRANSACTIONS"></nb-list-item>
-            </nb-list>
-            <!--Display small screens-->
-            <nb-list class="col-12 small-tx-list">
-              <nb-list-item *ngFor="let tx of transactions" class="row small-tx-item">
-                <a class="col-md-12 break-dots mono" [routerLink]="'../../tx/'+tx.hash">
-                  {{ tx.hash }}
-                </a>
-                <div class="col-3 badge-container">
-                  <div *ngIf="tx.value && tx.value > 0">
-                    <nb-badge [text]="'ADDRESS.BADGE.IN' | translate" status="success"
-                      *ngIf="tx.from !== address.address && tx.to == address.address"></nb-badge>
-                    <nb-badge [text]="'ADDRESS.BADGE.OUT' | translate" status="danger"
-                      *ngIf="tx.from == address.address && tx.to !== address.address"></nb-badge>
-                    <nb-badge [text]="'ADDRESS.BADGE.SELF' | translate" status="info" *ngIf="tx.from == address.address && tx.to == address.address">
-                    </nb-badge>
-                  </div>
-                  <div *ngIf="!(tx.value && tx.value > 0)">
-                    <nb-badge *ngIf="tx.to" status="warning" [text]="'ADDRESS.BADGE.CALL' | translate"></nb-badge>
-                    <nb-badge *ngIf="!tx.to" status="control" text="DEPLOY"></nb-badge>
-                  </div>
-                </div>
-                <div class="col-3" style="text-align: center;">
-                  <div *ngIf="tx.value && tx.value > 0">
-                    <div>{{ tx.value | decimals : [18, 6]}} ETP</div>
-                  </div>
-                  <nb-icon [icon]="'arrow-back-outline'"
-                    *ngIf="tx.from !== address.address && tx.to == address.address"></nb-icon>
-                  <nb-icon [icon]="'arrow-forward-outline'"
-                    *ngIf="tx.from == address.address && tx.to !== address.address"></nb-icon>
-                  <nb-icon [icon]="'refresh-outline'" *ngIf="tx.from == address.address && tx.to == address.address">
-                  </nb-icon>
-                </div>
-                <div class="col-6 break-dots mono counterparty" style="text-align: right;">
-                  <a *ngIf="tx.from === address.address && tx.to !== address.address" [routerLink]="'../'+tx.to">
-                    {{tx.to}}
+        <!--Display small screens-->
+        <nb-card class="d-md-none">
+          <nb-tabset (changeTab)="onChangeTab($event)">
+            <nb-tab class="noPadding" [tabTitle]="'ADDRESS.TABS.TRANSACTIONS'|translate" [tabId]="TAB_IDS.TRANSACTIONS">
+              <nb-list *ngIf="!(transactions && transactions.length > 0)">
+                <nb-list-item translate="ADDRESS.NO_TRANSACTIONS"></nb-list-item>
+              </nb-list>
+              <!--Display small screens-->
+              <nb-list class="col-12 small-tx-list">
+                <nb-list-item *ngFor="let tx of transactions" class="row small-tx-item">
+                  <a class="col-md-12 break-dots mono" [routerLink]="'../../tx/'+tx.hash">
+                    {{ tx.hash }}
                   </a>
-                  <a *ngIf="tx.from !== address.address && tx.to == address.address" [routerLink]="'../'+tx.from">
-                    {{tx.from}}</a>
-                  <a *ngIf="tx.from === address.address && tx.to == address.address" [routerLink]="'../'+tx.to">
-                    {{tx.to}}
-                  </a>
-                </div>
-                <div class="col-6">
-                  <span translate="ADDRESS.BLOCK"></span>
-                  <a [routerLink]="'../block/'+tx.blockNumber">
-                    {{ tx.blockNumber }}
-                  </a>
-                </div>
-                <div class="col-6" style="text-align: right;">
-                  {{ tx.confirmedAt * 1000 | date : 'short'}}
-                </div>
-              </nb-list-item>
-            </nb-list>
-          </nb-tab>
-          <nb-tab *ngIf="mstTransfers && mstTransfers.length > 0" class="noPadding"
-            [tabTitle]="'ADDRESS.TABS.MST_TRANSFERS'|translate">
-            <!--Display small screens-->
-            <nb-list class="col-12 small-tx-list">
-              <nb-list-item *ngFor="let tx of mstTransfers" class="row small-tx-item">
-                <a class="col-12 break-dots mono" [routerLink]="'../../tx/'+tx.transactionHash">
-                  {{ tx.transactionHash }}
-                </a>
-                <div class="col-3 badge-container">
-                  <div *ngIf="tx.value && tx.value > 0">
-                    <nb-badge [text]="'ADDRESS.BADGE.IN' | translate" status="success"
-                      *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
-                    <nb-badge [text]="'ADDRESS.BADGE.OUT' | translate" status="danger"
-                      *ngIf="tx.from == lowercaseAddress && tx.to !== lowercaseAddress"></nb-badge>
-                    <nb-badge [text]="'ADDRESS.BADGE.SELF' | translate" status="info"
-                      *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
+                  <div class="col-3 badge-container">
+                    <div *ngIf="tx.value && tx.value > 0">
+                      <nb-badge [text]="'ADDRESS.BADGE.IN' | translate" status="success"
+                        *ngIf="tx.from !== address.address && tx.to == address.address"></nb-badge>
+                      <nb-badge [text]="'ADDRESS.BADGE.OUT' | translate" status="danger"
+                        *ngIf="tx.from == address.address && tx.to !== address.address"></nb-badge>
+                      <nb-badge [text]="'ADDRESS.BADGE.SELF' | translate" status="info"
+                        *ngIf="tx.from == address.address && tx.to == address.address">
+                      </nb-badge>
+                    </div>
+                    <div *ngIf="!(tx.value && tx.value > 0)">
+                      <nb-badge *ngIf="tx.to" status="warning" [text]="'ADDRESS.BADGE.CALL' | translate"></nb-badge>
+                      <nb-badge *ngIf="!tx.to" status="control" text="DEPLOY"></nb-badge>
+                    </div>
                   </div>
-                  <div *ngIf="!(tx.value && tx.value > 0)">
-                    <nb-badge *ngIf="tx.to" status="warning" [text]="'ADDRESS.BADGE.CALL' | translate"></nb-badge>
-                    <nb-badge *ngIf="!tx.to" status="control" text="DEPLOY"></nb-badge>
+                  <div class="col-3" style="text-align: center;">
+                    <div *ngIf="tx.value && tx.value > 0">
+                      <div>{{ tx.value | decimals : [18, 6]}} ETP</div>
+                    </div>
+                    <nb-icon [icon]="'arrow-back-outline'"
+                      *ngIf="tx.from !== address.address && tx.to == address.address"></nb-icon>
+                    <nb-icon [icon]="'arrow-forward-outline'"
+                      *ngIf="tx.from == address.address && tx.to !== address.address"></nb-icon>
+                    <nb-icon [icon]="'refresh-outline'" *ngIf="tx.from == address.address && tx.to == address.address">
+                    </nb-icon>
                   </div>
-                </div>
-                <div class="col-3" style="text-align: center;">
-                  <div *ngIf="tx.value && tx.value > 0">
-                    {{ tx.value | decimals : [tx.tokenInfo.decimals, 6]}} {{tx.tokenInfo.symbol}}
+                  <div class="col-6 break-dots mono counterparty" style="text-align: right;">
+                    <a *ngIf="tx.from === address.address && tx.to !== address.address" [routerLink]="'../'+tx.to">
+                      {{tx.to}}
+                    </a>
+                    <a *ngIf="tx.from !== address.address && tx.to == address.address" [routerLink]="'../'+tx.from">
+                      {{tx.from}}</a>
+                    <a *ngIf="tx.from === address.address && tx.to == address.address" [routerLink]="'../'+tx.to">
+                      {{tx.to}}
+                    </a>
                   </div>
-                  <nb-icon [icon]="'arrow-back-outline'"
-                    *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-icon>
-                  <nb-icon [icon]="'arrow-forward-outline'"
-                    *ngIf="tx.from == lowercaseAddress && tx.to !== lowercaseAddress"></nb-icon>
-                  <nb-icon [icon]="'refresh-outline'" *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress">
-                  </nb-icon>
-                </div>
-                <div class="col-6 break-dots mono counterparty">
-                  <a *ngIf="tx.from === lowercaseAddress && tx.to !== lowercaseAddress" [routerLink]="'../'+tx.to">
-                    {{tx.to}}
+                  <div class="col-6">
+                    <span translate="ADDRESS.BLOCK"></span>
+                    <a [routerLink]="'../block/'+tx.blockNumber">
+                      {{ tx.blockNumber }}
+                    </a>
+                  </div>
+                  <div class="col-6" style="text-align: right;">
+                    {{ tx.confirmedAt * 1000 | date : 'short'}}
+                  </div>
+                </nb-list-item>
+              </nb-list>
+            </nb-tab>
+            <nb-tab *ngIf="mstTransfers && mstTransfers.length > 0" class="noPadding"
+              [tabTitle]="'ADDRESS.TABS.MST_TRANSFERS'|translate">
+              <!--Display small screens-->
+              <nb-list class="col-12 small-tx-list">
+                <nb-list-item *ngFor="let tx of mstTransfers" class="row small-tx-item">
+                  <a class="col-12 break-dots mono" [routerLink]="'../../tx/'+tx.transactionHash">
+                    {{ tx.transactionHash }}
                   </a>
-                  <a *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress" [routerLink]="'../'+tx.from">
-                    {{tx.from}}</a>
-                  <a *ngIf="tx.from === lowercaseAddress && tx.to == lowercaseAddress" [routerLink]="'../'+tx.to">
-                    {{tx.to}}
-                  </a>
-                </div>
-                <div class="col-6">
-                  {{'ADDRESS.BLOCK'|translate}}
-                  <a [routerLink]="'../block/'+tx.blockNumber">
-                    {{ tx.blockNumber }}
-                  </a>
-                </div>
-                <div class="col-6" style="text-align: right;">
-                  {{ tx.confirmedAt * 1000 | date : 'short'}}
-                </div>
-              </nb-list-item>
-            </nb-list>
-          </nb-tab>
-        </nb-tabset>
-      </nb-card>
+                  <div class="col-3 badge-container">
+                    <div *ngIf="tx.value && tx.value > 0">
+                      <nb-badge [text]="'ADDRESS.BADGE.IN' | translate" status="success"
+                        *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
+                      <nb-badge [text]="'ADDRESS.BADGE.OUT' | translate" status="danger"
+                        *ngIf="tx.from == lowercaseAddress && tx.to !== lowercaseAddress"></nb-badge>
+                      <nb-badge [text]="'ADDRESS.BADGE.SELF' | translate" status="info"
+                        *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress"></nb-badge>
+                    </div>
+                    <div *ngIf="!(tx.value && tx.value > 0)">
+                      <nb-badge *ngIf="tx.to" status="warning" [text]="'ADDRESS.BADGE.CALL' | translate"></nb-badge>
+                      <nb-badge *ngIf="!tx.to" status="control" text="DEPLOY"></nb-badge>
+                    </div>
+                  </div>
+                  <div class="col-3" style="text-align: center;">
+                    <div *ngIf="tx.value && tx.value > 0">
+                      {{ tx.value | decimals : [tx.tokenInfo.decimals, 6]}} {{tx.tokenInfo.symbol}}
+                    </div>
+                    <nb-icon [icon]="'arrow-back-outline'"
+                      *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress"></nb-icon>
+                    <nb-icon [icon]="'arrow-forward-outline'"
+                      *ngIf="tx.from == lowercaseAddress && tx.to !== lowercaseAddress"></nb-icon>
+                    <nb-icon [icon]="'refresh-outline'"
+                      *ngIf="tx.from == lowercaseAddress && tx.to == lowercaseAddress">
+                    </nb-icon>
+                  </div>
+                  <div class="col-6 break-dots mono counterparty">
+                    <a *ngIf="tx.from === lowercaseAddress && tx.to !== lowercaseAddress" [routerLink]="'../'+tx.to">
+                      {{tx.to}}
+                    </a>
+                    <a *ngIf="tx.from !== lowercaseAddress && tx.to == lowercaseAddress" [routerLink]="'../'+tx.from">
+                      {{tx.from}}</a>
+                    <a *ngIf="tx.from === lowercaseAddress && tx.to == lowercaseAddress" [routerLink]="'../'+tx.to">
+                      {{tx.to}}
+                    </a>
+                  </div>
+                  <div class="col-6">
+                    {{'ADDRESS.BLOCK'|translate}}
+                    <a [routerLink]="'../block/'+tx.blockNumber">
+                      {{ tx.blockNumber }}
+                    </a>
+                  </div>
+                  <div class="col-6" style="text-align: right;">
+                    {{ tx.confirmedAt * 1000 | date : 'short'}}
+                  </div>
+                </nb-list-item>
+              </nb-list>
+            </nb-tab>
+          </nb-tabset>
+        </nb-card>
+      </div>
+      <div
+        *ngIf="(selectedTab == TAB_IDS.TRANSACTIONS && loadingTxs) || (selectedTab == TAB_IDS.MST_TRANSFERS && loadingMstTxs) || (selectedTab === TAB_IDS.LOGS && loadingLogs)"
+        class="loading-spinner"></div>
     </div>
-    <div
-      *ngIf="(selectedTab == TAB_IDS.TRANSACTIONS && loadingTxs) || (selectedTab == TAB_IDS.MST_TRANSFERS && loadingMstTxs) || (selectedTab === TAB_IDS.LOGS && loadingLogs)"
-      class="loading-spinner"></div>
   </div>
+  <ng-template #fatalErrorDiv>
+    <div class="row">
+      <div class="col-md-12">
+        <nb-card>
+          <nb-card-body>
+            <div class="flex-centered col-xl-4 col-lg-6 col-md-8 col-sm-12">
+              <h2 translate="ADDRESS.FATAL_ERROR" class="title"></h2>
+              <small class="sub-title">{{fatalError}}</small>
+              <button nbButton matRipple fullWidth (click)="goToHome()" type="button" class="home-button" translate="404.BUTTON"></button>
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+  </ng-template>
 </div>
 <ng-template #spinner>
   <div class="loading-spinner page-spinner"></div>

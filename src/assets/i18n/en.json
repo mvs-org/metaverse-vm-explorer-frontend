@@ -18,7 +18,9 @@
 		"FROM": "From",
 		"OUTPUT_TYPE": "Output type",
 		"EXPORT_LOGS": "Export",
-		"SELECT_LOGS_ALL": "All",
+    "SELECT_LOGS_ALL": "All",
+    "FATAL_ERROR": "Invalid Ethereum address",
+    "GO_HOME": "Click here to go back home",
 		"TABS": {
 			"TRANSACTIONS": "Transactions",
 			"FUNCTIONS": "Functions",
@@ -56,6 +58,7 @@
     }
   },
   "BLOCKS": {
+    "TITLE": "Blocks",
     "HASH": "Hash",
     "NUMBER": "Number",
     "TRANSACTIONS": "Transactions",
@@ -177,5 +180,10 @@
       "ADDRESS": "Address copied to clipboard",
       "HASH": "Hash copied to clipboard"
     }
+  },
+  "404": {
+    "TITLE": "404 page not found",
+    "SUBTITLE": "The page you were looking for doesn't exist",
+    "BUTTON": "Take me home"
   }
 }

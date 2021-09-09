@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Apollo, gql } from 'apollo-angular'
-import { switchMap } from 'rxjs/operators'
+import { switchMap, catchError } from 'rxjs/operators'
+import { of } from 'rxjs'
 import { TokenService } from '../../services/token.service'
 import BN from 'bignumber.js'
 import { AbiItem, Contract } from '../../interfaces/contract'
@@ -9,6 +10,7 @@ import Web3 from 'web3'
 import { WorkBook, utils, WorkSheet, writeFile } from 'xlsx'
 import { UtilityService } from '../../services/utility.service'
 import { TranslateService } from '@ngx-translate/core'
+import { NbMenuService } from '@nebular/theme'
 
 // Bignumber config
 BN.config({ EXPONENTIAL_AT: 18 })
@@ -53,6 +55,7 @@ export class AddressComponent implements OnInit {
   contract: Contract
   initialLoading = true
   error: any
+  fatalError = ''
   info: any
   mstBalances: any[] = []
 
@@ -74,6 +77,7 @@ export class AddressComponent implements OnInit {
     private tokenService: TokenService,
     private utilityService: UtilityService,
     private translate: TranslateService,
+    private menuService: NbMenuService
   ) {
   }
 
@@ -148,12 +152,12 @@ export class AddressComponent implements OnInit {
       .pipe(
         switchMap(params => {
           this.reset()
-          return this.apollo
-            .query<any>({
-              variables: {
-                address: params['address'],
-              },
-              query: gql`
+            return this.apollo
+              .query<any>({
+                variables: {
+                  address: params['address'],
+                },
+                query: gql`
           query($address: String!)
           {
             price{
@@ -214,9 +218,18 @@ export class AddressComponent implements OnInit {
             }
           }
           `,
-            })
+              }).toPromise()
         }),
+        catchError((error)=>{
+          this.initialLoading = false
+          return of({error, data: {}, loading: false})
+        })
       ).subscribe(async response => {
+        if(response.error){
+          this.fatalError = response.error
+          //this.utilityService.showToast('danger', response.error, '', 'warning-outline')
+          return
+        }
         this.price = response.data?.price
         this.address = response.data?.address
         this.lowercaseAddress = this.address.address.toLowerCase()
@@ -386,6 +399,10 @@ export class AddressComponent implements OnInit {
     this.translate.get(['TOAST.COPY.ADDRESS']).subscribe(async (translations: any) => {
       await this.utilityService.copy(address, translations['TOAST.COPY.ADDRESS'], true)
     })
+  }
+
+  goToHome() {
+    this.menuService.navigateHome()
   }
 
 }

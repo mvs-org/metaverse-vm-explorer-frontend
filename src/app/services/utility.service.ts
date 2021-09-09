@@ -19,18 +19,18 @@ export class UtilityService {
   async copy(textToCopy: string, message: string, showTextToCopy = false) {
     try {
       this.clipboardService.copyFromContent(textToCopy)
-      this.showToast('success', message, showTextToCopy ? textToCopy : '')
+      this.showToast('success', message, showTextToCopy ? textToCopy : '', 'clipboard-outline')
     } catch (error) {
       console.error('Error while copying')
     }
   }
 
-  private showToast(type: NbComponentStatus, title: string, body: string) {
+  public showToast(type: NbComponentStatus, title: string, body: string, icon: string) {
     const config = {
       status: type,
       destroyByClick: true,
       duration: 4000,
-      icon: 'clipboard-outline',
+      icon,
       position: NbGlobalPhysicalPosition.TOP_RIGHT,
       preventDuplicates: false,
     }
