@@ -7,6 +7,7 @@ import { Subject, Observable } from 'rxjs'
 import { RippleService } from '../../../@core/utils/ripple.service'
 import { NetworkService } from '../../../services/network.service'
 import { Router } from '@angular/router'
+import { environment } from './../../../../environments/environment'
 
 @Component({
   selector: 'ngx-header',
@@ -50,6 +51,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentTheme = localStorage.getItem('theme') || 'material-dark'
 
   userMenu = [{ title: 'Profile' }, { title: 'Log out' }]
+
+  environment = environment
 
   public constructor(
     private sidebarService: NbSidebarService,

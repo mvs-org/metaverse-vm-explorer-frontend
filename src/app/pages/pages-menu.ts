@@ -22,13 +22,14 @@ export const MENU_ITEMS_EN: NbMenuItem[] = [
     icon: 'trending-up-outline',
     link: '/msts',
   },
+]
+
+export const MENU_ITEM_MITS_EN: NbMenuItem =
   {
     title: 'MIT',
     icon: 'image-outline',
     link: '/mits',
-  },
-]
-
+  }
 
 export const MENU_ITEMS_ZH: NbMenuItem[] = [
   {
@@ -52,9 +53,11 @@ export const MENU_ITEMS_ZH: NbMenuItem[] = [
     icon: 'trending-up-outline',
     link: '/msts',
   },
+]
+
+export const MENU_ITEM_MITS_ZH: NbMenuItem =
   {
     title: 'MIT',
     icon: 'image-outline',
     link: '/mits',
-  },
-]
+  }

@@ -10,7 +10,7 @@
     >
       <nb-icon [icon]="(materialTheme$ | async) ? 'menu-outline' : 'menu-2-outline'"></nb-icon>
     </a>
-    <a class="logo" href="#" (click)="navigateHome()"><b>MetaverseVM</b> Explorer</a>
+    <a class="logo" href="#" (click)="navigateHome()" [innerHtml]="environment.name"></a>
     <div class="logo" (click)="toggleTheme()">
       <nb-icon icon="bulb-outline"></nb-icon>
     </div>

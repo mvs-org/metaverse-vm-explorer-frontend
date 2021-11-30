@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Apollo } from 'apollo-angular'
 import gql from 'graphql-tag'
+import { environment } from './../../../environments/environment'
 
 @Component({
   selector: 'ngx-contracts',
@@ -19,7 +20,9 @@ export class MSTsComponent implements OnInit {
 
   async ngOnInit() {
     this.loadMSTs()
-    this.loadPairs()
+    if(environment.showGenefinanceData) {
+      this.loadPairs()
+    }
   }
 
   async loadMSTs() {

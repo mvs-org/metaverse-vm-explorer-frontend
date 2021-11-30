@@ -7,6 +7,9 @@ import { TranslateService } from '@ngx-translate/core'
 import { combineLatest } from 'rxjs'
 import { MENU_ITEMS_EN } from './pages-menu'
 import { MENU_ITEMS_ZH } from './pages-menu'
+import { MENU_ITEM_MITS_EN } from './pages-menu'
+import { MENU_ITEM_MITS_ZH } from './pages-menu'
+import { environment } from './../../environments/environment'
 
 @Component({
   selector: 'ngx-pages',
@@ -44,6 +47,9 @@ export class PagesComponent {
       startWith([{lang: this.translateService.defaultLang}, this.networkService.defaultNetwork]),
       map(([langChange, network]: [{lang: string}, string]) => {
         const menu = langChange?.lang === 'zh' ? MENU_ITEMS_ZH : MENU_ITEMS_EN
+        if(environment.showMits) {
+          menu.push(langChange?.lang === 'zh' ? MENU_ITEM_MITS_ZH : MENU_ITEM_MITS_EN)
+        }
       return menu.map(item => ({
       ...item,
       link: '/' + network + item.link,
