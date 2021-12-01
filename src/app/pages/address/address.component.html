@@ -66,20 +66,20 @@
                   class="contract-icon">
               </div>
             </nb-list-item>
-            <nb-list-item>
+            <nb-list-item *ngIf="address.contract.creationTransaction">
               <div class="col-md-4" translate="ADDRESS.CREATION_TRANSACTION"></div>
               <a class="col-md-8 break-dots mono" [routerLink]="'../../tx/'+address.contract.creationTransaction.hash">
                 {{ address.contract.creationTransaction.hash }}
               </a>
             </nb-list-item>
-            <nb-list-item>
+            <nb-list-item *ngIf="address.contract.creationTransaction">
               <div class="col-md-4" translate="ADDRESS.CREATOR"></div>
               <a class="col-md-8 break-dots mono"
                 [routerLink]="'../../address/'+address.contract.creationTransaction.from">
                 {{ address.contract.creationTransaction.from }}
               </a>
             </nb-list-item>
-            <nb-list-item>
+            <nb-list-item *ngIf="address.contract.creationTransaction">
               <div class="col-md-4" translate="ADDRESS.CREATED_AT"></div>
               <div class="col-md-8 break-dots">
                 {{ address.contract.creationTransaction.confirmedAt * 1000 | date : 'medium' }}
